@@ -1,0 +1,426 @@
+/* `@import` must precede all other rules. */
+@import "@fontsource/fraunces/300.css";
+@import "@fontsource/fraunces/300-italic.css";
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/400-italic.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/500-italic.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/hanken-grotesk/400.css";
+@import "@fontsource/hanken-grotesk/400-italic.css";
+@import "@fontsource/hanken-grotesk/500.css";
+@import "@fontsource/hanken-grotesk/600.css";
+@import "@fontsource/fragment-mono/400.css";
+@import "@fontsource/fragment-mono/400-italic.css";
+@import "katex/dist/katex.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html {
+		-webkit-tap-highlight-color: transparent;
+		overscroll-behavior-y: none;
+	}
+	::selection {
+		background: var(--klein, hsl(var(--theme-accent)));
+		color: hsl(var(--theme-bg));
+	}
+}
+
+/*
+ * Design tokens — palette "atelier digital" (papel + azul Klein), inspirada en
+ * la landing de referencia (aresti-portfolio/index.html).
+ * `--theme-*` son canales hsl para las utilidades con opacidad de Tailwind
+ * (hsl(var(--theme-text) / 50%)); `--paper`/`--hairline`/`--faint`/`--klein`/
+ * `--accent-soft` son colores directos para usar en CSS plano.
+ */
+
+@layer base {
+	:root {
+		--font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+		--font-sans: "Hanken Grotesk", -apple-system, system-ui, sans-serif;
+		--font-mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
+		--ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+		/* Layout tokens — shared across home, posts archive, and article pages */
+		--reading-width: 64ch;          /* article body & long prose blocks */
+		--rail-width: 110px;            /* left date column on timeline lists */
+		--rail-gap: 36px;               /* gap between rail and post body */
+
+		/* Wide editorial container used by the homepage sections */
+		--container: 90rem;
+		--gutter: 3rem;
+	}
+	@media (max-width: 760px) {
+		:root {
+			--gutter: 1.3rem;
+		}
+	}
+
+	:root,
+	:root[data-theme="light"] {
+		color-scheme: light;
+		/* hsl-channel format — see tailwind.config.ts color mapping */
+		--theme-bg: 44deg 35% 94%;            /* #F5F2EA — paper */
+		--theme-text: 43deg 17% 8%;           /* #181611 — ink */
+		--theme-text-muted: 46deg 8% 34%;     /* #5C594F — ink-soft */
+		--theme-accent: 231deg 76% 45%;       /* #1B36C9 — klein */
+		--theme-accent-2: 43deg 17% 8%;       /* same as ink */
+		--theme-link: 231deg 76% 45%;         /* same as accent */
+		--theme-quote: 231deg 76% 45%;        /* same as accent */
+
+		/* Concrete-color palette tokens (see file header for rationale) */
+		--paper: #ece8dc;                     /* paper-deep: cards, code, surfaces */
+		--hairline: rgba(24, 22, 17, 0.16);
+		--faint: rgba(24, 22, 17, 0.32);
+		--klein: #1b36c9;
+		--accent-soft: rgba(27, 54, 201, 0.08);
+		--accent-soft-strong: rgba(27, 54, 201, 0.16);
+	}
+
+	:root[data-theme="dark"] {
+		color-scheme: dark;
+		--theme-bg: 43deg 17% 8%;             /* #181611 — ink as canvas */
+		--theme-text: 44deg 35% 94%;          /* #F5F2EA — paper as ink */
+		--theme-text-muted: 42deg 15% 72%;    /* muted warm grey */
+		--theme-accent: 231deg 100% 77%;      /* #8C9EFF — klein claro */
+		--theme-accent-2: 44deg 35% 94%;      /* same as paper */
+		--theme-link: 231deg 100% 77%;        /* same as accent */
+		--theme-quote: 231deg 100% 77%;       /* same as accent */
+
+		--paper: #211d17;                     /* elevated dark surface */
+		--hairline: rgba(245, 242, 234, 0.14);
+		--faint: rgba(245, 242, 234, 0.28);
+		--klein: #8c9eff;
+		--accent-soft: rgba(140, 158, 255, 0.12);
+		--accent-soft-strong: rgba(140, 158, 255, 0.22);
+	}
+}
+
+/* ---- textura de papel, sutil, sobre todo el sitio ---- */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 1;
+	opacity: 0.35;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.53 0 0 0 0 0.47 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+:root[data-theme="dark"] body::before {
+	opacity: 0.16;
+	mix-blend-mode: overlay;
+}
+
+/* ---- Landing sections (home) — shared editorial scaffolding ---- */
+.section {
+	padding: 6.5rem var(--gutter);
+	max-width: var(--container);
+	margin-inline: auto;
+	/* Fixed nav doesn't reserve layout space, so anchor jumps (#sobre, etc.)
+	   need this to avoid landing right under it. */
+	scroll-margin-top: 5.5rem;
+}
+@media (max-width: 760px) {
+	.section { scroll-margin-top: 4.5rem; }
+}
+.sec-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 2rem;
+	border-top: 1px solid hsl(var(--theme-text));
+	padding-top: 1.2rem;
+	margin-bottom: 3.5rem;
+	flex-wrap: wrap;
+}
+.sec-index {
+	font-family: var(--font-mono);
+	font-size: 0.78rem;
+	color: var(--klein);
+	margin: 0 0 0.4rem;
+}
+.sec-title {
+	font-family: var(--font-serif);
+	font-weight: 300;
+	font-size: clamp(2rem, 5vw, 3.8rem);
+	letter-spacing: -0.02em;
+	line-height: 1.05;
+	margin: 0;
+	color: hsl(var(--theme-text));
+}
+.sec-title em {
+	font-style: italic;
+	color: var(--klein);
+}
+.sec-note {
+	font-family: var(--font-mono);
+	font-size: 0.74rem;
+	color: hsl(var(--theme-text-muted));
+	max-width: 30ch;
+	text-align: right;
+	margin: 0;
+}
+@media (max-width: 760px) {
+	.section { padding: 4rem var(--gutter); }
+	.sec-note { text-align: left; }
+}
+
+/* ---- scroll reveal: toggled by LandingFx.astro's IntersectionObserver ---- */
+.lr {
+	opacity: 0;
+	transform: translateY(34px);
+	transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.lr.in {
+	opacity: 1;
+	transform: translateY(0);
+}
+.lr-1 { transition-delay: 0.08s; }
+.lr-2 { transition-delay: 0.16s; }
+.lr-3 { transition-delay: 0.24s; }
+@media (prefers-reduced-motion: reduce) {
+	.lr { opacity: 1; transform: none; transition: none; }
+}
+
+/* Shared component utilities — hoisted from page-scoped styles. */
+
+@media (prefers-reduced-motion: no-preference) {
+	.post,
+	ul.work-list a,
+	.share-btn,
+	.theme-toggle,
+	.archive-link a,
+	.pag-link,
+	.socials a,
+	.bio a,
+	.bio-foot a,
+	.post-end a {
+		-webkit-tap-highlight-color: transparent;
+		transition-property: color, background-color, border-color, transform, opacity;
+		transition-duration: 0.18s;
+		transition-timing-function: ease;
+	}
+	.post:active,
+	ul.work-list a:active {
+		transform: scale(0.992);
+		opacity: 0.85;
+	}
+	.share-btn:active,
+	.theme-toggle:active {
+		transform: scale(0.96);
+	}
+	.archive-link a:active,
+	.pag-link:active,
+	.socials a:active,
+	.bio a:active,
+	.bio-foot a:active,
+	.post-end a:active {
+		opacity: 0.7;
+	}
+}
+
+.section-label {
+	font-family: var(--font-sans);
+	font-size: 11.5px;
+	font-weight: 500;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: hsl(var(--theme-text) / 0.72);
+	margin-bottom: 36px;
+}
+
+@media (max-width: 420px) {
+	.section-label {
+		margin-bottom: 26px;
+	}
+}
+
+/* Timeline list — used by home & posts archive. */
+.timeline {
+	display: grid;
+	grid-template-columns: var(--rail-width) 1fr;
+	column-gap: var(--rail-gap);
+	position: relative;
+}
+.timeline::before {
+	content: "";
+	position: absolute;
+	left: calc(var(--rail-width) - 0.5px);
+	top: 6px;
+	bottom: 6px;
+	width: 1px;
+	background-color: var(--hairline);
+	transition: background-color 0.35s ease;
+}
+.timeline > .post {
+	display: contents;
+}
+.timeline .post-rail {
+	position: relative;
+	--rail-pad-top: 4px;
+	--rail-date-size: 11.5px;
+	--rail-date-lh: 1.4;
+	padding-top: var(--rail-pad-top);
+	padding-right: 18px;
+	text-align: right;
+}
+.timeline .post-date {
+	font-family: var(--font-mono);
+	font-size: var(--rail-date-size);
+	color: hsl(var(--theme-text) / 0.72);
+	letter-spacing: -0.01em;
+	line-height: var(--rail-date-lh);
+	white-space: nowrap;
+	font-weight: 500;
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: "tnum";
+	transition: color 0.2s ease;
+}
+.timeline .post-dot {
+	--rail-dot-size: 9px;
+	position: absolute;
+	right: calc(-0.5 * var(--rail-dot-size));
+	top: calc(var(--rail-pad-top) + 0.5lh);
+	font-size: var(--rail-date-size);
+	line-height: var(--rail-date-lh);
+	transform: translateY(-50%);
+	width: var(--rail-dot-size);
+	height: var(--rail-dot-size);
+	border-radius: 50%;
+	background: hsl(var(--theme-bg));
+	border: 1.5px solid var(--faint);
+	transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+	z-index: 1;
+}
+.timeline .post-body {
+	padding-bottom: 38px;
+}
+.timeline .post-title {
+	font-family: var(--font-serif);
+	font-weight: 500;
+	font-size: 18.5px;
+	color: hsl(var(--theme-text));
+	line-height: 1.3;
+	letter-spacing: -0.012em;
+	margin: 0 0 6px;
+	text-wrap: balance;
+	word-wrap: break-word;
+	overflow-wrap: anywhere;
+	transition: color 0.2s ease;
+}
+.timeline .post:hover .post-title {
+	color: hsl(var(--theme-accent));
+}
+.timeline .post:hover .post-dot {
+	border-color: hsl(var(--theme-accent));
+	background: hsl(var(--theme-accent));
+	box-shadow: 0 0 0 3px hsl(var(--theme-bg));
+}
+.timeline .post:hover .post-date {
+	color: hsl(var(--theme-text-muted));
+}
+.timeline .post-preview {
+	font-size: 16px;
+	line-height: 1.55;
+	color: hsl(var(--theme-text) / 0.72);
+	margin: 0;
+	max-width: 58ch;
+	word-wrap: break-word;
+	overflow-wrap: anywhere;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.timeline .post:focus-visible {
+	outline: 2px solid hsl(var(--theme-accent));
+	outline-offset: 4px;
+	border-radius: 4px;
+}
+
+@media (max-width: 720px) {
+	.timeline {
+		display: block;
+	}
+	.timeline::before {
+		display: none;
+	}
+	.timeline > .post {
+		display: block;
+		padding-bottom: 32px;
+	}
+	.timeline .post-rail {
+		text-align: left;
+		padding: 0 0 6px 0;
+	}
+	.timeline .post-dot {
+		display: none;
+	}
+	.timeline .post-body {
+		padding-bottom: 0;
+	}
+}
+
+@media (max-width: 420px) {
+	.timeline .post-title {
+		font-size: 17px;
+	}
+	.timeline .post-preview {
+		font-size: 15px;
+	}
+	.timeline .post-date {
+		font-size: 11px;
+	}
+}
+
+/* Stagger entry: items set --i inline; nth-child rules cover the rest. */
+@media (prefers-reduced-motion: no-preference) {
+	@keyframes intro-fade-up {
+		from { opacity: 0; transform: translateY(6px); }
+		to   { opacity: 1; transform: none; }
+	}
+	.timeline > .post .post-rail,
+	.timeline > .post .post-body,
+	.timeline > .archive-link,
+	.timeline > .pagination,
+	.bio > *,
+	.section-label,
+	.post-header > *,
+	.post-main > .post-cover,
+	.post-main > .rule:not(.rule--footer),
+	.post-main > .post-article,
+	.post-main > .share,
+	.post-main > .post-pager {
+		animation: intro-fade-up 380ms cubic-bezier(0.2, 0.6, 0.2, 1) both;
+		animation-delay: calc(var(--i, 0) * 55ms);
+	}
+	.bio > *:nth-child(1) { --i: 0; }
+	.bio > *:nth-child(2) { --i: 1; }
+	.bio > *:nth-child(3) { --i: 2; }
+	.bio > *:nth-child(4) { --i: 3; }
+	.bio > *:nth-child(5) { --i: 4; }
+	.post-header > *:nth-child(1) { --i: 0; }
+	.post-header > *:nth-child(2) { --i: 1; }
+	.post-header > *:nth-child(3) { --i: 2; }
+	.post-header > *:nth-child(4) { --i: 3; }
+	.post-header > *:nth-child(5) { --i: 4; }
+	.post-main > .post-cover,
+	.post-main > .rule:not(.rule--footer),
+	.post-main > .post-article { --i: 5; }
+	.post-main > .share { --i: 6; }
+	.post-main > .post-pager { --i: 7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition: none !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+	}
+}
