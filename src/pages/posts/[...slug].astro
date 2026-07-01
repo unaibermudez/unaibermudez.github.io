@@ -1,24 +1,50 @@
 ---
-import { getAllPosts } from "@/data/post";
+import { getPostPairs } from "@/data/post";
 import PostLayout from "@/layouts/BlogPost.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import { render } from "astro:content";
 
 // getStaticPaths won't run under an SSR adapter: https://docs.astro.build/en/guides/routing/#modifying-the-slug-example-for-ssr
+// One page per slug (not per locale entry) so /posts/<slug>/ stays the same
+// URL for both languages — see BlogPost.astro for how the two bodies render.
 export const getStaticPaths = (async () => {
-	const blogEntries = await getAllPosts();
-	return blogEntries.map((entry) => ({
-		params: { slug: entry.id },
-		props: { entry },
+	const pairs = await getPostPairs();
+	return pairs.map((pair) => ({
+		params: { slug: pair.slug },
+		props: { pair },
 	}));
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { pair } = Astro.props;
+
+let EsContent: Awaited<ReturnType<typeof render>>["Content"] | undefined;
+let esReadingTime = 0;
+if (pair.es) {
+	const rendered = await render(pair.es);
+	EsContent = rendered.Content;
+	esReadingTime = (rendered.remarkPluginFrontmatter as { minutesRead?: number })?.minutesRead ?? 0;
+}
+
+let EnContent: Awaited<ReturnType<typeof render>>["Content"] | undefined;
+let enReadingTime = 0;
+if (pair.en) {
+	const rendered = await render(pair.en);
+	EnContent = rendered.Content;
+	enReadingTime = (rendered.remarkPluginFrontmatter as { minutesRead?: number })?.minutesRead ?? 0;
+}
 ---
 
-<PostLayout post={entry}>
-	<Content />
+<PostLayout pair={pair} esReadingTime={esReadingTime} enReadingTime={enReadingTime}>
+	{EsContent && (
+		<Fragment slot="es">
+			<EsContent />
+		</Fragment>
+	)}
+	{EnContent && (
+		<Fragment slot="en">
+			<EnContent />
+		</Fragment>
+	)}
 </PostLayout>

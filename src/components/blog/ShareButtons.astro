@@ -1,4 +1,8 @@
 ---
+import T from "@/components/T.astro";
+import es from "@/i18n/es.json";
+import en from "@/i18n/en.json";
+
 interface Props {
 	title: string;
 	url: string;
@@ -17,14 +21,16 @@ const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${enco
 ---
 
 <div class="share">
-	<span class="share-label">Compartir</span>
+	<span class="share-label"><T k="share.label" /></span>
 	<div class="share-buttons">
 		<a
 			class="share-btn"
 			href={twitterHref}
 			target="_blank"
 			rel="noopener"
-			aria-label="Compartir en X (Twitter)"
+			aria-label={es.share.shareOnX}
+			data-aria-es={es.share.shareOnX}
+			data-aria-en={en.share.shareOnX}
 		>
 			<svg
 				aria-hidden="true"
@@ -48,7 +54,9 @@ const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${enco
 			href={linkedinHref}
 			target="_blank"
 			rel="noopener"
-			aria-label="Compartir en LinkedIn"
+			aria-label={es.share.shareOnLinkedin}
+			data-aria-es={es.share.shareOnLinkedin}
+			data-aria-en={en.share.shareOnLinkedin}
 		>
 			<svg
 				aria-hidden="true"
@@ -76,7 +84,15 @@ const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${enco
 			type="button"
 			data-share-copy
 			data-url={url}
-			aria-label="Copiar enlace"
+			aria-label={es.share.copyLink}
+			data-aria-es={es.share.copyLink}
+			data-aria-en={en.share.copyLink}
+			data-copied-es={es.share.copied}
+			data-copied-en={en.share.copied}
+			data-copied-label-es={es.share.copiedLabel}
+			data-copied-label-en={en.share.copiedLabel}
+			data-link-label-es={es.share.linkLabel}
+			data-link-label-en={en.share.linkLabel}
 		>
 			<svg
 				aria-hidden="true"
@@ -93,7 +109,10 @@ const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${enco
 				<rect x="9" y="9" width="11" height="11" rx="2"></rect>
 				<path d="M5 15V6a2 2 0 0 1 2-2h9"></path>
 			</svg>
-			<span class="share-copy-label">Enlace</span>
+			<span class="share-copy-label">
+				<span data-lang-es>{es.share.linkLabel}</span>
+				<span data-lang-en>{en.share.linkLabel}</span>
+			</span>
 		</button>
 	</div>
 </div>
@@ -166,9 +185,10 @@ const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${enco
 
 <script>
 	document.querySelectorAll<HTMLButtonElement>("[data-share-copy]").forEach((btn) => {
-		const label = btn.querySelector<HTMLElement>(".share-copy-label");
-		const original = label?.textContent ?? "Copiar enlace";
-		const originalAria = btn.getAttribute("aria-label") ?? "Copiar enlace";
+		const esSpan = btn.querySelector<HTMLElement>(".share-copy-label [data-lang-es]");
+		const enSpan = btn.querySelector<HTMLElement>(".share-copy-label [data-lang-en]");
+		const originalEs = esSpan?.textContent ?? btn.dataset.linkLabelEs ?? "Enlace";
+		const originalEn = enSpan?.textContent ?? btn.dataset.linkLabelEn ?? "Link";
 
 		btn.addEventListener("click", async () => {
 			const url = btn.dataset.url ?? window.location.href;
@@ -182,13 +202,20 @@ const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${enco
 				try { document.execCommand("copy"); } catch {}
 				input.remove();
 			}
+			const lang = document.documentElement.dataset.lang;
 			btn.dataset.copied = "true";
-			btn.setAttribute("aria-label", "Copiado");
-			if (label) label.textContent = "¡Copiado!";
+			btn.setAttribute("aria-label", lang === "en" ? (btn.dataset.copiedEn ?? "Copied") : (btn.dataset.copiedEs ?? "Copiado"));
+			if (esSpan) esSpan.textContent = btn.dataset.copiedLabelEs ?? "¡Copiado!";
+			if (enSpan) enSpan.textContent = btn.dataset.copiedLabelEn ?? "Copied!";
 			setTimeout(() => {
 				delete btn.dataset.copied;
-				btn.setAttribute("aria-label", originalAria);
-				if (label) label.textContent = original;
+				const currentLang = document.documentElement.dataset.lang;
+				btn.setAttribute(
+					"aria-label",
+					currentLang === "en" ? (btn.dataset.ariaEn ?? "Copy link") : (btn.dataset.ariaEs ?? "Copiar enlace"),
+				);
+				if (esSpan) esSpan.textContent = originalEs;
+				if (enSpan) enSpan.textContent = originalEn;
 			}, 1500);
 		});
 	});

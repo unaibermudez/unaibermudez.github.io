@@ -1,0 +1,215 @@
+---
+// One language's worth of a blog post: header (title/dates/tags/byline),
+// cover image, article body (via the default slot) and share buttons.
+// Rendered once per language by BlogPost.astro, wrapped in a Bilingual
+// container so only the active one shows.
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import ShareButtons from "@/components/blog/ShareButtons.astro";
+import T from "@/components/T.astro";
+import { formatBylineDate, formatEyebrowDate, type DateLocale } from "@/utils/date";
+
+interface Props {
+	entry: CollectionEntry<"post">;
+	tags: string[];
+	draft: boolean;
+	sharedDate: Date;
+	updatedDate?: Date;
+	coverImage?: { alt: string; src: ImageMetadata };
+	authorName: string;
+	dateLocale: DateLocale;
+	readingTimeMinutes: number;
+	postUrl: string;
+}
+
+const {
+	entry,
+	tags,
+	draft,
+	sharedDate,
+	updatedDate,
+	coverImage,
+	authorName,
+	dateLocale,
+	readingTimeMinutes,
+	postUrl,
+} = Astro.props;
+
+const eyebrowDate = formatEyebrowDate(sharedDate, dateLocale);
+const bylineDate = formatBylineDate(sharedDate, dateLocale);
+---
+
+<div class="post-header">
+	<div class="post-eyebrow">
+		<T k="blogPost.eyebrow" /> <span class="sep">·</span> {eyebrowDate}
+	</div>
+	{draft && (
+		<span class="draft-flag">
+			<T k="blogPost.draft" />
+		</span>
+	)}
+	<h1 class="post-title">{entry.data.title}</h1>
+	<p class="byline">
+		{authorName && (
+			<>
+				<T k="blogPost.by" /> {authorName}
+				<span class="sep">·</span>
+			</>
+		)}
+		{bylineDate}
+		{readingTimeMinutes > 0 && (
+			<>
+				<span class="sep">·</span>
+				<T k="blogPost.readingTime" vars={{ count: readingTimeMinutes }} />
+			</>
+		)}
+	</p>
+	{!!tags?.length && (
+		<div class="post-tags">
+			{tags.map((tag) => (
+				<span data-pagefind-filter="tag">{tag}</span>
+			))}
+		</div>
+	)}
+	{updatedDate && (
+		<div class="post-updated">
+			<T k="blogPost.updated" /> <time datetime={updatedDate.toISOString()}>{formatBylineDate(updatedDate, dateLocale)}</time>
+		</div>
+	)}
+</div>
+
+{coverImage ? (
+	<figure class="post-cover">
+		<Image
+			src={coverImage.src}
+			alt={coverImage.alt}
+			loading="eager"
+			fetchpriority="high"
+			decoding="async"
+			widths={[480, 720, 960, 1280]}
+			sizes="(max-width: 720px) 92vw, 696px"
+		/>
+	</figure>
+) : (
+	<hr class="rule" />
+)}
+
+<article class="post-article">
+	<slot />
+</article>
+
+<ShareButtons title={entry.data.title} url={postUrl} description={entry.data.description} />
+
+<style>
+	.post-cover {
+		margin: 0 0 36px;
+		padding: 0;
+	}
+	.post-cover img {
+		display: block;
+		width: 100%;
+		height: auto;
+		max-height: 380px;
+		object-fit: cover;
+		border: 1px solid var(--hairline);
+		border-radius: 4px;
+		background: var(--paper);
+	}
+
+	.post-header {
+		margin-bottom: 4px;
+	}
+
+	.post-eyebrow {
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		font-weight: 500;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--klein);
+		margin-bottom: 28px;
+		font-variant-numeric: tabular-nums;
+		font-feature-settings: "tnum";
+	}
+	.post-eyebrow .sep {
+		color: hsl(var(--theme-text) / 0.35);
+		margin: 0 8px;
+	}
+
+	.draft-flag {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		color: #c14a2b;
+		margin-bottom: 12px;
+		letter-spacing: 0.08em;
+	}
+
+	.post-title {
+		font-family: var(--font-serif);
+		font-weight: 500;
+		font-size: clamp(28px, 5.5vw, 46px);
+		letter-spacing: -0.022em;
+		line-height: 1.15;
+		color: hsl(var(--theme-text));
+		margin: 0 0 24px;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
+	.post-title :global(em) {
+		font-style: italic;
+		color: hsl(var(--theme-accent));
+		font-weight: 400;
+	}
+
+	/* Mono, not italic serif: matches the eyebrow/tags "meta" language instead
+	   of blending into the serif article body right below it. */
+	.byline {
+		font-family: var(--font-mono);
+		font-size: 12.5px;
+		letter-spacing: 0.02em;
+		color: hsl(var(--theme-text-muted));
+		margin: 0 0 22px;
+		line-height: 1.7;
+		font-variant-numeric: tabular-nums;
+		font-feature-settings: "tnum";
+	}
+	.byline .sep {
+		color: var(--faint);
+		margin: 0 8px;
+	}
+
+	.post-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0 0 40px;
+	}
+	.post-tags span {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.03em;
+		color: hsl(var(--theme-text-muted));
+		border: 1px solid var(--hairline);
+		border-radius: 99px;
+		padding: 4px 12px;
+		transition: border-color 0.2s ease, color 0.2s ease;
+	}
+
+	.post-updated {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: hsl(var(--theme-text) / 0.5);
+		margin: 0 0 32px;
+	}
+
+	.rule {
+		height: 1px;
+		background: var(--hairline);
+		border: 0;
+		margin: 0 0 44px;
+		transition: background-color 0.35s ease;
+	}
+</style>

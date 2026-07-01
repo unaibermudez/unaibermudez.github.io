@@ -2,7 +2,7 @@ import FrauncesItalic from "@fontsource/fraunces/files/fraunces-latin-400-italic
 import FrauncesRegular from "@fontsource/fraunces/files/fraunces-latin-400-normal.woff";
 import FrauncesSemiBold from "@fontsource/fraunces/files/fraunces-latin-600-normal.woff";
 import FragmentMono from "@fontsource/fragment-mono/files/fragment-mono-latin-400-normal.woff";
-import { getAllPosts } from "@/data/post";
+import { getPairDate, getPairTags, getPostPairs } from "@/data/post";
 import { siteConfig } from "@/site-config";
 import { formatBylineDate, formatEyebrowDate } from "@/utils/date";
 import { Resvg } from "@resvg/resvg-js";
@@ -61,6 +61,8 @@ const markup = (props: {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
+// One OG image per post (pair), not per language file — image text is
+// canonical Spanish, same tradeoff as <title>/RSS/meta description.
 export async function GET(context: APIContext) {
 	const { pubDate, title, tags, readingTime } = context.props as Props;
 
@@ -94,19 +96,20 @@ export async function GET(context: APIContext) {
 }
 
 export async function getStaticPaths() {
-	const posts = await getAllPosts();
-	const filtered = posts.filter(({ data }) => !data.ogImage);
+	const pairs = await getPostPairs();
+	const filtered = pairs.filter((pair) => !(pair.es?.data.ogImage ?? pair.en?.data.ogImage));
 	const items = await Promise.all(
-		filtered.map(async (post) => {
-			const { remarkPluginFrontmatter } = await render(post);
-			const readingTime =
-				(remarkPluginFrontmatter as { minutesRead?: string })?.minutesRead ?? "";
+		filtered.map(async (pair) => {
+			const canonical = pair.es ?? pair.en!;
+			const { remarkPluginFrontmatter } = await render(canonical);
+			const minutes = (remarkPluginFrontmatter as { minutesRead?: number })?.minutesRead;
+			const readingTime = minutes ? `${minutes} min de lectura` : "";
 			return {
-				params: { slug: post.id },
+				params: { slug: pair.slug },
 				props: {
-					pubDate: (post.data.updatedDate ?? post.data.publishDate).toISOString(),
-					title: post.data.title,
-					tags: post.data.tags ?? [],
+					pubDate: getPairDate(pair).toISOString(),
+					title: canonical.data.title,
+					tags: getPairTags(pair),
 					readingTime,
 				},
 			};
