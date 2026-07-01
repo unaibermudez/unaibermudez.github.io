@@ -1,20 +1,26 @@
 ---
 import { getEntry, render } from "astro:content";
 import PageLayout from "@/layouts/Base.astro";
+import Bilingual from "@/components/Bilingual.astro";
+import T from "@/components/T.astro";
 import { siteConfig } from "@/site-config";
 import { absoluteUrl } from "@/utils/path";
 import { Schema } from "astro-seo-schema";
 
-const entry = await getEntry("page", "about");
-if (!entry) throw new Error("Missing src/content/page/about.md");
-const { Content } = await render(entry);
+const esEntry = await getEntry("page", "es/about");
+const enEntry = await getEntry("page", "en/about");
+if (!esEntry) throw new Error("Missing src/content/page/es/about.md");
+const { Content: EsContent } = await render(esEntry);
+const EnContent = enEntry ? (await render(enEntry)).Content : undefined;
 
 const profile = siteConfig.profile;
 const authorName = profile?.name ?? siteConfig.author;
 
+// <title>/meta description can't be dual-language in a single document
+// head — Spanish is canonical here, same tradeoff as blog post pages.
 const meta = {
-	description: entry.data.description ?? `${authorName} — about me.`,
-	title: entry.data.title,
+	description: esEntry.data.description ?? `${authorName} — about me.`,
+	title: esEntry.data.title,
 };
 
 const personSameAs = [
@@ -60,9 +66,20 @@ const avatarUrl = profile?.avatar ? absoluteUrl(profile.avatar, Astro.site) : un
 
 <PageLayout meta={meta}>
 	<section class="about" aria-labelledby="about-label">
-		<div class="section-label" id="about-label">Sobre mí</div>
+		<div class="section-label" id="about-label">
+			<T k="aboutPage.sectionLabel" />
+		</div>
 		<div class="bio">
-			<Content />
+			<Bilingual as="div" hasEn={Boolean(EnContent)}>
+				<Fragment slot="es">
+					<EsContent />
+				</Fragment>
+				{EnContent && (
+					<Fragment slot="en">
+						<EnContent />
+					</Fragment>
+				)}
+			</Bilingual>
 		</div>
 	</section>
 </PageLayout>

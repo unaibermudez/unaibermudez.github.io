@@ -1,6 +1,7 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
 import { withBase } from "@/utils/path";
+import T from "@/components/T.astro";
 
 const meta = {
 	description: "La página que buscabas no existe.",
@@ -10,12 +11,15 @@ const meta = {
 
 <PageLayout meta={meta}>
 	<section class="not-found">
-		<div class="eyebrow">Error · 404</div>
-		<h1>Esta página se ha perdido.</h1>
+		<div class="eyebrow">
+			<T k="notFound.eyebrow" />
+		</div>
+		<h1>
+			<T k="notFound.title" />
+		</h1>
 		<p>
-			La página que buscabas no existe. Puede que se haya movido, renombrado, o que
-			simplemente no esté ahí todavía. Prueba en <a href={withBase("/")}>inicio</a>, o echa
-			un vistazo al <a href={withBase("/posts/")}>blog</a>.
+			<T k="notFound.bodyStart" /> <a href={withBase("/")}><T k="notFound.home" /></a><T k="notFound.bodyMiddle" />
+			<a href={withBase("/posts/")}><T k="notFound.blog" /></a>.
 		</p>
 	</section>
 </PageLayout>
