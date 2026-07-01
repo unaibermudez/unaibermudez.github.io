@@ -1,0 +1,77 @@
+---
+import { siteConfig } from "@/site-config";
+import { withBase } from "@/utils/path";
+
+const year = new Date().getFullYear();
+const profile = siteConfig.profile;
+---
+
+<footer class="site-footer">
+	<span class="left">© {year} {siteConfig.author} — Full Stack Developer</span>
+	<div class="f-links">
+		{profile?.github && (
+			<a href={profile.github} rel="noreferrer" target="_blank">GitHub</a>
+		)}
+		{profile?.linkedin && (
+			<a href={profile.linkedin} rel="noreferrer" target="_blank">LinkedIn</a>
+		)}
+		<a href={withBase("/rss.xml")}>RSS</a>
+	</div>
+	{!siteConfig.hideThemeCredit && (
+		<span class="right">
+			Construido con <a href="https://github.com/AnjayGoel/astro-sienna" rel="noopener">Astro Sienna</a>
+		</span>
+	)}
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--hairline);
+		padding: 1.8rem max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter))) 2.2rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1rem 1.5rem;
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		letter-spacing: 0.04em;
+		color: hsl(var(--theme-text) / 0.72);
+		transition: border-color 0.35s ease;
+	}
+	.f-links {
+		display: flex;
+		gap: 1.6rem;
+		flex-wrap: wrap;
+	}
+	.site-footer a {
+		color: hsl(var(--theme-text) / 0.72);
+		transition: color 0.2s ease;
+	}
+	.site-footer a:hover {
+		color: hsl(var(--theme-accent));
+	}
+	.site-footer .right {
+		color: hsl(var(--theme-text) / 0.5);
+	}
+	.site-footer .right a {
+		color: inherit;
+		border-bottom: 1px dotted hsl(var(--theme-text) / 0.35);
+	}
+	.site-footer .right a:hover {
+		color: hsl(var(--theme-accent));
+		border-bottom-color: currentColor;
+	}
+
+	@media (max-width: 760px) {
+		.site-footer {
+			padding: 1.6rem var(--gutter) 5.5rem;
+		}
+	}
+	@media (max-width: 420px) {
+		.site-footer {
+			font-size: 0.64rem;
+			gap: 0.7rem 1.1rem;
+		}
+	}
+</style>
