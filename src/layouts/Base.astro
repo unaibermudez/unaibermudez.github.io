@@ -1,0 +1,123 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import SkipLink from "@/components/SkipLink.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import PortfolioFx from "@/components/PortfolioFx.astro";
+import Footer from "@/components/layout/Footer.astro";
+import Header from "@/components/layout/Header.astro";
+import { siteConfig } from "@/site-config";
+import type { SiteMeta } from "@/types";
+
+interface Props {
+	meta: SiteMeta;
+	/** Homepage only: sections manage their own wide container, skip the prose shell. */
+	wide?: boolean;
+}
+
+const {
+	meta: { articleDate, description = siteConfig.description, ogImage, title },
+	wide = false,
+} = Astro.props;
+---
+
+<html class="scroll-smooth" lang={siteConfig.lang} data-wide={wide ? "true" : "false"}>
+	<head>
+		<ThemeProvider />
+		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+	</head>
+	<body>
+		<SkipLink />
+		<PortfolioFx home={wide} />
+		<Header />
+		<div class="wrap">
+			<main id="main">
+				{
+					wide ? (
+						<slot />
+					) : (
+						<div class="prose-shell">
+							<slot />
+						</div>
+					)
+				}
+			</main>
+			<Footer />
+		</div>
+
+		<style is:global>
+			html {
+				scrollbar-gutter: stable;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				overflow-x: hidden;
+			}
+			body {
+				background-color: hsl(var(--theme-bg));
+				color: hsl(var(--theme-text));
+				font-family: var(--font-serif);
+				font-size: 18px;
+				line-height: 1.62;
+				font-weight: 400;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				text-rendering: optimizeLegibility;
+				min-height: 100vh;
+				min-height: 100dvh;
+				position: relative;
+			}
+			html.theme-ready body {
+				transition: background-color 0.35s ease, color 0.35s ease;
+			}
+			a {
+				color: inherit;
+				text-decoration: none;
+				transition: color 0.2s ease, border-color 0.2s ease;
+			}
+
+			/* Sticky footer: wrap fills viewport, main grows to push footer down.
+			   Header is fixed (mix-blend nav, see Header.astro) so it doesn't take
+			   flow space here — .prose-shell/.hero compensate with top padding. */
+			.wrap {
+				min-height: 100vh;
+				min-height: 100dvh;
+				display: flex;
+				flex-direction: column;
+			}
+			.wrap > main { flex: 1 0 auto; }
+
+			/* Comfortable reading column for posts/about — the homepage (wide)
+			   builds its own full-bleed sections and skips this wrapper. */
+			.prose-shell {
+				max-width: 46rem;
+				margin-inline: auto;
+				width: 100%;
+				padding: 7.5rem max(32px, env(safe-area-inset-right)) max(80px, env(safe-area-inset-bottom))
+					max(32px, env(safe-area-inset-left));
+			}
+
+			@media (max-width: 720px) {
+				.prose-shell {
+					padding: 6.25rem max(22px, env(safe-area-inset-right)) max(56px, env(safe-area-inset-bottom))
+						max(22px, env(safe-area-inset-left));
+				}
+				body {
+					font-size: 17px;
+				}
+			}
+
+			@media (max-width: 420px) {
+				.prose-shell {
+					padding-left: max(16px, env(safe-area-inset-left));
+					padding-right: max(16px, env(safe-area-inset-right));
+					padding-bottom: max(44px, env(safe-area-inset-bottom));
+				}
+				body {
+					font-size: 16.5px;
+				}
+			}
+		</style>
+	</body>
+</html>
