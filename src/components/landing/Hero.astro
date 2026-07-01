@@ -1,0 +1,260 @@
+---
+import { siteConfig } from "@/site-config";
+
+const profile = siteConfig.profile;
+const name = profile?.name ?? siteConfig.author;
+const jobTitle = profile?.jobTitle ?? "Full Stack Developer";
+---
+
+<header class="hero" id="top">
+	<div class="hero-meta">
+		<span>{name}</span>
+		<span>{jobTitle}</span>
+		<span>Bilbao, 43.26° N</span>
+		<span>Disponible para proyectos</span>
+	</div>
+
+	<h1 class="hero-title">
+		<span class="row"><span>Código con</span></span>
+		<span class="row"><span><em>oficio.</em></span></span>
+	</h1>
+
+	<div class="hero-bottom">
+		<div class="hero-desc-wrap">
+			<p class="hero-desc">
+				Soy Unai. <strong>Full Stack Developer</strong> afincado en Bilbao — construyo
+				productos que funcionan de verdad, del esquema de base de datos en
+				Spring Boot al último detalle en React.
+			</p>
+			<div class="hero-links">
+				{profile?.github && (
+					<a class="hero-link" href={profile.github} rel="noreferrer" target="_blank">
+						<span class="circle">↗</span> GitHub
+					</a>
+				)}
+				{profile?.linkedin && (
+					<a class="hero-link" href={profile.linkedin} rel="noreferrer" target="_blank">
+						<span class="circle">↗</span> LinkedIn
+					</a>
+				)}
+			</div>
+		</div>
+		<div class="stamp" aria-hidden="true">
+			<svg viewBox="0 0 100 100">
+				<defs><path id="hero-circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" /></defs>
+				<text><textPath href="#hero-circ">Disponible para proyectos · Disponible para proyectos ·&#160;</textPath></text>
+			</svg>
+			<span class="stamp-core">✳</span>
+		</div>
+	</div>
+
+	<a class="hero-scroll" href="#sobre">Desplázate</a>
+</header>
+
+<style>
+	.hero {
+		min-height: 100svh;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 7.5rem var(--gutter) 3rem;
+		max-width: var(--container);
+		margin-inline: auto;
+	}
+	/* líneas de pauta tipo cuaderno técnico */
+	.hero::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background-image: linear-gradient(var(--hairline) 1px, transparent 1px);
+		background-size: 100% 96px;
+		opacity: 0.35;
+		mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+		-webkit-mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+	}
+	.hero-meta {
+		display: flex;
+		justify-content: space-between;
+		gap: 2rem;
+		flex-wrap: wrap;
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+		color: hsl(var(--theme-text-muted));
+		border-top: 1px solid var(--hairline);
+		padding-top: 1.1rem;
+		margin-bottom: 2.6rem;
+		opacity: 0;
+		animation: hero-rise 1s var(--ease) 0.4s forwards;
+	}
+	.hero-title {
+		font-family: var(--font-serif);
+		font-weight: 300;
+		font-size: clamp(2.6rem, 11vw, 9.5rem);
+		line-height: 0.98;
+		letter-spacing: -0.025em;
+		color: hsl(var(--theme-text));
+	}
+	.hero-title .row {
+		display: block;
+		overflow: hidden;
+		padding-bottom: 0.05em;
+		margin-bottom: -0.05em;
+	}
+	.hero-title .row > span {
+		display: inline-block;
+		transform: translateY(115%);
+		animation: hero-row-up 1.1s var(--ease) forwards;
+	}
+	.hero-title .row:nth-child(1) > span { animation-delay: 0.55s; }
+	.hero-title .row:nth-child(2) > span { animation-delay: 0.7s; }
+	.hero-title em {
+		font-style: italic;
+		font-weight: 400;
+		color: var(--klein);
+	}
+	.hero-title .row:nth-child(2) { padding-left: clamp(1.5rem, 12vw, 12rem); }
+	@keyframes hero-row-up {
+		to { transform: translateY(0); }
+	}
+	@keyframes hero-rise {
+		from { opacity: 0; transform: translateY(18px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	.hero-bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 3rem;
+		flex-wrap: wrap;
+		margin-top: 3.4rem;
+	}
+	.hero-desc-wrap {
+		opacity: 0;
+		animation: hero-rise 1s var(--ease) 0.85s forwards;
+	}
+	.hero-desc {
+		max-width: 40ch;
+		font-size: 1.08rem;
+		color: hsl(var(--theme-text-muted));
+		margin: 0;
+	}
+	.hero-desc strong {
+		color: hsl(var(--theme-text));
+		font-weight: 600;
+	}
+	.hero-links {
+		display: flex;
+		gap: 1.2rem;
+		flex-wrap: wrap;
+		margin-top: 1.4rem;
+	}
+	.hero-link {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		letter-spacing: 0.06em;
+		color: hsl(var(--theme-text));
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.hero-link .circle {
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		border: 1px solid hsl(var(--theme-text));
+		display: grid;
+		place-items: center;
+		transition: all 0.4s var(--ease);
+	}
+	.hero-link:hover .circle {
+		background: var(--klein);
+		border-color: var(--klein);
+		color: #fff;
+		transform: rotate(45deg);
+	}
+	/* sello giratorio */
+	.stamp {
+		position: relative;
+		width: 120px;
+		height: 120px;
+		flex-shrink: 0;
+		opacity: 0;
+		animation: hero-rise 1s var(--ease) 1s forwards;
+	}
+	.stamp svg {
+		width: 100%;
+		height: 100%;
+		animation: hero-spin 16s linear infinite;
+	}
+	.stamp svg text {
+		font-family: var(--font-mono);
+		font-size: 8.2px;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		fill: hsl(var(--theme-text));
+	}
+	.stamp .stamp-core {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.5rem;
+		color: var(--klein);
+	}
+	@keyframes hero-spin {
+		to { transform: rotate(360deg); }
+	}
+	.hero-scroll {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: hsl(var(--theme-text-muted));
+		writing-mode: vertical-rl;
+		position: absolute;
+		right: 3rem;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+		opacity: 0;
+		animation: hero-rise 1s var(--ease) 1.2s forwards;
+		text-decoration: none;
+	}
+	.hero-scroll::after {
+		content: "";
+		width: 1px;
+		height: 54px;
+		background: hsl(var(--theme-text-muted));
+		animation: hero-line-grow 2s var(--ease) infinite;
+	}
+	@keyframes hero-line-grow {
+		0% { transform: scaleY(0); transform-origin: top; }
+		45% { transform: scaleY(1); transform-origin: top; }
+		55% { transform: scaleY(1); transform-origin: bottom; }
+		100% { transform: scaleY(0); transform-origin: bottom; }
+	}
+
+	@media (max-width: 760px) {
+		.hero { padding: 6.5rem var(--gutter) 2.4rem; }
+		.hero-scroll { display: none; }
+		.hero-bottom { flex-direction: column; align-items: flex-start; gap: 2rem; }
+		.stamp { width: 88px; height: 88px; align-self: flex-end; margin-top: -2.2rem; }
+		.hero-meta { gap: 0.8rem 1.6rem; font-size: 0.66rem; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-meta, .hero-desc-wrap, .stamp, .hero-scroll {
+			opacity: 1;
+			animation: none;
+		}
+		.hero-title .row > span { transform: none; animation: none; }
+		.stamp svg { animation: none; }
+		.hero-scroll::after { animation: none; }
+	}
+</style>
