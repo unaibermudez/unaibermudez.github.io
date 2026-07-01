@@ -9,7 +9,8 @@ Portfolio personal de una sola página (landing + blog) de Unai Bermúdez, Full 
 Base técnica: [Astro Sienna](https://github.com/AnjayGoel/astro-sienna) (tema de blog en Astro).
 Estética: reskin completo inspirado en una landing editorial de referencia — paleta "papel" +
 azul Klein, tipografías Fraunces / Hanken Grotesk / Fragment Mono, cursor personalizado, intro
-loader, tarjetas de proyecto apiladas. Todo el contenido visible está **en español**.
+loader, tarjetas de proyecto apiladas. El sitio es **bilingüe (español/inglés)** — ver "i18n"
+más abajo, es la parte más fácil de romper por accidente si no se conoce el mecanismo.
 
 No es un tema genérico sin tocar: el pipeline de Sienna (content collections, dark/light, RSS,
 OG images, Pagefind) se mantiene, pero casi todos los componentes visuales se han reescrito.
@@ -56,20 +57,55 @@ OG images, Pagefind) se mantiene, pero casi todos los componentes visuales se ha
   `--klein`, `--font-serif/sans/mono`, `--container`, `--gutter`, `--ease`). Se reutilizan los
   mismos nombres que ya traía Sienna (evita introducir un segundo sistema de variables paralelo).
   Cambiar la paleta o las fuentes se hace en un único sitio.
-- **Dark/light**: el patrón "bloque de contraste" (`About.astro`, el menú móvil de `Header.astro`)
-  usa `background: hsl(var(--theme-text))` / `color: hsl(var(--theme-bg))` a propósito — se
-  invierte solo según el tema (oscuro-sobre-claro en modo claro, claro-sobre-oscuro en modo
-  oscuro). Es intencional, no un bug, aunque a primera vista parezca "colores cambiados".
+- **Dark/light**: `About.astro` usa a propósito el patrón "bloque de contraste" invertido
+  (`background: hsl(var(--theme-text))` / `color: hsl(var(--theme-bg))`) — es intencional, sirve
+  para que la tarjeta destaque siempre sobre el fondo de la página, en ambos temas. **El menú
+  móvil de `Header.astro` NO sigue este patrón** — usa `background: var(--paper)` /
+  `color: hsl(var(--theme-text))` para seguir el tema activo. Se probó invertirlo igual que
+  `About.astro` y el usuario lo reportó como bug (el menú se abría en el tema contrario al
+  seleccionado) — no repitas ese patrón ahí.
 
-## Idioma y contenido
+## i18n (español/inglés, misma URL)
 
-- Todo el copy visible (UI, aria-labels, fechas, meta descriptions, mensajes de OG image, reading
-  time) está en español. `src/utils/date.ts` usa `siteConfig.date.locale` (es-ES) para todos los
-  formateadores — si añades un formateador de fecha nuevo, síguelo desde ahí, no hardcodees
-  `en-US`/`en-GB` como venía en el tema original.
+Decisión explícita del usuario: **una sola URL sirve los dos idiomas** (no `/en/...`), con el
+idioma elegido vía toggle y guardado en `localStorage`. Esto se implementó SIN la i18n nativa de
+Astro (que genera rutas por idioma) porque esa exige URLs distintas. En su lugar:
+
+- **Ambos idiomas se renderizan a la vez** en el HTML; CSS oculta el que no toca según
+  `html[data-lang="es|en"]` (reglas en `global.css`: `[data-lang-es]`/`[data-lang-en]`, análogas
+  al `[data-theme]` del tema). `LangProvider.astro` (mismo patrón que `ThemeProvider.astro`) fija
+  `data-lang` en un script bloqueante en `<head>` antes del primer pintado — sin esto habría un
+  flash del idioma incorrecto.
+- **`T.astro`** — `<T k="hero.scroll" />` para literales estáticos de `src/i18n/{es,en}.json`.
+  Renderiza `<span data-lang-es>…</span><span data-lang-en>…</span>`; soporta HTML simple embebido
+  en el JSON (`<strong>`, `<em>`) vía `set:html`, y sustitución `{token}` con la prop `vars`.
+- **`Bilingual.astro`** — igual pero para contenido que NO sale de un diccionario fijo (títulos de
+  post, bio de `/about`, fechas formateadas). Usa slots `es`/`en`; con `hasEn={false}` renderiza
+  solo el slot `es` sin envolver (fallback si un post no tiene traducción todavía — no lo dejes
+  vacío/roto).
+- **Blog bilingüe**: cada post vive como dos archivos (mismo nombre) en `src/content/post/es/` y
+  `src/content/post/en/`. `data/post.ts` los empareja en un `PostPair` por slug compartido.
+  `publishDate`/`tags`/`draft` son metadatos **a nivel de par** (solo hace falta ponerlos en el
+  archivo `es/`, `en/` los hereda — ver `getPairDate`/`getPairTags`); `title`/`description`/body
+  son por idioma. `posts/[...slug].astro` genera **una** página por slug (no una por archivo), así
+  que `/posts/<slug>/` es la misma URL en ambos idiomas. Sigue este mismo patrón si añades otra
+  colección con contenido traducible (ver también `src/content/page/{es,en}/about.md`).
+- **Metadatos que NO pueden ser bilingües en un único documento** (canónicos en español, a
+  propósito): `<title>`/meta description, JSON-LD Schema, RSS (`rss.xml.ts`), imágenes OG
+  (`og-image/[...slug].png.ts`). Todos calculan el "canonical" como `pair.es ?? pair.en`. No
+  intentes hacerlos bilingües sin cambiar a rutas por idioma primero.
+- `src/utils/date.ts` — todos los formateadores aceptan un `locale: "es" | "en"` explícito (no
+  hardcodees `en-US`/`es-ES`); los sitios bilingües (`BlogPost.astro`, archivo de posts,
+  `BlogSection.astro`) llaman al formateador dos veces, una por idioma, envueltas en `Bilingual`.
+- **Gotcha ya pisado**: `LangToggle.astro` compartía la clase `.theme-toggle` con
+  `ThemeToggle.astro` para reutilizar estilos — sus reglas `.label::before` colisionaban a
+  especificidad igual y uno de los dos botones mostraba el texto del otro. Cada toggle tiene ahora
+  su propia clase con estilos duplicados a propósito; no vuelvas a compartir clase entre controles
+  que usan `content:` distinto en pseudo-elementos.
 - Datos personales centralizados en `src/site.config.ts`. No hay `email` ni `avatar` configurados
   a propósito (sin foto de perfil, contacto solo por GitHub/LinkedIn) — no los añadas sin que el
-  usuario lo pida explícitamente.
+  usuario lo pida explícitamente. `menuLinks` usa `titleKey` (no texto literal) — renderízalo con
+  `<T k={link.titleKey} />`.
 
 ## Features desactivadas a propósito
 
@@ -103,3 +139,9 @@ a nombre del usuario.
   ancla, dejándolo desalineado. `PortfolioFx.astro` corrige esto re-aplicando `scrollIntoView()`
   tras `load` y `document.fonts.ready`. Si tocas el timing del intro o de las animaciones del
   hero, vuelve a probar la navegación por ancla desde otra página (`/posts/#sobre`, etc.).
+
+# Contexto del proyecto
+
+Lee los siguientes archivos antes de hacer cualquier cosa:
+
+- `.claude/tono_blog.md` — tono y estilo de escritura
