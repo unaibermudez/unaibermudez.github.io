@@ -1,4 +1,11 @@
-<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar tema">
+<button
+	class="theme-toggle"
+	id="theme-toggle"
+	type="button"
+	aria-label="Cambiar tema"
+	data-aria-es="Cambiar tema"
+	data-aria-en="Toggle theme"
+>
 	<span class="icon" aria-hidden="true"></span>
 	<span class="label"></span>
 </button>
@@ -49,6 +56,8 @@
 	}
 	.theme-toggle .label::before { content: "Oscuro"; }
 	[data-theme="dark"] .theme-toggle .label::before { content: "Claro"; }
+	html[data-lang="en"] .theme-toggle .label::before { content: "Dark"; }
+	html[data-lang="en"][data-theme="dark"] .theme-toggle .label::before { content: "Light"; }
 </style>
 
 <script>

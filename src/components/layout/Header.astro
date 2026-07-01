@@ -1,20 +1,22 @@
 ---
 import { menuLinks, siteConfig } from "@/site-config";
 import { withBase } from "@/utils/path";
+import T from "@/components/T.astro";
 import ThemeToggle from "../ThemeToggle.astro";
+import LangToggle from "../LangToggle.astro";
 
-const wordmark = "U. Bermúdez";
+const wordmark = "Unai Bermúdez";
 const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConfig.profile?.jobTitle ?? ""}`;
 ---
 
 <header class="site-nav" id="site-nav">
 	<a class="nav-name" href={withBase("/")}>{wordmark}</a>
 
-	<nav class="nav-center" aria-label="Secciones">
+	<nav class="nav-center" aria-label="Sections" data-aria-es="Secciones" data-aria-en="Sections">
 		{
 			menuLinks.map((link) => (
 				<a data-astro-prefetch href={withBase(link.path)}>
-					{link.title}
+					<T k={link.titleKey} />
 				</a>
 			))
 		}
@@ -26,7 +28,16 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 			<span>BIO · <span id="nav-clock-time">--:--:--</span></span>
 		</div>
 		<ThemeToggle />
-		<button aria-expanded="false" aria-label="Abrir menú" class="burger" id="nav-burger" type="button">
+		<LangToggle />
+		<button
+			aria-expanded="false"
+			aria-label="Abrir menú"
+			data-aria-es="Abrir menú"
+			data-aria-en="Open menu"
+			class="burger"
+			id="nav-burger"
+			type="button"
+		>
 			<span></span><span></span>
 		</button>
 	</div>
@@ -36,7 +47,9 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 	{
 		menuLinks.map((link, i) => (
 			<a data-astro-prefetch href={withBase(link.path)}>
-				<span>{link.title}</span>
+				<span>
+					<T k={link.titleKey} />
+				</span>
 				<span class="n">{String(i + 1).padStart(2, "0")}</span>
 			</a>
 		))
@@ -126,8 +139,13 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 		animation: nav-blink 2.2s ease-in-out infinite;
 	}
 	@keyframes nav-blink {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0.25; }
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.25;
+		}
 	}
 
 	.burger {
@@ -146,12 +164,22 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 		right: 4px;
 		height: 1.5px;
 		background: hsl(var(--theme-text));
-		transition: transform 0.4s var(--ease), opacity 0.3s;
+		transition:
+			transform 0.4s var(--ease),
+			opacity 0.3s;
 	}
-	.burger span:nth-child(1) { top: 12px; }
-	.burger span:nth-child(2) { top: 20px; }
-	.burger.open span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
-	.burger.open span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
+	.burger span:nth-child(1) {
+		top: 12px;
+	}
+	.burger span:nth-child(2) {
+		top: 20px;
+	}
+	.burger.open span:nth-child(1) {
+		transform: translateY(4px) rotate(45deg);
+	}
+	.burger.open span:nth-child(2) {
+		transform: translateY(-4px) rotate(-45deg);
+	}
 
 	@media (max-width: 760px) {
 		.site-nav {
@@ -159,12 +187,20 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 			grid-template-columns: auto 1fr auto;
 			gap: 0.75rem;
 		}
-		.nav-center { display: none; }
-		.nav-clock { font-size: 0.66rem; }
-		.burger { display: block; }
+		.nav-center {
+			display: none;
+		}
+		.nav-clock {
+			font-size: 0.66rem;
+		}
+		.burger {
+			display: block;
+		}
 	}
 	@media (max-width: 420px) {
-		.nav-clock span:last-child { display: none; }
+		.nav-clock span:last-child {
+			display: none;
+		}
 	}
 
 	/* ---- mobile fullscreen menu ---- */
@@ -172,8 +208,8 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 		position: fixed;
 		inset: 0;
 		z-index: 490;
-		background: hsl(var(--theme-text));
-		color: hsl(var(--theme-bg));
+		background: var(--paper);
+		color: hsl(var(--theme-text));
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -192,22 +228,35 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 		font-weight: 300;
 		font-style: italic;
 		font-size: clamp(2.2rem, 11vw, 3.6rem);
-		color: hsl(var(--theme-bg));
+		color: hsl(var(--theme-text));
 		text-decoration: none;
 		padding: 0.35rem 0;
-		border-bottom: 1px solid hsl(var(--theme-bg) / 0.14);
+		border-bottom: 1px solid var(--hairline);
 		display: flex;
 		justify-content: space-between;
 		align-items: baseline;
 		opacity: 0;
 		transform: translateY(26px);
-		transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+		transition:
+			opacity 0.5s var(--ease),
+			transform 0.5s var(--ease);
 	}
-	.m-menu.open a { opacity: 1; transform: translateY(0); }
-	.m-menu.open a:nth-child(1) { transition-delay: 0.12s; }
-	.m-menu.open a:nth-child(2) { transition-delay: 0.18s; }
-	.m-menu.open a:nth-child(3) { transition-delay: 0.24s; }
-	.m-menu.open a:nth-child(4) { transition-delay: 0.3s; }
+	.m-menu.open a {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	.m-menu.open a:nth-child(1) {
+		transition-delay: 0.12s;
+	}
+	.m-menu.open a:nth-child(2) {
+		transition-delay: 0.18s;
+	}
+	.m-menu.open a:nth-child(3) {
+		transition-delay: 0.24s;
+	}
+	.m-menu.open a:nth-child(4) {
+		transition-delay: 0.3s;
+	}
 	.m-menu a .n {
 		font-family: var(--font-mono);
 		font-style: normal;
@@ -221,14 +270,17 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 		right: var(--gutter);
 		font-family: var(--font-mono);
 		font-size: 0.68rem;
-		color: hsl(var(--theme-bg) / 0.5);
+		color: hsl(var(--theme-text) / 0.5);
 		display: flex;
 		justify-content: space-between;
 		gap: 1rem;
 		flex-wrap: wrap;
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.m-menu, .m-menu a { transition: none; }
+		.m-menu,
+		.m-menu a {
+			transition: none;
+		}
 	}
 </style>
 
@@ -236,11 +288,21 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 	const burger = document.getElementById("nav-burger") as HTMLButtonElement | null;
 	const mMenu = document.getElementById("nav-mmenu");
 	if (burger && mMenu) {
+		let scrollY = 0;
 		const setMenu = (open: boolean) => {
 			burger.classList.toggle("open", open);
 			mMenu.classList.toggle("open", open);
-			document.body.classList.toggle("menu-lock", open);
 			burger.setAttribute("aria-expanded", String(open));
+
+			if (open) {
+				scrollY = window.scrollY;
+				document.body.style.top = `-${scrollY}px`;
+				document.body.classList.add("menu-lock");
+			} else {
+				document.body.classList.remove("menu-lock");
+				document.body.style.top = "";
+				window.scrollTo(0, scrollY);
+			}
 		};
 		burger.addEventListener("click", () => setMenu(!mMenu.classList.contains("open")));
 		mMenu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
@@ -249,7 +311,8 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 	const clockEl = document.getElementById("nav-clock-time");
 	if (clockEl) {
 		const tick = () => {
-			clockEl.textContent = new Date().toLocaleTimeString("es-ES", {
+			const locale = document.documentElement.dataset.lang === "en" ? "en-GB" : "es-ES";
+			clockEl.textContent = new Date().toLocaleTimeString(locale, {
 				timeZone: "Europe/Madrid",
 				hour12: false,
 			});
@@ -260,29 +323,14 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 </script>
 
 <style is:global>
+	/* `overflow: hidden` alone doesn't reliably block touch-scroll/rubber-band
+	   on mobile Safari, so the menu-open state also pins body to `position:
+	   fixed` at the current scroll offset (set via JS below) and restores it
+	   on close. */
 	body.menu-lock {
+		position: fixed;
+		left: 0;
+		right: 0;
 		overflow: hidden;
-	}
-	/* While the fullscreen mobile menu (always ink bg / paper text) is open,
-	   the frosted nav above it would otherwise pick up a muddy blur from the
-	   dark overlay behind it — force it to match the menu instead. */
-	body.menu-lock .site-nav {
-		background: hsl(var(--theme-text));
-		border-bottom-color: transparent;
-	}
-	body.menu-lock .nav-name,
-	body.menu-lock .nav-clock {
-		color: hsl(var(--theme-bg));
-	}
-	body.menu-lock .burger span {
-		background: hsl(var(--theme-bg));
-	}
-	body.menu-lock .theme-toggle {
-		background: hsl(var(--theme-bg) / 0.12);
-		border-color: hsl(var(--theme-bg) / 0.3);
-		color: hsl(var(--theme-bg));
-	}
-	body.menu-lock .theme-toggle:hover {
-		background: hsl(var(--theme-bg) / 0.2);
 	}
 </style>

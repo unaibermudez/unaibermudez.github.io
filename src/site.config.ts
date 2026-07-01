@@ -16,14 +16,14 @@ export const siteConfig: SiteConfig = {
 	lang: "es-ES",
 	ogLocale: "es_ES",
 	sortPostsByUpdatedDate: false,
-	title: "Unai Bermúdez — Full Stack Developer",
+	title: "Unai Bermúdez | Full Stack Developer",
 	hideThemeCredit: false,
 	profile: {
 		name: "Unai Bermúdez",
 		github: "https://github.com/unaibermudez",
 		linkedin: "https://www.linkedin.com/in/unai-bermudez/",
 		jobTitle: "Full Stack Developer",
-		alumni: "UPV/EHU — Ingeniería Informática",
+		alumni: "UPV/EHU - Ingeniería Informática de Gestión y Sistemas de Información",
 		// Sin email de contacto ni foto de perfil por decisión del usuario.
 		// email: undefined,
 		// avatar: undefined,
@@ -41,23 +41,24 @@ export const siteConfig: SiteConfig = {
 // El sitio es una landing de una sola página: los enlaces del menú apuntan a
 // anclas de la home. `withBase("/")` en Header.astro añade el base path y,
 // desde páginas internas (posts, about), el navegador primero carga "/" y
-// luego salta al ancla.
-export const menuLinks: { path: string; title: string }[] = [
+// luego salta al ancla. `titleKey` referencia src/i18n/{es,en}.json — ver
+// componente T.astro.
+export const menuLinks: { path: string; titleKey: string }[] = [
 	{
 		path: "/#sobre",
-		title: "Sobre mí",
+		titleKey: "nav.about",
 	},
 	{
 		path: "/#proyectos",
-		title: "Proyectos",
+		titleKey: "nav.projects",
 	},
 	{
 		path: "/#blog",
-		title: "Blog",
+		titleKey: "nav.blog",
 	},
 	{
 		path: "/#contacto",
-		title: "Contacto",
+		titleKey: "nav.contact",
 	},
 ];
 

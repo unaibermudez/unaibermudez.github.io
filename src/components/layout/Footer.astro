@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from "@/site-config";
 import { withBase } from "@/utils/path";
+import T from "@/components/T.astro";
 
 const year = new Date().getFullYear();
 const profile = siteConfig.profile;
@@ -19,7 +20,7 @@ const profile = siteConfig.profile;
 	</div>
 	{!siteConfig.hideThemeCredit && (
 		<span class="right">
-			Construido con <a href="https://github.com/AnjayGoel/astro-sienna" rel="noopener">Astro Sienna</a>
+			<T k="footer.builtWith" /> <a href="https://github.com/AnjayGoel/astro-sienna" rel="noopener">Astro Sienna</a>
 		</span>
 	)}
 </footer>
