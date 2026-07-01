@@ -1,0 +1,185 @@
+---
+const stackPrimary = ["React", "TypeScript", "Java", "Spring Boot", "PostgreSQL"];
+const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase", "CI/CD"];
+---
+
+<section class="section about-sec" id="sobre">
+	<div class="sec-head lr">
+		<div>
+			<p class="sec-index">01 / Retrato</p>
+			<h2 class="sec-title">Sobre <em>mí</em></h2>
+		</div>
+		<p class="sec-note">Bilbao → producción, vía Spring Boot y React.</p>
+	</div>
+
+	<div class="about-card">
+		<div class="about-grid">
+			<p class="about-quote" id="about-quote">
+				Construyo software con la misma cabeza con la que planificaba trayectorias para un
+				monoplaza autónomo: si no funciona de verdad, en pista o en producción, no vale.
+			</p>
+			<div class="about-side">
+				<p>
+					Full Stack Developer con <strong>1,5 años de experiencia</strong>, graduado en
+					Ingeniería Informática por la <strong>UPV/EHU</strong>. Me apasiona construir
+					productos completos y que funcionan de verdad, no demos bonitas.
+				</p>
+				<p>
+					Formé parte de <strong>Formula Student Bizkaia</strong>, en el equipo de conducción
+					autónoma: path planning con <strong>ROS2 y Python</strong> para el monoplaza,
+					compitiendo en <strong>FSUK Silverstone 2024</strong>.
+				</p>
+
+				<div class="about-stack">
+					<div class="stack-group">
+						<span class="stack-label">Stack principal</span>
+						<div class="tags">
+							{stackPrimary.map((t) => <span>{t}</span>)}
+						</div>
+					</div>
+					<div class="stack-group">
+						<span class="stack-label">Y también</span>
+						<div class="tags">
+							{stackSecondary.map((t) => <span>{t}</span>)}
+						</div>
+					</div>
+				</div>
+
+				<div class="about-stats">
+					<div class="about-stat">
+						<div class="v" data-count="1.5">0</div>
+						<div class="l">años exp.</div>
+					</div>
+					<div class="about-stat">
+						<div class="v" data-count="2024">0</div>
+						<div class="l">FSUK Silverstone</div>
+					</div>
+					<div class="about-stat">
+						<div class="v">ROS2</div>
+						<div class="l">path planning</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.about-card {
+		background: hsl(var(--theme-text));
+		color: hsl(var(--theme-bg));
+		border-radius: 28px;
+		padding: 4rem 3.5rem;
+	}
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: 4rem;
+		align-items: start;
+	}
+	.about-quote {
+		font-family: var(--font-serif);
+		font-weight: 300;
+		font-size: clamp(1.6rem, 3.4vw, 2.7rem);
+		line-height: 1.32;
+		letter-spacing: -0.015em;
+		margin: 0;
+	}
+	.about-quote :global(.w) {
+		opacity: 0.18;
+		transition: opacity 0.4s ease;
+	}
+	.about-quote :global(.w.lit) {
+		opacity: 1;
+	}
+	.about-quote :global(em) {
+		font-style: italic;
+		color: var(--klein);
+	}
+	.about-side p {
+		color: hsl(var(--theme-bg) / 0.7);
+		margin: 0 0 1.4rem;
+		font-size: 0.98rem;
+		line-height: 1.65;
+	}
+	.about-side strong {
+		color: hsl(var(--theme-bg));
+		font-weight: 600;
+	}
+
+	.about-stack {
+		margin-top: 1.8rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1.1rem;
+	}
+	.stack-label {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: hsl(var(--theme-bg) / 0.5);
+		margin-bottom: 0.55rem;
+	}
+	.tags {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+	.tags span {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		letter-spacing: 0.03em;
+		border: 1px solid hsl(var(--theme-bg) / 0.2);
+		border-radius: 99px;
+		padding: 0.32rem 0.8rem;
+		color: hsl(var(--theme-bg) / 0.85);
+		transition: all 0.3s;
+	}
+	.about-card:hover .tags span {
+		border-color: var(--klein);
+	}
+
+	.about-stats {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1px;
+		background: hsl(var(--theme-bg) / 0.18);
+		border: 1px solid hsl(var(--theme-bg) / 0.18);
+		border-radius: 14px;
+		overflow: hidden;
+		margin-top: 2.2rem;
+	}
+	.about-stat {
+		background: hsl(var(--theme-text));
+		padding: 1.3rem 0.9rem;
+		text-align: center;
+	}
+	.about-stat .v {
+		font-family: var(--font-serif);
+		font-size: 1.7rem;
+		font-weight: 400;
+		color: var(--klein);
+		white-space: nowrap;
+	}
+	.about-stat .l {
+		font-family: var(--font-mono);
+		font-size: 0.6rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: hsl(var(--theme-bg) / 0.5);
+		margin-top: 0.3rem;
+	}
+
+	@media (max-width: 960px) {
+		.about-grid { grid-template-columns: 1fr; }
+		.about-card { padding: 3rem 1.8rem; }
+	}
+	@media (max-width: 760px) {
+		.about-card { border-radius: 20px; padding: 2.6rem 1.4rem; }
+	}
+	@media (max-width: 480px) {
+		.about-stats { grid-template-columns: 1fr; }
+	}
+</style>
