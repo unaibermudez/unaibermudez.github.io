@@ -1,0 +1,247 @@
+---
+import { projects } from "@/data/projects";
+---
+
+<section class="section" id="proyectos">
+	<div class="sec-head lr">
+		<div>
+			<p class="sec-index">02 / Índice</p>
+			<h2 class="sec-title">Proyectos</h2>
+		</div>
+		<p class="sec-note">
+			{
+				projects.length > 0
+					? "Sección en construcción — pronto con proyectos reales."
+					: "Todavía no hay proyectos publicados aquí."
+			}
+		</p>
+	</div>
+
+	{
+		projects.length === 0 ? (
+			<div class="empty-state lr">
+				<p>
+					Esta sección está lista para recibir proyectos — de momento no hay ninguno
+					publicado. Vuelve pronto.
+				</p>
+			</div>
+		) : (
+			<div class="stack" id="project-stack">
+				{projects.map((p, i) => (
+					<article class="p-card" style={`--stack-i: ${i}`}>
+						<div class="p-info">
+							<div class="p-top">
+								<span class="p-num">Nº {String(i + 1).padStart(2, "0")}</span>
+								{p.placeholder && <span class="p-year">Próximamente</span>}
+							</div>
+							<div>
+								<h3 class="p-name">{p.name}</h3>
+								<p class="p-desc">{p.description}</p>
+								<div class="p-tags">
+									{p.stack.map((t) => (
+										<span>{t}</span>
+									))}
+								</div>
+							</div>
+							{p.placeholder ? (
+								<span class="p-link p-link--soon">
+									<span class="circle">…</span> Próximamente
+								</span>
+							) : (
+								<div class="p-links">
+									{p.github && (
+										<a class="p-link" href={p.github} rel="noreferrer" target="_blank">
+											<span class="circle">↗</span> Código
+										</a>
+									)}
+									{p.demo && (
+										<a class="p-link" href={p.demo} rel="noreferrer" target="_blank">
+											<span class="circle">↗</span> Demo
+										</a>
+									)}
+								</div>
+							)}
+						</div>
+						<div class="p-visual">
+							<div class="art art-placeholder" aria-hidden="true">
+								<span class="art-mark">✳</span>
+							</div>
+						</div>
+					</article>
+				))}
+			</div>
+		)
+	}
+</section>
+
+<style>
+	.empty-state {
+		border-top: 1px solid var(--hairline);
+		padding-top: 2.5rem;
+		font-family: var(--font-mono);
+		font-size: 0.9rem;
+		color: hsl(var(--theme-text-muted));
+	}
+
+	.stack {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+	}
+	.p-card {
+		position: sticky;
+		top: calc(90px + var(--stack-i, 0) * 20px);
+		border-radius: 20px;
+		overflow: hidden;
+		background: var(--paper);
+		border: 1px solid var(--hairline);
+		display: grid;
+		grid-template-columns: 1.15fr 1fr;
+		min-height: 420px;
+		transform-origin: center top;
+		will-change: transform, filter;
+		box-shadow: 0 -8px 40px rgba(24, 22, 17, 0.07);
+	}
+	.p-info {
+		padding: 2.8rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+	.p-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 1rem;
+	}
+	.p-num {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: var(--klein);
+	}
+	.p-year {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: hsl(var(--theme-text-muted));
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+	.p-name {
+		font-family: var(--font-serif);
+		font-weight: 400;
+		font-size: clamp(1.7rem, 3vw, 2.6rem);
+		letter-spacing: -0.02em;
+		line-height: 1.05;
+		margin: 0 0 1rem;
+		color: hsl(var(--theme-text));
+	}
+	.p-desc {
+		color: hsl(var(--theme-text-muted));
+		max-width: 42ch;
+		margin: 0;
+	}
+	.p-tags {
+		display: flex;
+		gap: 0.6rem;
+		flex-wrap: wrap;
+		margin-top: 1.5rem;
+	}
+	.p-tags span {
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		letter-spacing: 0.05em;
+		border: 1px solid var(--hairline);
+		border-radius: 99px;
+		padding: 0.32rem 0.85rem;
+		color: hsl(var(--theme-text-muted));
+		transition: all 0.3s;
+	}
+	.p-card:hover .p-tags span {
+		border-color: var(--klein);
+		color: var(--klein);
+	}
+	.p-links {
+		display: flex;
+		gap: 1.4rem;
+		flex-wrap: wrap;
+	}
+	.p-link {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		letter-spacing: 0.06em;
+		color: hsl(var(--theme-text));
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		width: fit-content;
+	}
+	.p-link--soon {
+		color: hsl(var(--theme-text-muted));
+		cursor: default;
+	}
+	.p-link .circle {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		border: 1px solid hsl(var(--theme-text));
+		display: grid;
+		place-items: center;
+		transition: all 0.4s var(--ease);
+	}
+	.p-link--soon .circle {
+		border-color: var(--hairline);
+		color: hsl(var(--theme-text-muted));
+	}
+	.p-link:not(.p-link--soon):hover .circle {
+		background: var(--klein);
+		border-color: var(--klein);
+		color: #fff;
+		transform: rotate(45deg);
+	}
+
+	.p-visual {
+		position: relative;
+		overflow: hidden;
+		min-height: 280px;
+	}
+	.art {
+		position: absolute;
+		inset: 0;
+		transition: transform 0.8s var(--ease);
+	}
+	.p-card:hover .art {
+		transform: scale(1.04);
+	}
+	.art-placeholder {
+		background: repeating-linear-gradient(
+			-45deg,
+			var(--accent-soft),
+			var(--accent-soft) 12px,
+			transparent 12px,
+			transparent 24px
+		);
+		display: grid;
+		place-items: center;
+	}
+	.art-mark {
+		font-size: 5rem;
+		color: var(--klein);
+		opacity: 0.5;
+		font-family: var(--font-serif);
+	}
+
+	@media (max-width: 960px) {
+		.p-card {
+			grid-template-columns: 1fr;
+			min-height: 0;
+			position: static;
+		}
+		.p-visual { min-height: 200px; order: -1; }
+		.p-info { padding: 1.8rem 1.4rem; }
+	}
+	@media (max-width: 760px) {
+		.stack { gap: 2rem; }
+	}
+</style>
