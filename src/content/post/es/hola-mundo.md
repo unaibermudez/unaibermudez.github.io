@@ -6,8 +6,8 @@ tags: []
 draft: false
 ---
 
-Este es el primer post del blog, todavía vacío. Cuando tenga algo que contar —sobre algún
-proyecto, Formula Student, o cualquier cosa que esté construyendo— aparecerá aquí.
+Este es el primer post del blog, todavía vacío. Cuando tenga algo que contar sobre algún
+proyecto, Formula Student, o cualquier cosa que esté construyendo, aparecerá aquí.
 
 Si estás leyendo esto en el propio repositorio: los posts nuevos se añaden como archivos
 `.md` en `src/content/post/`, con el mismo frontmatter que este. Más detalles en el README.

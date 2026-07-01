@@ -1,6 +1,6 @@
 ---
 title: Sobre mí
-description: Unai Bermúdez — Full Stack Developer en Bilbao. Background, stack y Formula Student Bizkaia.
+description: Unai Bermúdez | Full Stack Developer en Bilbao. Background, stack y Formula Student Bizkaia.
 ---
 
 Soy Unai Bermúdez, Full Stack Developer afincado en Bilbao con 1,5 años de experiencia
