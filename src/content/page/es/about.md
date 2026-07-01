@@ -15,4 +15,4 @@ el área de conducción autónoma: path planning para el monoplaza con **ROS2 y 
 compitiendo en **FSUK Silverstone 2024**.
 
 Encuéntrame en [GitHub](https://github.com/unaibermudez) o
-[LinkedIn](https://www.linkedin.com/in/unai-bermudez/).
+[LinkedIn](https://www.linkedin.com/in/unai-bermudez-osaba/).

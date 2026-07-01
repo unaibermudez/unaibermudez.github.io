@@ -15,4 +15,4 @@ autonomous driving area: path planning for the car with **ROS2 and Python**, com
 **FSUK Silverstone 2024**.
 
 Find me on [GitHub](https://github.com/unaibermudez) or
-[LinkedIn](https://www.linkedin.com/in/unai-bermudez/).
+[LinkedIn](https://www.linkedin.com/in/unai-bermudez-osaba/).

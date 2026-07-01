@@ -21,7 +21,7 @@ export const siteConfig: SiteConfig = {
 	profile: {
 		name: "Unai Bermúdez",
 		github: "https://github.com/unaibermudez",
-		linkedin: "https://www.linkedin.com/in/unai-bermudez/",
+		linkedin: "https://www.linkedin.com/in/unai-bermudez-osaba/",
 		jobTitle: "Full Stack Developer",
 		alumni: "UPV/EHU - Ingeniería Informática de Gestión y Sistemas de Información",
 		// Sin email de contacto ni foto de perfil por decisión del usuario.
