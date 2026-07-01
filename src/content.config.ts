@@ -21,10 +21,14 @@ const post = defineCollection({
 			description: z.string().min(10).max(160),
 			draft: z.boolean().default(false),
 			ogImage: z.string().optional(),
+			// Optional because only the `es/` file needs to carry it — see
+			// getPairDate() in data/post.ts, which falls back to the `en/`
+			// sibling's date when the `es/` one is missing.
 			publishDate: z
 				.string()
 				.or(z.date())
-				.transform((val) => new Date(val)),
+				.transform((val) => new Date(val))
+				.optional(),
 			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
 			title: z.string().max(120),
 			updatedDate: z

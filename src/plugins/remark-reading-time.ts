@@ -6,9 +6,9 @@ export function remarkReadingTime() {
 	return (tree, { data }) => {
 		const textOnPage = mdastToString(tree);
 		const readingTime = getReadingTime(textOnPage);
-		// `reading-time`'s own `.text` is English-only ("X min read"); build the
-		// Spanish label ourselves since the whole site is in es-ES.
-		const minutes = Math.max(1, Math.ceil(readingTime.minutes));
-		data.astro.frontmatter.minutesRead = `${minutes} min de lectura`;
+		// Just the number — the "X min read"/"X min de lectura" label is
+		// rendered bilingually at the template level (see blogPost.readingTime
+		// in src/i18n/{es,en}.json) since this runs per-language body.
+		data.astro.frontmatter.minutesRead = Math.max(1, Math.ceil(readingTime.minutes));
 	};
 }

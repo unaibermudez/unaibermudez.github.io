@@ -2,29 +2,16 @@ import { siteConfig } from "@/site-config";
 
 const dateFormat = new Intl.DateTimeFormat(siteConfig.date.locale, siteConfig.date.options);
 
-// All formatters below follow the site locale (see site.config.ts `date.locale`)
-// so blog dates, OG images, and the homepage timeline stay in Spanish.
-const railFormatter = new Intl.DateTimeFormat(siteConfig.date.locale, {
-	day: "numeric",
-	month: "short",
-	year: "numeric",
-});
+// Locale codes used for the two supported languages. Bilingual UI (see
+// components using <Bilingual>/<T>) renders both variants side by side, so
+// every formatter below takes an explicit locale rather than always reading
+// siteConfig.date.locale.
+const LOCALES = { es: "es-ES", en: "en-US" } as const;
+export type DateLocale = keyof typeof LOCALES;
 
-const stampFormatter = new Intl.DateTimeFormat(siteConfig.date.locale, {
-	month: "long",
-	year: "numeric",
-});
-
-const bylineFormatter = new Intl.DateTimeFormat(siteConfig.date.locale, {
-	day: "numeric",
-	month: "long",
-	year: "numeric",
-});
-
-const eyebrowFormatter = new Intl.DateTimeFormat(siteConfig.date.locale, {
-	month: "long",
-	year: "numeric",
-});
+function formatterFor(locale: DateLocale, options: Intl.DateTimeFormatOptions) {
+	return new Intl.DateTimeFormat(LOCALES[locale], options);
+}
 
 export function getFormattedDate(
 	date: string | number | Date,
@@ -40,22 +27,22 @@ export function getFormattedDate(
 	return dateFormat.format(new Date(date));
 }
 
-/** Short rail date: `5 mar 2026`. */
-export function formatRailDate(date: Date): string {
-	return railFormatter.format(date);
+/** Short rail date: `5 mar 2026` (es) / `Mar 5, 2026` (en). */
+export function formatRailDate(date: Date, locale: DateLocale = "es"): string {
+	return formatterFor(locale, { day: "numeric", month: "short", year: "numeric" }).format(date);
 }
 
-/** Featured-card stamp: `marzo de 2026`. */
-export function formatStampDate(date: Date): string {
-	return stampFormatter.format(date);
+/** Featured-card stamp: `marzo de 2026` / `March 2026`. */
+export function formatStampDate(date: Date, locale: DateLocale = "es"): string {
+	return formatterFor(locale, { month: "long", year: "numeric" }).format(date);
 }
 
-/** Article byline date: `5 de marzo de 2026`. */
-export function formatBylineDate(date: Date): string {
-	return bylineFormatter.format(date);
+/** Article byline date: `5 de marzo de 2026` / `March 5, 2026`. */
+export function formatBylineDate(date: Date, locale: DateLocale = "es"): string {
+	return formatterFor(locale, { day: "numeric", month: "long", year: "numeric" }).format(date);
 }
 
-/** Article eyebrow date: `marzo de 2026`. */
-export function formatEyebrowDate(date: Date): string {
-	return eyebrowFormatter.format(date);
+/** Article eyebrow date: `marzo de 2026` / `March 2026`. */
+export function formatEyebrowDate(date: Date, locale: DateLocale = "es"): string {
+	return formatterFor(locale, { month: "long", year: "numeric" }).format(date);
 }
