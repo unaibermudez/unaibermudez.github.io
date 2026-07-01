@@ -1,0 +1,45 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import Hero from "@/components/landing/Hero.astro";
+import About from "@/components/landing/About.astro";
+import Projects from "@/components/landing/Projects.astro";
+import BlogSection from "@/components/landing/BlogSection.astro";
+import Contact from "@/components/landing/Contact.astro";
+import LandingFx from "@/components/landing/LandingFx.astro";
+import { siteConfig } from "@/site-config";
+import { absoluteUrl } from "@/utils/path";
+import { Schema } from "astro-seo-schema";
+
+const siteUrl = (path: string) => absoluteUrl(path, Astro.site);
+---
+
+<Schema
+	item={{
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Inicio",
+				item: siteUrl("/"),
+			},
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: "Blog",
+				item: siteUrl("/posts"),
+			},
+		],
+	}}
+/>
+
+<PageLayout meta={{ title: "Inicio", description: siteConfig.description }} wide>
+	<Hero />
+	<About />
+	<Projects />
+	<BlogSection />
+	<Contact />
+</PageLayout>
+
+<LandingFx />
