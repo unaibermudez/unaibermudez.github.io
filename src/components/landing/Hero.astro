@@ -1,9 +1,14 @@
 ---
 import { siteConfig } from "@/site-config";
+import T from "@/components/T.astro";
+import es from "@/i18n/es.json";
+import en from "@/i18n/en.json";
 
 const profile = siteConfig.profile;
 const name = profile?.name ?? siteConfig.author;
 const jobTitle = profile?.jobTitle ?? "Full Stack Developer";
+const stampEs = `${es.hero.available} · ${es.hero.available} · `;
+const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 ---
 
 <header class="hero" id="top">
@@ -11,21 +16,17 @@ const jobTitle = profile?.jobTitle ?? "Full Stack Developer";
 		<span>{name}</span>
 		<span>{jobTitle}</span>
 		<span>Bilbao, 43.26° N</span>
-		<span>Disponible para proyectos</span>
+		<span><T k="hero.available" /></span>
 	</div>
 
 	<h1 class="hero-title">
-		<span class="row"><span>Código con</span></span>
-		<span class="row"><span><em>oficio.</em></span></span>
+		<span class="row"><span><T k="hero.taglineRow1" /></span></span>
+		<span class="row"><span><em><T k="hero.taglineRow2" /></em></span></span>
 	</h1>
 
 	<div class="hero-bottom">
 		<div class="hero-desc-wrap">
-			<p class="hero-desc">
-				Soy Unai. <strong>Full Stack Developer</strong> afincado en Bilbao — construyo
-				productos que funcionan de verdad, del esquema de base de datos en
-				Spring Boot al último detalle en React.
-			</p>
+			<p class="hero-desc"><T k="hero.desc" /></p>
 			<div class="hero-links">
 				{profile?.github && (
 					<a class="hero-link" href={profile.github} rel="noreferrer" target="_blank">
@@ -42,13 +43,14 @@ const jobTitle = profile?.jobTitle ?? "Full Stack Developer";
 		<div class="stamp" aria-hidden="true">
 			<svg viewBox="0 0 100 100">
 				<defs><path id="hero-circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" /></defs>
-				<text><textPath href="#hero-circ">Disponible para proyectos · Disponible para proyectos ·&#160;</textPath></text>
+				<text data-lang-es><textPath href="#hero-circ">{stampEs}</textPath></text>
+				<text data-lang-en><textPath href="#hero-circ">{stampEn}</textPath></text>
 			</svg>
 			<span class="stamp-core">✳</span>
 		</div>
 	</div>
 
-	<a class="hero-scroll" href="#sobre">Desplázate</a>
+	<a class="hero-scroll" href="#sobre"><T k="hero.scroll" /></a>
 </header>
 
 <style>

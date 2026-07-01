@@ -1,4 +1,6 @@
 ---
+import T from "@/components/T.astro";
+
 const stackPrimary = ["React", "TypeScript", "Java", "Spring Boot", "PostgreSQL"];
 const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase", "CI/CD"];
 ---
@@ -6,39 +8,28 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 <section class="section about-sec" id="sobre">
 	<div class="sec-head lr">
 		<div>
-			<p class="sec-index">01 / Retrato</p>
-			<h2 class="sec-title">Sobre <em>mí</em></h2>
+			<p class="sec-index"><T k="about.index" /></p>
+			<h2 class="sec-title"><T k="about.title" /></h2>
 		</div>
-		<p class="sec-note">Bilbao → producción, vía Spring Boot y React.</p>
+		<p class="sec-note"><T k="about.note" /></p>
 	</div>
 
 	<div class="about-card">
 		<div class="about-grid">
-			<p class="about-quote" id="about-quote">
-				Construyo software con la misma cabeza con la que planificaba trayectorias para un
-				monoplaza autónomo: si no funciona de verdad, en pista o en producción, no vale.
-			</p>
+			<p class="about-quote" id="about-quote"><T k="about.quote" /></p>
 			<div class="about-side">
-				<p>
-					Full Stack Developer con <strong>1,5 años de experiencia</strong>, graduado en
-					Ingeniería Informática por la <strong>UPV/EHU</strong>. Me apasiona construir
-					productos completos y que funcionan de verdad, no demos bonitas.
-				</p>
-				<p>
-					Formé parte de <strong>Formula Student Bizkaia</strong>, en el equipo de conducción
-					autónoma: path planning con <strong>ROS2 y Python</strong> para el monoplaza,
-					compitiendo en <strong>FSUK Silverstone 2024</strong>.
-				</p>
+				<p><T k="about.bio1" /></p>
+				<p><T k="about.bio2" /></p>
 
 				<div class="about-stack">
 					<div class="stack-group">
-						<span class="stack-label">Stack principal</span>
+						<span class="stack-label"><T k="about.stackPrimary" /></span>
 						<div class="tags">
 							{stackPrimary.map((t) => <span>{t}</span>)}
 						</div>
 					</div>
 					<div class="stack-group">
-						<span class="stack-label">Y también</span>
+						<span class="stack-label"><T k="about.stackAlso" /></span>
 						<div class="tags">
 							{stackSecondary.map((t) => <span>{t}</span>)}
 						</div>
@@ -48,15 +39,15 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 				<div class="about-stats">
 					<div class="about-stat">
 						<div class="v" data-count="1.5">0</div>
-						<div class="l">años exp.</div>
+						<div class="l"><T k="about.statYears" /></div>
 					</div>
 					<div class="about-stat">
 						<div class="v" data-count="2024">0</div>
-						<div class="l">FSUK Silverstone</div>
+						<div class="l"><T k="about.statSilverstone" /></div>
 					</div>
 					<div class="about-stat">
 						<div class="v">ROS2</div>
-						<div class="l">path planning</div>
+						<div class="l"><T k="about.statPathPlanning" /></div>
 					</div>
 				</div>
 			</div>

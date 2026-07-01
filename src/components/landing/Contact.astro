@@ -1,12 +1,13 @@
 ---
 import { siteConfig } from "@/site-config";
+import T from "@/components/T.astro";
 
 const profile = siteConfig.profile;
 ---
 
 <section class="section contact" id="contacto">
-	<p class="contact-kicker lr">¿Hablamos de tu próximo proyecto?</p>
-	<p class="contact-mega lr lr-1">Hablemos</p>
+	<p class="contact-kicker lr"><T k="contact.kicker" /></p>
+	<p class="contact-mega lr lr-1"><T k="contact.mega" /></p>
 	<div class="contact-links lr lr-2">
 		{profile?.github && (
 			<a class="contact-link" href={profile.github} rel="noreferrer" target="_blank">

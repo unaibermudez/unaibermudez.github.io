@@ -1,19 +1,16 @@
 ---
 import { projects } from "@/data/projects";
+import T from "@/components/T.astro";
 ---
 
 <section class="section" id="proyectos">
 	<div class="sec-head lr">
 		<div>
-			<p class="sec-index">02 / Índice</p>
-			<h2 class="sec-title">Proyectos</h2>
+			<p class="sec-index"><T k="projects.index" /></p>
+			<h2 class="sec-title"><T k="projects.title" /></h2>
 		</div>
 		<p class="sec-note">
-			{
-				projects.length > 0
-					? "Sección en construcción — pronto con proyectos reales."
-					: "Todavía no hay proyectos publicados aquí."
-			}
+			<T k={projects.length > 0 ? "projects.noteWip" : "projects.noteEmpty"} />
 		</p>
 	</div>
 
@@ -21,8 +18,7 @@ import { projects } from "@/data/projects";
 		projects.length === 0 ? (
 			<div class="empty-state lr">
 				<p>
-					Esta sección está lista para recibir proyectos — de momento no hay ninguno
-					publicado. Vuelve pronto.
+					<T k="projects.emptyState" />
 				</p>
 			</div>
 		) : (
@@ -32,11 +28,17 @@ import { projects } from "@/data/projects";
 						<div class="p-info">
 							<div class="p-top">
 								<span class="p-num">Nº {String(i + 1).padStart(2, "0")}</span>
-								{p.placeholder && <span class="p-year">Próximamente</span>}
+								{p.placeholder && (
+									<span class="p-year">
+										<T k="projects.soon" />
+									</span>
+								)}
 							</div>
 							<div>
-								<h3 class="p-name">{p.name}</h3>
-								<p class="p-desc">{p.description}</p>
+								<h3 class="p-name">{p.placeholder ? <T k="projects.soon" /> : p.name}</h3>
+								<p class="p-desc">
+									{p.placeholder ? <T k={`projects.placeholderDesc${i + 1}`} /> : p.description}
+								</p>
 								<div class="p-tags">
 									{p.stack.map((t) => (
 										<span>{t}</span>
@@ -45,18 +47,18 @@ import { projects } from "@/data/projects";
 							</div>
 							{p.placeholder ? (
 								<span class="p-link p-link--soon">
-									<span class="circle">…</span> Próximamente
+									<span class="circle">…</span> <T k="projects.soon" />
 								</span>
 							) : (
 								<div class="p-links">
 									{p.github && (
 										<a class="p-link" href={p.github} rel="noreferrer" target="_blank">
-											<span class="circle">↗</span> Código
+											<span class="circle">↗</span> <T k="projects.code" />
 										</a>
 									)}
 									{p.demo && (
 										<a class="p-link" href={p.demo} rel="noreferrer" target="_blank">
-											<span class="circle">↗</span> Demo
+											<span class="circle">↗</span> <T k="projects.demo" />
 										</a>
 									)}
 								</div>
