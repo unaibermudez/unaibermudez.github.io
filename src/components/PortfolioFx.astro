@@ -1,0 +1,226 @@
+---
+// Ambient site chrome ported from the aresti-portfolio reference: a
+// blend-difference cursor and a circular "back to top" button run on every
+// page; the full-screen intro loader only plays on the homepage.
+interface Props {
+	home?: boolean;
+}
+const { home = false } = Astro.props;
+---
+
+<div class="pfx-cursor" id="pfx-cursor" aria-hidden="true"></div>
+
+{
+	home && (
+		<div class="pfx-intro" id="pfx-intro">
+			<div class="pfx-intro-name">
+				<span>Unai Bermúdez — Full Stack Developer</span>
+			</div>
+			<div class="pfx-intro-counter" id="pfx-intro-counter">0%</div>
+		</div>
+	)
+}
+
+<button aria-label="Volver arriba" class="pfx-top" id="pfx-top" type="button">
+	<svg viewBox="0 0 54 54" aria-hidden="true">
+		<circle class="track" cx="27" cy="27" r="24" />
+		<circle class="fill" id="pfx-top-fill" cx="27" cy="27" r="24" />
+	</svg>
+	<span class="arr">↑</span>
+</button>
+
+<style>
+	/* ---- cursor (blend difference) ---- */
+	.pfx-cursor {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 26px;
+		height: 26px;
+		border-radius: 50%;
+		background: #fff;
+		mix-blend-mode: difference;
+		pointer-events: none;
+		z-index: 9999;
+		transform: translate(-50%, -50%);
+		transition: width 0.3s var(--ease), height 0.3s var(--ease);
+		opacity: 0;
+	}
+	.pfx-cursor.pfx-ready { opacity: 1; }
+	body.pfx-cur-grow .pfx-cursor { width: 68px; height: 68px; }
+	body.pfx-cur-text .pfx-cursor { width: 4px; height: 32px; border-radius: 2px; }
+	@media (hover: none), (pointer: coarse) {
+		.pfx-cursor { display: none; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.pfx-cursor { display: none; }
+	}
+
+	/* ---- intro ---- */
+	.pfx-intro {
+		position: fixed;
+		inset: 0;
+		z-index: 8000;
+		background: hsl(var(--theme-text));
+		color: hsl(var(--theme-bg));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 1.2rem;
+		transition: clip-path 1s var(--ease);
+		clip-path: inset(0 0 0 0);
+	}
+	.pfx-intro.pfx-done { clip-path: inset(0 0 100% 0); }
+	.pfx-intro-name {
+		font-family: var(--font-serif);
+		font-weight: 300;
+		font-size: clamp(1.3rem, 3.6vw, 2.2rem);
+		letter-spacing: 0.01em;
+		overflow: hidden;
+		padding: 0 1.5rem;
+		text-align: center;
+	}
+	.pfx-intro-name span {
+		display: inline-block;
+		transform: translateY(110%);
+		animation: pfx-intro-up 0.8s var(--ease) 0.15s forwards;
+	}
+	.pfx-intro-counter {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: hsl(var(--theme-bg) / 0.55);
+	}
+	@keyframes pfx-intro-up {
+		to { transform: translateY(0); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.pfx-intro { display: none; }
+	}
+
+	/* ---- back to top ---- */
+	.pfx-top {
+		position: fixed;
+		right: 1.4rem;
+		bottom: 1.4rem;
+		z-index: 200;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		border: none;
+		background: var(--paper);
+		display: grid;
+		place-items: center;
+		cursor: pointer;
+		box-shadow: 0 6px 24px rgba(24, 22, 17, 0.18);
+		opacity: 0;
+		pointer-events: none;
+		transform: translateY(14px);
+		transition: opacity 0.4s ease, transform 0.4s var(--ease);
+	}
+	.pfx-top.pfx-show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+	.pfx-top svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+	.pfx-top svg circle { fill: none; stroke-width: 2; }
+	.pfx-top svg .track { stroke: var(--hairline); }
+	.pfx-top svg .fill { stroke: var(--klein); stroke-dasharray: 151; stroke-dashoffset: 151; }
+	.pfx-top .arr { font-size: 1rem; color: hsl(var(--theme-text)); transition: transform 0.3s var(--ease); }
+	.pfx-top:hover .arr { transform: translateY(-3px); }
+	@media (max-width: 640px) {
+		.pfx-top { width: 44px; height: 44px; right: 1rem; bottom: 1rem; }
+	}
+</style>
+
+<script>
+	const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+	const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+	/* ---------- intro with counter (home only) ---------- */
+	const intro = document.getElementById("pfx-intro");
+	const introCounter = document.getElementById("pfx-intro-counter");
+	if (intro && introCounter) {
+		if (!reduceMotion) {
+			let n = 0;
+			const t = setInterval(() => {
+				n = Math.min(100, n + Math.ceil(Math.random() * 14));
+				introCounter.textContent = `${n}%`;
+				if (n >= 100) {
+					clearInterval(t);
+					setTimeout(() => intro.classList.add("pfx-done"), 250);
+				}
+			}, 70);
+			// Safety net in case the interval stalls on a slow tab.
+			setTimeout(() => intro.classList.add("pfx-done"), 2600);
+		} else {
+			intro.classList.add("pfx-done");
+		}
+	}
+
+	/* ---------- cursor blend ---------- */
+	const cursor = document.getElementById("pfx-cursor");
+	if (cursor && finePointer && !reduceMotion) {
+		let cx = innerWidth / 2;
+		let cy = innerHeight / 2;
+		let tx = cx;
+		let ty = cy;
+		addEventListener("mousemove", (e) => {
+			tx = e.clientX;
+			ty = e.clientY;
+			cursor.classList.add("pfx-ready");
+		});
+		(function loop() {
+			cx += (tx - cx) * 0.2;
+			cy += (ty - cy) * 0.2;
+			cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+			requestAnimationFrame(loop);
+		})();
+
+		const attachHoverClasses = () => {
+			document.querySelectorAll("a, button, .pfx-cur-grow").forEach((el) => {
+				el.addEventListener("mouseenter", () => document.body.classList.add("pfx-cur-grow"));
+				el.addEventListener("mouseleave", () => document.body.classList.remove("pfx-cur-grow"));
+			});
+			document.querySelectorAll("h1, h2, .pfx-cur-text").forEach((el) => {
+				el.addEventListener("mouseenter", () => document.body.classList.add("pfx-cur-text"));
+				el.addEventListener("mouseleave", () => document.body.classList.remove("pfx-cur-text"));
+			});
+		};
+		attachHoverClasses();
+		// Landing sections/blog cards render after this script in DOM order but
+		// on the same static page, so a rerun after load covers late additions.
+		addEventListener("load", attachHoverClasses);
+	}
+
+	/* ---------- back to top ---------- */
+	const topBtn = document.getElementById("pfx-top") as HTMLButtonElement | null;
+	const topFill = document.getElementById("pfx-top-fill") as SVGCircleElement | null;
+	const CIRC = 151;
+	if (topBtn && topFill) {
+		const onScroll = () => {
+			const y = scrollY;
+			const max = document.documentElement.scrollHeight - innerHeight;
+			topBtn.classList.toggle("pfx-show", y > innerHeight * 0.6);
+			topFill.style.strokeDashoffset = String(CIRC - (max > 0 ? y / max : 0) * CIRC);
+		};
+		addEventListener("scroll", onScroll, { passive: true });
+		onScroll();
+		topBtn.addEventListener("click", () =>
+			scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }),
+		);
+	}
+
+	/* ---------- re-land on the right anchor after late layout shifts ----------
+	   Hero uses 100svh and the intro overlay covers the first ~1-2.6s while
+	   web fonts/animations settle; the browser's initial hash-scroll can land
+	   a bit off. Re-run it once things stabilize. */
+	if (location.hash) {
+		const reScroll = () => {
+			const target = document.querySelector(location.hash);
+			target?.scrollIntoView();
+		};
+		addEventListener("load", () => {
+			reScroll();
+			(document as Document & { fonts?: FontFaceSet }).fonts?.ready?.then(reScroll);
+			setTimeout(reScroll, 700);
+		});
+	}
+</script>
