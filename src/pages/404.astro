@@ -1,0 +1,56 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import { withBase } from "@/utils/path";
+
+const meta = {
+	description: "La página que buscabas no existe.",
+	title: "404 — No encontrado",
+};
+---
+
+<PageLayout meta={meta}>
+	<section class="not-found">
+		<div class="eyebrow">Error · 404</div>
+		<h1>Esta página se ha perdido.</h1>
+		<p>
+			La página que buscabas no existe. Puede que se haya movido, renombrado, o que
+			simplemente no esté ahí todavía. Prueba en <a href={withBase("/")}>inicio</a>, o echa
+			un vistazo al <a href={withBase("/posts/")}>blog</a>.
+		</p>
+	</section>
+</PageLayout>
+
+<style>
+	.not-found { padding: 24px 0 80px; max-width: 56ch; }
+	.eyebrow {
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		font-weight: 500;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: hsl(var(--theme-text-muted));
+		margin-bottom: 24px;
+	}
+	.not-found h1 {
+		font-family: var(--font-serif);
+		font-weight: 500;
+		font-size: clamp(32px, 5vw, 44px);
+		letter-spacing: -0.02em;
+		line-height: 1.12;
+		color: hsl(var(--theme-text));
+		margin: 0 0 18px;
+	}
+	.not-found p {
+		font-size: 17.5px;
+		line-height: 1.7;
+		color: hsl(var(--theme-text));
+		margin: 0;
+	}
+	.not-found a {
+		color: hsl(var(--theme-accent));
+		border-bottom: 1px solid hsl(var(--theme-accent) / 0.4);
+		padding-bottom: 1px;
+		transition: border-color 0.2s ease;
+	}
+	.not-found a:hover { border-color: hsl(var(--theme-accent)); }
+</style>
