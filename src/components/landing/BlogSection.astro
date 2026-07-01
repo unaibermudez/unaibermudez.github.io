@@ -1,0 +1,155 @@
+---
+import { getAllPosts, getPostSortDate, sortMDByDate } from "@/data/post";
+import { formatRailDate } from "@/utils/date";
+import { withBase } from "@/utils/path";
+
+const allPosts = await getAllPosts();
+const sorted = sortMDByDate(allPosts);
+const LIMIT = 4;
+const recent = sorted.slice(0, LIMIT);
+const archiveCount = allPosts.length;
+---
+
+<section class="section" id="blog">
+	<div class="sec-head lr">
+		<div>
+			<p class="sec-index">03 / Bitácora</p>
+			<h2 class="sec-title">Últimas <em>notas</em></h2>
+		</div>
+		<p class="sec-note">
+			{archiveCount > 0 ? "Apuntes cortos sobre lo que voy construyendo." : "Todavía sin entradas."}
+		</p>
+	</div>
+
+	{
+		recent.length === 0 ? (
+			<div class="empty-state lr">
+				<p>Aún no hay publicaciones — el primer post llegará pronto.</p>
+			</div>
+		) : (
+			<div class="blog-list">
+				{recent.map((p, i) => (
+					<a
+						class:list={["blog-row", "lr", i === 0 && "lr-1", i === 1 && "lr-2", i >= 2 && "lr-3"]}
+						data-astro-prefetch
+						href={withBase(`/posts/${p.id}/`)}
+					>
+						<span class="blog-date">
+							<time datetime={getPostSortDate(p).toISOString()}>
+								{formatRailDate(getPostSortDate(p))}
+							</time>
+						</span>
+						<span class="blog-body">
+							<span class="blog-title">{p.data.title}</span>
+							<span class="blog-desc">{p.data.description}</span>
+						</span>
+						<span class="blog-arrow" aria-hidden="true">↗</span>
+					</a>
+				))}
+			</div>
+		)
+	}
+
+	<div class="blog-archive lr">
+		<a data-astro-prefetch href={withBase("/posts/")}>
+			Ver {archiveCount > 0 ? `todas las entradas (${archiveCount})` : "el blog"} →
+		</a>
+	</div>
+</section>
+
+<style>
+	.empty-state {
+		border-top: 1px solid var(--hairline);
+		padding-top: 2.5rem;
+		font-family: var(--font-mono);
+		font-size: 0.9rem;
+		color: hsl(var(--theme-text-muted));
+	}
+
+	.blog-list {
+		border-top: 1px solid hsl(var(--theme-text));
+	}
+	.blog-row {
+		display: grid;
+		grid-template-columns: 8rem 1fr auto;
+		align-items: baseline;
+		gap: 1.6rem;
+		padding: 1.7rem 0;
+		border-bottom: 1px solid var(--hairline);
+		text-decoration: none;
+		transition: padding 0.4s var(--ease);
+	}
+	.blog-row:hover {
+		padding-left: 1rem;
+	}
+	.blog-date {
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		color: hsl(var(--theme-text-muted));
+		white-space: nowrap;
+	}
+	.blog-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		min-width: 0;
+	}
+	.blog-title {
+		font-family: var(--font-serif);
+		font-weight: 400;
+		font-size: 1.35rem;
+		letter-spacing: -0.01em;
+		color: hsl(var(--theme-text));
+		transition: color 0.25s ease;
+	}
+	.blog-row:hover .blog-title {
+		color: var(--klein);
+	}
+	.blog-desc {
+		color: hsl(var(--theme-text-muted));
+		font-size: 0.92rem;
+		max-width: 62ch;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.blog-arrow {
+		font-family: var(--font-mono);
+		color: hsl(var(--theme-text-muted));
+		transition: color 0.25s ease, transform 0.25s var(--ease);
+	}
+	.blog-row:hover .blog-arrow {
+		color: var(--klein);
+		transform: rotate(45deg);
+	}
+
+	.blog-archive {
+		margin-top: 2rem;
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+	}
+	.blog-archive a {
+		color: hsl(var(--theme-text));
+		text-decoration: underline;
+		text-decoration-color: hsl(var(--theme-text) / 0.35);
+		text-underline-offset: 3px;
+		transition: color 0.2s ease, text-decoration-color 0.2s ease;
+	}
+	.blog-archive a:hover {
+		color: var(--klein);
+		text-decoration-color: var(--klein);
+	}
+
+	@media (max-width: 640px) {
+		.blog-row {
+			grid-template-columns: 1fr auto;
+			grid-template-areas: "date arrow" "body body";
+			row-gap: 0.5rem;
+		}
+		.blog-date { grid-area: date; }
+		.blog-arrow { grid-area: arrow; }
+		.blog-body { grid-area: body; }
+		.blog-desc { white-space: normal; }
+		.blog-row:hover { padding-left: 0; }
+	}
+</style>

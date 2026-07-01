@@ -1,0 +1,85 @@
+---
+import { siteConfig } from "@/site-config";
+
+const profile = siteConfig.profile;
+---
+
+<section class="section contact" id="contacto">
+	<p class="contact-kicker lr">¿Hablamos de tu próximo proyecto?</p>
+	<p class="contact-mega lr lr-1">Hablemos</p>
+	<div class="contact-links lr lr-2">
+		{profile?.github && (
+			<a class="contact-link" href={profile.github} rel="noreferrer" target="_blank">
+				GitHub ↗
+			</a>
+		)}
+		{profile?.linkedin && (
+			<a class="contact-link" href={profile.linkedin} rel="noreferrer" target="_blank">
+				LinkedIn ↗
+			</a>
+		)}
+	</div>
+</section>
+
+<style>
+	.contact {
+		text-align: center;
+		padding-bottom: 3rem;
+	}
+	.contact-kicker {
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: hsl(var(--theme-text-muted));
+		margin-bottom: 2rem;
+	}
+	.contact-mega {
+		display: inline-block;
+		margin: 0;
+		font-family: var(--font-serif);
+		font-weight: 300;
+		font-style: italic;
+		font-size: clamp(2.6rem, 10vw, 8rem);
+		letter-spacing: -0.03em;
+		line-height: 1;
+		color: transparent;
+		-webkit-text-stroke: 1.5px hsl(var(--theme-text));
+		transition: color 0.5s var(--ease), -webkit-text-stroke-color 0.5s;
+	}
+	.contact:hover .contact-mega {
+		color: var(--klein);
+		-webkit-text-stroke-color: var(--klein);
+	}
+	.contact-links {
+		display: flex;
+		justify-content: center;
+		gap: 1.2rem;
+		flex-wrap: wrap;
+		margin-top: 3rem;
+	}
+	.contact-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-family: var(--font-mono);
+		font-size: 0.95rem;
+		color: hsl(var(--theme-text));
+		text-decoration: none;
+		border: 1px solid hsl(var(--theme-text));
+		border-radius: 99px;
+		padding: 0.9rem 2rem;
+		transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
+	}
+	.contact-link:hover {
+		background: var(--klein);
+		border-color: var(--klein);
+		color: #fff;
+		transform: translateY(-2px);
+	}
+
+	@media (max-width: 640px) {
+		.contact-links { flex-direction: column; align-items: center; }
+		.contact-link { width: 100%; max-width: 260px; justify-content: center; }
+	}
+</style>
