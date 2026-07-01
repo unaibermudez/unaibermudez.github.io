@@ -1,0 +1,40 @@
+---
+// Renders a static UI string in both languages, toggled purely via CSS
+// (see the `[data-lang-es]`/`[data-lang-en]` rules in global.css) — no
+// client JS needed to switch what's visible, only to flip the `data-lang`
+// attribute on <html> (see LangProvider.astro).
+import es from "@/i18n/es.json";
+import en from "@/i18n/en.json";
+
+interface Props {
+	/** Dot-path into src/i18n/{es,en}.json, e.g. "hero.tagline". */
+	k: string;
+	/** Simple {token} substitutions applied to both language strings. */
+	vars?: Record<string, string | number>;
+}
+
+const { k, vars } = Astro.props;
+
+function resolve(dict: Record<string, unknown>, path: string): string {
+	const value = path
+		.split(".")
+		.reduce<unknown>(
+			(acc, part) => (acc && typeof acc === "object" ? (acc as Record<string, unknown>)[part] : undefined),
+			dict,
+		);
+	if (typeof value !== "string") {
+		throw new Error(`Missing i18n key "${path}"`);
+	}
+	return value;
+}
+
+function applyVars(str: string, vars?: Record<string, string | number>): string {
+	if (!vars) return str;
+	return Object.entries(vars).reduce((acc, [key, value]) => acc.replaceAll(`{${key}}`, String(value)), str);
+}
+
+const esText = applyVars(resolve(es, k), vars);
+const enText = applyVars(resolve(en, k), vars);
+---
+
+<span data-lang-es set:html={esText} /><span data-lang-en set:html={enText} />

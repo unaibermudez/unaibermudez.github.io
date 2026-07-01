@@ -1,0 +1,38 @@
+---
+// Like T.astro but for arbitrary content coming from data/markdown rather
+// than the static i18n dictionaries (post titles, descriptions, bodies,
+// the about page bio). Pass content via the `es`/`en` named slots.
+//
+//   <Bilingual as="h1">
+//     <Fragment slot="es">{esTitle}</Fragment>
+//     <Fragment slot="en">{enTitle}</Fragment>
+//   </Bilingual>
+//
+// If `en` has no content, the `es` slot renders unwrapped (no data-lang-es
+// attribute) so it stays visible regardless of the active language — a
+// graceful fallback for posts/pages that don't have an English version yet.
+interface Props {
+	as?: string;
+	hasEn?: boolean;
+}
+
+const { as = "span", hasEn = true } = Astro.props;
+const Tag = as;
+---
+
+{
+	hasEn ? (
+		<>
+			<Tag data-lang-es>
+				<slot name="es" />
+			</Tag>
+			<Tag data-lang-en>
+				<slot name="en" />
+			</Tag>
+		</>
+	) : (
+		<Tag>
+			<slot name="es" />
+		</Tag>
+	)
+}

@@ -114,6 +114,27 @@ body::before {
 	mix-blend-mode: overlay;
 }
 
+/* ---- i18n: same URL, both languages rendered, one hidden via CSS ----
+   Set by LangProvider.astro's inline blocking script before first paint, so
+   there's no flash of the wrong language (same trick as the theme toggle).
+   Default (no attribute yet, or data-lang="es") shows Spanish. */
+[data-lang-es],
+[data-lang-en] {
+	display: contents;
+}
+/* `display: contents` isn't reliable on SVG text nodes (e.g. the hero
+   stamp) — use `inline` there instead, same visibility toggle otherwise. */
+svg [data-lang-es],
+svg [data-lang-en] {
+	display: inline;
+}
+html[data-lang="en"] [data-lang-es] {
+	display: none;
+}
+html:not([data-lang="en"]) [data-lang-en] {
+	display: none;
+}
+
 /* ---- Landing sections (home) — shared editorial scaffolding ---- */
 .section {
 	padding: 6.5rem var(--gutter);

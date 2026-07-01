@@ -17,6 +17,9 @@
       "@/data/*": [
         "src/data/*"
       ],
+      "@/i18n/*": [
+        "src/i18n/*"
+      ],
       "@/layouts/*": [
         "src/layouts/*"
       ],

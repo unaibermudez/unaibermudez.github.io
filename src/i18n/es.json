@@ -1,0 +1,107 @@
+{
+	"nav": {
+		"about": "Sobre mí",
+		"projects": "Proyectos",
+		"blog": "Blog",
+		"contact": "Contacto",
+		"skipToContent": "Saltar al contenido",
+		"openMenu": "Abrir menú",
+		"closeMenu": "Cerrar menú"
+	},
+	"hero": {
+		"available": "Disponible para proyectos",
+		"taglineRow1": "Código con",
+		"taglineRow2": "oficio.",
+		"desc": "Soy Unai. <strong>Full Stack Developer</strong> afincado en Bilbao, construyo productos que funcionan de verdad, del esquema de base de datos en Spring Boot al último detalle en React.",
+		"scroll": "Desplázate"
+	},
+	"about": {
+		"index": "01 / Retrato",
+		"title": "Sobre <em>mí</em>",
+		"note": "Bilbao → producción, vía Spring Boot y React.",
+		"quote": "Construyo software con la misma cabeza con la que planificaba trayectorias para un monoplaza autónomo: si no funciona de verdad, en pista o en producción, no vale.",
+		"bio1": "Full Stack Developer con <strong>1,5 años de experiencia</strong>, graduado en Ingeniería Informática por la <strong>UPV/EHU</strong>. Me apasiona construir productos completos y que funcionan de verdad, no demos bonitas.",
+		"bio2": "Formé parte de <strong>Formula Student Bizkaia</strong>, en el equipo de conducción autónoma: path planning con <strong>ROS2 y Python</strong> para el monoplaza, compitiendo en <strong>FSUK Silverstone 2024</strong>.",
+		"stackPrimary": "Stack principal",
+		"stackAlso": "Y también",
+		"statYears": "años exp.",
+		"statSilverstone": "FSUK Silverstone",
+		"statPathPlanning": "path planning"
+	},
+	"projects": {
+		"index": "02 / Índice",
+		"title": "Proyectos",
+		"noteWip": "Sección en construcción — pronto con proyectos reales.",
+		"noteEmpty": "Todavía no hay proyectos publicados aquí.",
+		"emptyState": "Esta sección está lista para recibir proyectos — de momento no hay ninguno publicado. Vuelve pronto.",
+		"soon": "Próximamente",
+		"code": "Código",
+		"demo": "Demo",
+		"placeholderDesc1": "El primer proyecto de esta lista está en camino. Vuelve pronto — mientras tanto, echa un vistazo al código de este mismo portfolio en GitHub.",
+		"placeholderDesc2": "Segundo hueco reservado para un proyecto real: nombre, descripción, stack y enlaces a GitHub y demo en cuanto esté listo para mostrarse."
+	},
+	"blog": {
+		"index": "03 / Bitácora",
+		"title": "Últimas <em>notas</em>",
+		"note": "Apuntes cortos sobre lo que voy construyendo.",
+		"noteEmpty": "Todavía sin entradas.",
+		"emptyState": "Aún no hay publicaciones — el primer post llegará pronto.",
+		"viewAll": "Ver todas las entradas ({count}) →",
+		"viewBlog": "Ver el blog →"
+	},
+	"contact": {
+		"kicker": "¿Hablamos de tu próximo proyecto?",
+		"mega": "Hablemos"
+	},
+	"footer": {
+		"builtWith": "Construido con"
+	},
+	"notFound": {
+		"eyebrow": "Error · 404",
+		"title": "Esta página se ha perdido.",
+		"bodyStart": "La página que buscabas no existe. Puede que se haya movido, renombrado, o que simplemente no esté ahí todavía. Prueba en",
+		"home": "inicio",
+		"bodyMiddle": ", o echa un vistazo al",
+		"blog": "blog"
+	},
+	"aboutPage": {
+		"sectionLabel": "Sobre mí"
+	},
+	"blogPost": {
+		"eyebrow": "Blog",
+		"draft": "(Borrador)",
+		"by": "Por",
+		"updated": "Actualizado el",
+		"prev": "Anterior",
+		"next": "Siguiente",
+		"morePosts": "Más posts",
+		"readingTime": "{count} min de lectura"
+	},
+	"blogArchive": {
+		"title": "Blog",
+		"description": "Notas y apuntes cortos sobre lo que voy construyendo.",
+		"label": "Bitácora",
+		"entry": "entrada",
+		"entries": "entradas",
+		"searchPlaceholder": "Buscar",
+		"prevPage": "← Anteriores",
+		"nextPage": "Siguientes →"
+	},
+	"share": {
+		"label": "Compartir",
+		"shareOnX": "Compartir en X (Twitter)",
+		"shareOnLinkedin": "Compartir en LinkedIn",
+		"copyLink": "Copiar enlace",
+		"copied": "Copiado",
+		"copiedLabel": "¡Copiado!",
+		"linkLabel": "Enlace"
+	},
+	"theme": {
+		"toggleAria": "Cambiar tema",
+		"toDark": "Oscuro",
+		"toLight": "Claro"
+	},
+	"lang": {
+		"toggleAria": "Cambiar idioma"
+	}
+}

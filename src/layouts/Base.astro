@@ -2,6 +2,7 @@
 import BaseHead from "@/components/BaseHead.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
+import LangProvider from "@/components/LangProvider.astro";
 import PortfolioFx from "@/components/PortfolioFx.astro";
 import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
@@ -23,6 +24,7 @@ const {
 <html class="scroll-smooth" lang={siteConfig.lang} data-wide={wide ? "true" : "false"}>
 	<head>
 		<ThemeProvider />
+		<LangProvider />
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 	</head>
 	<body>

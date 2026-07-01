@@ -1,0 +1,41 @@
+{/* Inlined to avoid FOUC — parser-blocking, runs before <body> paints. Mirrors
+    ThemeProvider.astro's pattern for the same reason. */}
+<script is:inline>
+	(() => {
+		try {
+			const stored = localStorage.getItem("lang");
+			const browserIsEnglish = (navigator.language || "es").toLowerCase().startsWith("en");
+			const lang = stored === "en" || stored === "es" ? stored : browserIsEnglish ? "en" : "es";
+			document.documentElement.dataset.lang = lang;
+			document.documentElement.lang = lang === "en" ? "en" : "es-ES";
+		} catch {
+			document.documentElement.dataset.lang = "es";
+		}
+	})();
+
+	function syncAriaLabels(lang) {
+		document.querySelectorAll("[data-aria-es]").forEach((el) => {
+			const value = lang === "en" ? el.getAttribute("data-aria-en") : el.getAttribute("data-aria-es");
+			if (value) el.setAttribute("aria-label", value);
+		});
+	}
+
+	addEventListener("DOMContentLoaded", () => {
+		syncAriaLabels(document.documentElement.dataset.lang);
+		requestAnimationFrame(() => document.documentElement.classList.add("lang-ready"));
+	});
+
+	function setLang(newLang) {
+		if (newLang !== "es" && newLang !== "en") return;
+		const root = document.documentElement;
+		if (newLang === root.getAttribute("data-lang")) return;
+		root.setAttribute("data-lang", newLang);
+		root.lang = newLang === "en" ? "en" : "es-ES";
+		syncAriaLabels(newLang);
+		try {
+			localStorage.setItem("lang", newLang);
+		} catch {}
+	}
+
+	document.addEventListener("lang-change", (e) => setLang(e.detail.lang));
+</script>

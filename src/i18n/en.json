@@ -1,0 +1,107 @@
+{
+	"nav": {
+		"about": "About",
+		"projects": "Projects",
+		"blog": "Blog",
+		"contact": "Contact",
+		"skipToContent": "Skip to content",
+		"openMenu": "Open menu",
+		"closeMenu": "Close menu"
+	},
+	"hero": {
+		"available": "Available for projects",
+		"taglineRow1": "Code,",
+		"taglineRow2": "crafted.",
+		"desc": "I'm Unai. <strong>Full Stack Developer</strong> based in Bilbao — I build products that actually work, from the database schema in Spring Boot down to the last pixel in React.",
+		"scroll": "Scroll"
+	},
+	"about": {
+		"index": "01 / Portrait",
+		"title": "About <em>me</em>",
+		"note": "Bilbao → production, via Spring Boot and React.",
+		"quote": "I build software with the same mindset I used to plan trajectories for an autonomous race car: if it doesn't really work, on track or in production, it doesn't count.",
+		"bio1": "Full Stack Developer with <strong>1.5 years of experience</strong>, graduated in Computer Engineering from <strong>UPV/EHU</strong>. I'm passionate about building complete products that actually work, not just pretty demos.",
+		"bio2": "I was part of <strong>Formula Student Bizkaia</strong>, on the autonomous driving team: path planning for the car with <strong>ROS2 and Python</strong>, competing at <strong>FSUK Silverstone 2024</strong>.",
+		"stackPrimary": "Main stack",
+		"stackAlso": "Also",
+		"statYears": "yrs exp.",
+		"statSilverstone": "FSUK Silverstone",
+		"statPathPlanning": "path planning"
+	},
+	"projects": {
+		"index": "02 / Index",
+		"title": "Projects",
+		"noteWip": "Section under construction — real projects coming soon.",
+		"noteEmpty": "No projects published here yet.",
+		"emptyState": "This section is ready to receive projects — none published yet. Check back soon.",
+		"soon": "Coming soon",
+		"code": "Code",
+		"demo": "Demo",
+		"placeholderDesc1": "The first project on this list is on its way. Check back soon — meanwhile, take a look at this very portfolio's code on GitHub.",
+		"placeholderDesc2": "Second slot reserved for a real project: name, description, stack, and GitHub/demo links as soon as it's ready to show."
+	},
+	"blog": {
+		"index": "03 / Log",
+		"title": "Latest <em>notes</em>",
+		"note": "Short notes on what I'm building.",
+		"noteEmpty": "No entries yet.",
+		"emptyState": "No posts yet — the first one is on its way.",
+		"viewAll": "View all entries ({count}) →",
+		"viewBlog": "View the blog →"
+	},
+	"contact": {
+		"kicker": "Got a project in mind?",
+		"mega": "Let's talk"
+	},
+	"footer": {
+		"builtWith": "Built with"
+	},
+	"notFound": {
+		"eyebrow": "Error · 404",
+		"title": "This page wandered off.",
+		"bodyStart": "The page you were looking for doesn't exist. It may have been moved, renamed, or just isn't there yet. Try",
+		"home": "home",
+		"bodyMiddle": ", or check out the",
+		"blog": "blog"
+	},
+	"aboutPage": {
+		"sectionLabel": "About"
+	},
+	"blogPost": {
+		"eyebrow": "Blog",
+		"draft": "(Draft)",
+		"by": "By",
+		"updated": "Updated on",
+		"prev": "Previous",
+		"next": "Next",
+		"morePosts": "More posts",
+		"readingTime": "{count} min read"
+	},
+	"blogArchive": {
+		"title": "Blog",
+		"description": "Short notes on what I'm building.",
+		"label": "Log",
+		"entry": "entry",
+		"entries": "entries",
+		"searchPlaceholder": "Search",
+		"prevPage": "← Previous",
+		"nextPage": "Next →"
+	},
+	"share": {
+		"label": "Share",
+		"shareOnX": "Share on X (Twitter)",
+		"shareOnLinkedin": "Share on LinkedIn",
+		"copyLink": "Copy link",
+		"copied": "Copied",
+		"copiedLabel": "Copied!",
+		"linkLabel": "Link"
+	},
+	"theme": {
+		"toggleAria": "Toggle theme",
+		"toDark": "Dark",
+		"toLight": "Light"
+	},
+	"lang": {
+		"toggleAria": "Change language"
+	}
+}
