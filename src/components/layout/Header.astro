@@ -44,6 +44,10 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 </header>
 
 <div class="m-menu" id="nav-mmenu">
+	<div class="m-controls">
+		<ThemeToggle />
+		<LangToggle />
+	</div>
 	{
 		menuLinks.map((link, i) => (
 			<a data-astro-prefetch href={withBase(link.path)}>
@@ -191,15 +195,14 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 			display: none;
 		}
 		.nav-clock {
-			font-size: 0.66rem;
+			display: none;
+		}
+		.nav-right :global(.theme-toggle),
+		.nav-right :global(.lang-toggle) {
+			display: none;
 		}
 		.burger {
 			display: block;
-		}
-	}
-	@media (max-width: 420px) {
-		.nav-clock span:last-child {
-			display: none;
 		}
 	}
 
@@ -222,6 +225,24 @@ const tagline = `${siteConfig.profile?.name ?? siteConfig.author} — ${siteConf
 	.m-menu.open {
 		clip-path: inset(0 0 0 0);
 		visibility: visible;
+	}
+	.m-controls {
+		position: absolute;
+		top: 4.8rem;
+		right: var(--gutter);
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		opacity: 0;
+		transform: translateY(-10px);
+		transition:
+			opacity 0.5s var(--ease),
+			transform 0.5s var(--ease);
+	}
+	.m-menu.open .m-controls {
+		opacity: 1;
+		transform: translateY(0);
+		transition-delay: 0.1s;
 	}
 	.m-menu a {
 		font-family: var(--font-serif);

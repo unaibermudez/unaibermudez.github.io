@@ -1,6 +1,5 @@
 <button
 	class="lang-toggle"
-	id="lang-toggle"
 	type="button"
 	aria-label="Cambiar idioma"
 	data-aria-es="Cambiar idioma"
@@ -54,13 +53,12 @@
 
 <script>
 	const root = document.documentElement;
-	const btn = document.getElementById("lang-toggle") as HTMLButtonElement | null;
-	if (btn) {
-		// LangProvider.astro's `lang-change` listener applies the attribute,
-		// `lang`, aria-label sync and localStorage persistence.
+	// LangProvider.astro's `lang-change` listener applies the attribute,
+	// `lang`, aria-label sync and localStorage persistence.
+	document.querySelectorAll<HTMLButtonElement>(".lang-toggle").forEach((btn) => {
 		btn.addEventListener("click", () => {
 			const next = root.dataset.lang === "en" ? "es" : "en";
 			document.dispatchEvent(new CustomEvent("lang-change", { detail: { lang: next } }));
 		});
-	}
+	});
 </script>
