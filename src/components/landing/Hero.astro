@@ -45,8 +45,12 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 		<div class="stamp" aria-hidden="true">
 			<svg viewBox="0 0 100 100">
 				<defs><path id="hero-circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" /></defs>
-				<text data-lang-es><textPath href="#hero-circ">{stampEs}</textPath></text>
-				<text data-lang-en><textPath href="#hero-circ">{stampEn}</textPath></text>
+				<text data-lang-es>
+					<textPath href="#hero-circ" textLength="238.6" lengthAdjust="spacingAndGlyphs">{stampEs}</textPath>
+				</text>
+				<text data-lang-en>
+					<textPath href="#hero-circ" textLength="238.6" lengthAdjust="spacingAndGlyphs">{stampEn}</textPath>
+				</text>
 			</svg>
 			<span class="stamp-core"><AsteriskMark /></span>
 		</div>
