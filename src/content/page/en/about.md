@@ -16,4 +16,4 @@ Silverstone 2024**. That's where I picked up the habit of not trusting anything 
 seen it actually work.
 
 Find me on [GitHub](https://github.com/unaibermudez) or
-[LinkedIn](https://www.linkedin.com/in/unai-bermudez/).
+[LinkedIn](https://www.linkedin.com/in/unai-bermudez-osaba/).
