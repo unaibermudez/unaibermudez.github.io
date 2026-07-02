@@ -1,6 +1,6 @@
 ---
 title: Sobre mí
-description: Unai Bermúdez | Full Stack Developer en Bilbao. Background, stack y Formula Student Bizkaia.
+description: Unai Bermúdez | Full Stack Developer en Bilbao. Background, stack y cómo trabajo.
 ---
 
 Soy Unai Bermúdez, Full Stack Developer afincado en Bilbao con 1,5 años de experiencia
@@ -10,9 +10,10 @@ UPV/EHU.
 Trabajo principalmente con **React, TypeScript, Java, Spring Boot y PostgreSQL**, y me muevo
 con soltura por el resto del ciclo: Docker, OAuth2, JWT, Redux Toolkit, Liquibase y CI/CD.
 
-Formé parte de **Formula Student Bizkaia**, el equipo de Formula Student de la universidad, en
-el área de conducción autónoma: path planning para el monoplaza con **ROS2 y Python**,
-compitiendo en **FSUK Silverstone 2024**.
+Antes de dedicarme al desarrollo profesional hice path planning para un monoplaza autónomo en
+**Formula Student Bizkaia**, programando con **ROS2 y Python** y compitiendo en **FSUK
+Silverstone 2024**. De ahí me quedé con la costumbre de no dar nada por probado hasta verlo
+funcionar de verdad.
 
 Encuéntrame en [GitHub](https://github.com/unaibermudez) o
 [LinkedIn](https://www.linkedin.com/in/unai-bermudez/).

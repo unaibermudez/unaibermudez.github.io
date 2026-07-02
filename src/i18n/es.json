@@ -19,14 +19,14 @@
 		"index": "01 / Retrato",
 		"title": "Sobre <em>mí</em>",
 		"note": "Bilbao → producción, vía Spring Boot y React.",
-		"quote": "Construyo software con la misma cabeza con la que planificaba trayectorias para un monoplaza autónomo: si no funciona de verdad, en pista o en producción, no vale.",
+		"quote": "Construyo software pensando en quien lo va a usar de verdad: si no aguanta en producción, con datos reales y bajo carga, da igual lo bien montada que esté la demo.",
 		"bio1": "Full Stack Developer con <strong>1,5 años de experiencia</strong>, graduado en Ingeniería Informática por la <strong>UPV/EHU</strong>. Me apasiona construir productos completos y que funcionan de verdad, no demos bonitas.",
-		"bio2": "Formé parte de <strong>Formula Student Bizkaia</strong>, en el equipo de conducción autónoma: path planning con <strong>ROS2 y Python</strong> para el monoplaza, compitiendo en <strong>FSUK Silverstone 2024</strong>.",
+		"bio2": "Trabajo en todo el ciclo del producto: desde el modelo de datos y la API en <strong>Spring Boot</strong> hasta la interfaz en <strong>React</strong>, pasando por autenticación, despliegue y CI/CD. Antes de esto hice path planning para un monoplaza autónomo en Formula Student Bizkaia — ahí aprendí a no dar nada por probado.",
 		"stackPrimary": "Stack principal",
 		"stackAlso": "Y también",
 		"statYears": "años exp.",
-		"statSilverstone": "FSUK Silverstone",
-		"statPathPlanning": "path planning"
+		"statCoreStack": "Stack core",
+		"statFocus": "Enfoque"
 	},
 	"projects": {
 		"index": "02 / Índice",

@@ -19,14 +19,14 @@
 		"index": "01 / Portrait",
 		"title": "About <em>me</em>",
 		"note": "Bilbao → production, via Spring Boot and React.",
-		"quote": "I build software with the same mindset I used to plan trajectories for an autonomous race car: if it doesn't really work, on track or in production, it doesn't count.",
+		"quote": "I build software thinking about the people who'll actually use it: if it doesn't hold up in production, with real data and real load, it doesn't matter how good the demo looked.",
 		"bio1": "Full Stack Developer with <strong>1.5 years of experience</strong>, graduated in Computer Engineering from <strong>UPV/EHU</strong>. I'm passionate about building complete products that actually work, not just pretty demos.",
-		"bio2": "I was part of <strong>Formula Student Bizkaia</strong>, on the autonomous driving team: path planning for the car with <strong>ROS2 and Python</strong>, competing at <strong>FSUK Silverstone 2024</strong>.",
+		"bio2": "I work across the full product cycle: from the data model and the <strong>Spring Boot</strong> API to the <strong>React</strong> interface, plus auth, deployment, and CI/CD. Before this I did path planning for an autonomous race car with Formula Student Bizkaia — that's where I learned not to trust anything until it's actually tested.",
 		"stackPrimary": "Main stack",
 		"stackAlso": "Also",
 		"statYears": "yrs exp.",
-		"statSilverstone": "FSUK Silverstone",
-		"statPathPlanning": "path planning"
+		"statCoreStack": "Core stack",
+		"statFocus": "Focus"
 	},
 	"projects": {
 		"index": "02 / Index",
