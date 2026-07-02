@@ -1,5 +1,6 @@
 ---
 title: "Hello, world"
+publishDate: "2026-07-01T09:00:00+02:00"
 description: "First blog post — a placeholder until the real notes about what I'm building start showing up."
 tags: []
 draft: false

@@ -7,7 +7,7 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import ShareButtons from "@/components/blog/ShareButtons.astro";
 import T from "@/components/T.astro";
-import { formatBylineDate, formatEyebrowDate, type DateLocale } from "@/utils/date";
+import { formatBylineDateTime, formatEyebrowDate, type DateLocale } from "@/utils/date";
 
 interface Props {
 	entry: CollectionEntry<"post">;
@@ -36,7 +36,7 @@ const {
 } = Astro.props;
 
 const eyebrowDate = formatEyebrowDate(sharedDate, dateLocale);
-const bylineDate = formatBylineDate(sharedDate, dateLocale);
+const bylineDate = formatBylineDateTime(sharedDate, dateLocale);
 ---
 
 <div class="post-header">
@@ -73,7 +73,7 @@ const bylineDate = formatBylineDate(sharedDate, dateLocale);
 	)}
 	{updatedDate && (
 		<div class="post-updated">
-			<T k="blogPost.updated" /> <time datetime={updatedDate.toISOString()}>{formatBylineDate(updatedDate, dateLocale)}</time>
+			<T k="blogPost.updated" /> <time datetime={updatedDate.toISOString()}>{formatBylineDateTime(updatedDate, dateLocale)}</time>
 		</div>
 	)}
 </div>

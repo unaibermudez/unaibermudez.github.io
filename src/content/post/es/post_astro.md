@@ -1,6 +1,6 @@
 ---
 title: "Por qué he usado Astro para mi portfolio"
-publishDate: 2026-07-01
+publishDate: "2026-07-01T18:30:00+02:00"
 description: "Por qué elegí Astro en vez de React o Next.js para este portfolio: rendimiento, content collections y cuándo tiene sentido cada herramienta."
 tags: [astro]
 ---

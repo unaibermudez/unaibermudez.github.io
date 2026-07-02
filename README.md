@@ -76,7 +76,7 @@ Los posts son **bilingües**: cada uno vive como dos archivos con el **mismo nom
 # src/content/post/es/mi-post.md
 ---
 title: "Título del post"
-publishDate: 2026-08-01
+publishDate: "2026-08-01T10:00:00+02:00" # hora opcional — solo desempata orden entre posts del mismo día
 description: "Resumen de una frase (10–160 caracteres) — se usa en tarjetas, RSS y meta tags."
 tags: [algun-tag]
 # updatedDate: 2026-08-15   # opcional, se muestra como "Actualizado el …"
@@ -105,6 +105,10 @@ Reglas importantes:
   compartidos del post (fecha, etiquetas, si es borrador), no algo que cambie por idioma. El
   archivo de `en/` solo necesita su propio `title` y `description` traducidos; si por lo que sea
   el de `es/` no existiera, se usarían los de `en/` como respaldo.
+- **`publishDate` admite hora** (entre comillas, con offset explícito como en el ejemplo). Los
+  posts se ordenan siempre de más nuevo a más viejo; si dos posts comparten fecha, la hora
+  desempata. La hora se muestra en la página del post (byline); en las listas (home, `/posts/`)
+  solo se ve la fecha. Si omites la hora (`publishDate: 2026-08-01`), se trata como medianoche UTC.
 - Si todavía no has traducido un post, **puedes omitir el archivo `en/`** — el post se sigue
   mostrando (en español) da igual qué idioma tenga seleccionado el visitante, en vez de
   desaparecer o romper la build.

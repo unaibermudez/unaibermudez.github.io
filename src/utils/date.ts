@@ -42,6 +42,17 @@ export function formatBylineDate(date: Date, locale: DateLocale = "es"): string 
 	return formatterFor(locale, { day: "numeric", month: "long", year: "numeric" }).format(date);
 }
 
+/** Article byline date + time: `5 de marzo de 2026, 14:30` / `March 5, 2026, 2:30 PM`. */
+export function formatBylineDateTime(date: Date, locale: DateLocale = "es"): string {
+	return formatterFor(locale, {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+	}).format(date);
+}
+
 /** Article eyebrow date: `marzo de 2026` / `March 2026`. */
 export function formatEyebrowDate(date: Date, locale: DateLocale = "es"): string {
 	return formatterFor(locale, { month: "long", year: "numeric" }).format(date);
