@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import { siteConfig } from "@/site-config";
 import T from "@/components/T.astro";
 
@@ -11,12 +12,12 @@ const profile = siteConfig.profile;
 	<div class="contact-links lr lr-2">
 		{profile?.github && (
 			<a class="contact-link" href={profile.github} rel="noreferrer" target="_blank">
-				GitHub ↗
+				GitHub <Icon name="feather:arrow-up-right" />
 			</a>
 		)}
 		{profile?.linkedin && (
 			<a class="contact-link" href={profile.linkedin} rel="noreferrer" target="_blank">
-				LinkedIn ↗
+				LinkedIn <Icon name="feather:arrow-up-right" />
 			</a>
 		)}
 	</div>
@@ -71,6 +72,10 @@ const profile = siteConfig.profile;
 		border-radius: 99px;
 		padding: 0.9rem 2rem;
 		transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
+	}
+	.contact-link :global(svg) {
+		width: 15px;
+		height: 15px;
 	}
 	.contact-link:hover {
 		background: var(--klein);

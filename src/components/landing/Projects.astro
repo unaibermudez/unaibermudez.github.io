@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+import AsteriskMark from "@/components/AsteriskMark.astro";
 import { projects } from "@/data/projects";
 import T from "@/components/T.astro";
 ---
@@ -47,18 +49,18 @@ import T from "@/components/T.astro";
 							</div>
 							{p.placeholder ? (
 								<span class="p-link p-link--soon">
-									<span class="circle">…</span> <T k="projects.soon" />
+									<span class="circle"><Icon name="feather:more-horizontal" /></span> <T k="projects.soon" />
 								</span>
 							) : (
 								<div class="p-links">
 									{p.github && (
 										<a class="p-link" href={p.github} rel="noreferrer" target="_blank">
-											<span class="circle">↗</span> <T k="projects.code" />
+											<span class="circle"><Icon name="feather:arrow-up-right" /></span> <T k="projects.code" />
 										</a>
 									)}
 									{p.demo && (
 										<a class="p-link" href={p.demo} rel="noreferrer" target="_blank">
-											<span class="circle">↗</span> <T k="projects.demo" />
+											<span class="circle"><Icon name="feather:arrow-up-right" /></span> <T k="projects.demo" />
 										</a>
 									)}
 								</div>
@@ -66,7 +68,7 @@ import T from "@/components/T.astro";
 						</div>
 						<div class="p-visual">
 							<div class="art art-placeholder" aria-hidden="true">
-								<span class="art-mark">✳</span>
+								<span class="art-mark"><AsteriskMark /></span>
 							</div>
 						</div>
 					</article>
@@ -192,6 +194,10 @@ import T from "@/components/T.astro";
 		place-items: center;
 		transition: all 0.4s var(--ease);
 	}
+	.p-link .circle :global(svg) {
+		width: 17px;
+		height: 17px;
+	}
 	.p-link--soon .circle {
 		border-color: var(--hairline);
 		color: hsl(var(--theme-text-muted));
@@ -228,10 +234,12 @@ import T from "@/components/T.astro";
 		place-items: center;
 	}
 	.art-mark {
-		font-size: 5rem;
 		color: var(--klein);
 		opacity: 0.5;
-		font-family: var(--font-serif);
+	}
+	.art-mark :global(svg) {
+		width: 5rem;
+		height: 5rem;
 	}
 
 	@media (max-width: 960px) {

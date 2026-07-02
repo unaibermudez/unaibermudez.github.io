@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+import AsteriskMark from "@/components/AsteriskMark.astro";
 import { siteConfig } from "@/site-config";
 import T from "@/components/T.astro";
 import es from "@/i18n/es.json";
@@ -30,12 +32,12 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 			<div class="hero-links">
 				{profile?.github && (
 					<a class="hero-link" href={profile.github} rel="noreferrer" target="_blank">
-						<span class="circle">↗</span> GitHub
+						<span class="circle"><Icon name="feather:arrow-up-right" /></span> GitHub
 					</a>
 				)}
 				{profile?.linkedin && (
 					<a class="hero-link" href={profile.linkedin} rel="noreferrer" target="_blank">
-						<span class="circle">↗</span> LinkedIn
+						<span class="circle"><Icon name="feather:arrow-up-right" /></span> LinkedIn
 					</a>
 				)}
 			</div>
@@ -46,7 +48,7 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 				<text data-lang-es><textPath href="#hero-circ">{stampEs}</textPath></text>
 				<text data-lang-en><textPath href="#hero-circ">{stampEn}</textPath></text>
 			</svg>
-			<span class="stamp-core">✳</span>
+			<span class="stamp-core"><AsteriskMark /></span>
 		</div>
 	</div>
 
@@ -171,6 +173,10 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 		place-items: center;
 		transition: all 0.4s var(--ease);
 	}
+	.hero-link .circle :global(svg) {
+		width: 16px;
+		height: 16px;
+	}
 	.hero-link:hover .circle {
 		background: var(--klein);
 		border-color: var(--klein);
@@ -204,8 +210,11 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 1.5rem;
 		color: var(--klein);
+	}
+	.stamp .stamp-core :global(svg) {
+		width: 1.5rem;
+		height: 1.5rem;
 	}
 	@keyframes hero-spin {
 		to { transform: rotate(360deg); }

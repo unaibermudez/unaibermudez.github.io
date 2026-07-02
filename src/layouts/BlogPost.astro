@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import PostLangBlock from "@/components/blog/PostLangBlock.astro";
 import Bilingual from "@/components/Bilingual.astro";
 import T from "@/components/T.astro";
@@ -113,6 +114,7 @@ const olderPair = idx >= 0 && idx < allPairs.length - 1 ? allPairs[idx + 1] : un
 					{olderPair && (
 						<a class="pager-link prev" data-astro-prefetch href={withBase(`/posts/${olderPair.slug}/`)}>
 							<span class="pager-eyebrow">
+								<Icon class="pager-arrow" name="feather:arrow-left" />
 								<T k="blogPost.prev" />
 							</span>
 							<span class="pager-title">
@@ -127,6 +129,7 @@ const olderPair = idx >= 0 && idx < allPairs.length - 1 ? allPairs[idx + 1] : un
 						<a class="pager-link next" data-astro-prefetch href={withBase(`/posts/${newerPair.slug}/`)}>
 							<span class="pager-eyebrow">
 								<T k="blogPost.next" />
+								<Icon class="pager-arrow" name="feather:arrow-right" />
 							</span>
 							<span class="pager-title">
 								<Bilingual hasEn={Boolean(newerPair.en)}>
@@ -195,7 +198,9 @@ const olderPair = idx >= 0 && idx < allPairs.length - 1 ? allPairs[idx + 1] : un
 	.pager-link.prev:hover { transform: translateX(-2px); }
 	.pager-link.next:hover { transform: translateX(2px); }
 	.pager-eyebrow {
-		display: block;
+		display: flex;
+		align-items: center;
+		gap: 6px;
 		font-family: var(--font-mono);
 		font-size: 11px;
 		font-weight: 500;
@@ -204,8 +209,14 @@ const olderPair = idx >= 0 && idx < allPairs.length - 1 ? allPairs[idx + 1] : un
 		color: hsl(var(--theme-text) / 0.72);
 		margin-bottom: 8px;
 	}
-	.pager-link.prev .pager-eyebrow::before { content: "← "; }
-	.pager-link.next .pager-eyebrow::after { content: " →"; }
+	.pager-link.next .pager-eyebrow {
+		justify-content: flex-end;
+	}
+	.pager-eyebrow :global(.pager-arrow) {
+		width: 12px;
+		height: 12px;
+		flex-shrink: 0;
+	}
 	.pager-title {
 		display: block;
 		font-family: var(--font-serif);
@@ -658,6 +669,8 @@ const olderPair = idx >= 0 && idx < allPairs.length - 1 ? allPairs[idx + 1] : un
 
 	const slugify = (s: string) =>
 		s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+	const CHECK_ICON =
+		'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 	const usedIds = new Set<string>();
 	document
 		.querySelectorAll<HTMLHeadingElement>(".post-article h2, .post-article h3")
@@ -678,7 +691,7 @@ const olderPair = idx >= 0 && idx < allPairs.length - 1 ? allPairs[idx + 1] : un
 				const url = `${location.origin}${location.pathname}#${id}`;
 				try {
 					await navigator.clipboard.writeText(url);
-					btn.textContent = "✓";
+					btn.innerHTML = CHECK_ICON;
 					setTimeout(() => (btn.textContent = "#"), 1200);
 				} catch {}
 			});

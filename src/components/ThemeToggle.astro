@@ -1,3 +1,7 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
 <button
 	class="theme-toggle"
 	id="theme-toggle"
@@ -6,7 +10,8 @@
 	data-aria-es="Cambiar tema"
 	data-aria-en="Toggle theme"
 >
-	<span class="icon" aria-hidden="true"></span>
+	<span class="icon icon-light" aria-hidden="true"><Icon name="feather:moon" /></span>
+	<span class="icon icon-dark" aria-hidden="true"><Icon name="feather:sun" /></span>
 	<span class="label"></span>
 </button>
 
@@ -39,15 +44,21 @@
 	}
 
 	.theme-toggle .icon {
-		display: inline-block;
-		width: 1em;
-		font-size: 13px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 13px;
+		height: 13px;
 		margin-right: 6px;
-		text-align: center;
 		transform: translateY(-1px);
 	}
-	.theme-toggle .icon::before { content: "☾"; }
-	[data-theme="dark"] .theme-toggle .icon::before { content: "☀"; }
+	.theme-toggle .icon svg {
+		width: 100%;
+		height: 100%;
+	}
+	.theme-toggle .icon-dark { display: none; }
+	[data-theme="dark"] .theme-toggle .icon-light { display: none; }
+	[data-theme="dark"] .theme-toggle .icon-dark { display: inline-flex; }
 
 	.theme-toggle .label {
 		display: inline-block;

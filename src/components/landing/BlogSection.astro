@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import { getPairDate, getPostPairs, sortPairsByDate } from "@/data/post";
 import { formatRailDate } from "@/utils/date";
 import { withBase } from "@/utils/path";
@@ -63,7 +64,7 @@ const archiveCount = allPairs.length;
 									</Bilingual>
 								</span>
 							</span>
-							<span class="blog-arrow" aria-hidden="true">↗</span>
+							<span class="blog-arrow" aria-hidden="true"><Icon name="feather:arrow-up-right" /></span>
 						</a>
 					);
 				})}
@@ -135,9 +136,13 @@ const archiveCount = allPairs.length;
 		white-space: nowrap;
 	}
 	.blog-arrow {
-		font-family: var(--font-mono);
+		display: inline-flex;
 		color: hsl(var(--theme-text-muted));
 		transition: color 0.25s ease, transform 0.25s var(--ease);
+	}
+	.blog-arrow :global(svg) {
+		width: 16px;
+		height: 16px;
 	}
 	.blog-row:hover .blog-arrow {
 		color: var(--klein);

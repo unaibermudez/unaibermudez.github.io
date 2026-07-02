@@ -2,6 +2,7 @@
 // Ambient site chrome ported from the aresti-portfolio reference: a
 // blend-difference cursor and a circular "back to top" button run on every
 // page; the full-screen intro loader only plays on the homepage.
+import { Icon } from "astro-icon/components";
 interface Props {
 	home?: boolean;
 }
@@ -26,7 +27,7 @@ const { home = false } = Astro.props;
 		<circle class="track" cx="27" cy="27" r="24" />
 		<circle class="fill" id="pfx-top-fill" cx="27" cy="27" r="24" />
 	</svg>
-	<span class="arr">↑</span>
+	<span class="arr"><Icon name="feather:arrow-up" /></span>
 </button>
 
 <style>
@@ -123,7 +124,15 @@ const { home = false } = Astro.props;
 	.pfx-top svg circle { fill: none; stroke-width: 2; }
 	.pfx-top svg .track { stroke: var(--hairline); }
 	.pfx-top svg .fill { stroke: var(--klein); stroke-dasharray: 151; stroke-dashoffset: 151; }
-	.pfx-top .arr { font-size: 1rem; color: hsl(var(--theme-text)); transition: transform 0.3s var(--ease); }
+	.pfx-top .arr {
+		display: inline-flex;
+		color: hsl(var(--theme-text));
+		transition: transform 0.3s var(--ease);
+	}
+	.pfx-top .arr :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
 	.pfx-top:hover .arr { transform: translateY(-3px); }
 	@media (max-width: 640px) {
 		.pfx-top { width: 44px; height: 44px; right: 1rem; bottom: 1rem; }
