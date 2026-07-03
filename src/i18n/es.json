@@ -10,9 +10,9 @@
 	},
 	"hero": {
 		"available": "Disponible para proyectos",
-		"taglineRow1": "Código con",
-		"taglineRow2": "oficio.",
-		"desc": "Soy Unai. <strong>Full Stack Developer</strong> afincado en Bilbao, construyo productos que funcionan de verdad, del esquema de base de datos en Spring Boot al último detalle en React.",
+		"taglineRow1": "Del código",
+		"taglineRow2": "al producto.",
+		"desc": "Soy Unai. <strong>Full Stack Developer</strong> afincado en Bilbao. Aquí documento los proyectos que construyo y lo que voy aprendiendo por el camino.",
 		"scroll": "Desplázate"
 	},
 	"about": {
@@ -21,7 +21,7 @@
 		"note": "Bilbao → producción, vía Spring Boot y React.",
 		"quote": "Construyo software pensando en quien lo va a usar de verdad: si no aguanta en producción, con datos reales y bajo carga, da igual lo bien montada que esté la demo.",
 		"bio1": "Full Stack Developer con <strong>1,5 años de experiencia</strong>, graduado en Ingeniería Informática por la <strong>UPV/EHU</strong>. Me apasiona construir productos completos y que funcionan de verdad, no demos bonitas.",
-		"bio2": "Trabajo en todo el ciclo del producto: desde el modelo de datos y la API en <strong>Spring Boot</strong> hasta la interfaz en <strong>React</strong>, pasando por autenticación, despliegue y CI/CD. Antes de esto hice path planning para un monoplaza autónomo en Formula Student Bizkaia — ahí aprendí a no dar nada por probado.",
+		"bio2": "Trabajo en todo el ciclo del producto: desde el modelo de datos y la API en <strong>Spring Boot</strong> hasta la interfaz en <strong>React</strong>, pasando por autenticación, despliegue y CI/CD. Este portfolio recoge los proyectos que construyo por mi cuenta y los aprendizajes que voy acumulando.",
 		"stackPrimary": "Stack principal",
 		"stackAlso": "Y también",
 		"statYears": "años exp.",

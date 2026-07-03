@@ -10,9 +10,9 @@
 	},
 	"hero": {
 		"available": "Available for projects",
-		"taglineRow1": "Code,",
-		"taglineRow2": "crafted.",
-		"desc": "I'm Unai. <strong>Full Stack Developer</strong> based in Bilbao — I build products that actually work, from the database schema in Spring Boot down to the last pixel in React.",
+		"taglineRow1": "From code",
+		"taglineRow2": "to product.",
+		"desc": "I'm Unai. <strong>Full Stack Developer</strong> based in Bilbao. This is where I document the projects I build and what I pick up along the way.",
 		"scroll": "Scroll"
 	},
 	"about": {
@@ -21,7 +21,7 @@
 		"note": "Bilbao → production, via Spring Boot and React.",
 		"quote": "I build software thinking about the people who'll actually use it: if it doesn't hold up in production, with real data and real load, it doesn't matter how good the demo looked.",
 		"bio1": "Full Stack Developer with <strong>1.5 years of experience</strong>, graduated in Computer Engineering from <strong>UPV/EHU</strong>. I'm passionate about building complete products that actually work, not just pretty demos.",
-		"bio2": "I work across the full product cycle: from the data model and the <strong>Spring Boot</strong> API to the <strong>React</strong> interface, plus auth, deployment, and CI/CD. Before this I did path planning for an autonomous race car with Formula Student Bizkaia — that's where I learned not to trust anything until it's actually tested.",
+		"bio2": "I work across the full product cycle: from the data model and the <strong>Spring Boot</strong> API to the <strong>React</strong> interface, plus auth, deployment, and CI/CD. This portfolio collects the projects I build on my own and the things I learn along the way.",
 		"stackPrimary": "Main stack",
 		"stackAlso": "Also",
 		"statYears": "yrs exp.",
