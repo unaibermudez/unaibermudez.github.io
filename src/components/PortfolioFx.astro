@@ -23,7 +23,7 @@ const { home = false } = Astro.props;
 }
 
 <button aria-label="Volver arriba" class="pfx-top" id="pfx-top" type="button">
-	<svg viewBox="0 0 54 54" aria-hidden="true">
+	<svg class="pfx-ring" viewBox="0 0 54 54" aria-hidden="true">
 		<circle class="track" cx="27" cy="27" r="24" />
 		<circle class="fill" id="pfx-top-fill" cx="27" cy="27" r="24" />
 	</svg>
@@ -120,10 +120,10 @@ const { home = false } = Astro.props;
 		transition: opacity 0.4s ease, transform 0.4s var(--ease);
 	}
 	.pfx-top.pfx-show { opacity: 1; pointer-events: auto; transform: translateY(0); }
-	.pfx-top svg { position: absolute; inset: 0; transform: rotate(-90deg); }
-	.pfx-top svg circle { fill: none; stroke-width: 2; }
-	.pfx-top svg .track { stroke: var(--hairline); }
-	.pfx-top svg .fill { stroke: var(--klein); stroke-dasharray: 151; stroke-dashoffset: 151; }
+	.pfx-top .pfx-ring { position: absolute; inset: 0; transform: rotate(-90deg); }
+	.pfx-top .pfx-ring circle { fill: none; stroke-width: 2; }
+	.pfx-top .pfx-ring .track { stroke: var(--hairline); }
+	.pfx-top .pfx-ring .fill { stroke: var(--klein); stroke-dasharray: 151; stroke-dashoffset: 151; }
 	.pfx-top .arr {
 		display: inline-flex;
 		color: hsl(var(--theme-text));
