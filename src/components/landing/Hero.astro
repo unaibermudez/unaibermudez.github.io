@@ -260,14 +260,27 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 		.hero-scroll { display: none; }
 		.hero-bottom { flex-direction: column; align-items: flex-start; gap: 2rem; }
 		.stamp { width: 88px; height: 88px; align-self: flex-end; margin-top: -2.2rem; }
-		.hero-meta { gap: 0.8rem 1.6rem; font-size: 0.66rem; }
+		.hero-meta {
+			display: grid;
+			grid-template-columns: auto auto;
+			justify-content: space-between;
+			row-gap: 0.5rem;
+			font-size: 0.66rem;
+			border-top: none;
+			padding-top: 0;
+		}
+		/* fila 1: nombre | ubicación — fila 2: título | disponibilidad */
+		.hero-meta span:nth-child(1) { order: 1; }
+		.hero-meta span:nth-child(3) { order: 2; }
+		.hero-meta span:nth-child(2) { order: 3; }
+		.hero-meta span:nth-child(4) { order: 4; }
 		.hero-link .circle { width: 40px; height: 40px; }
 	}
 
 	@media (max-width: 480px) {
 		.hero { padding: 5.5rem var(--gutter) 2rem; }
 		.hero-title .row:nth-child(2) { padding-left: clamp(1rem, 8vw, 4rem); }
-		.hero-meta { gap: 0.6rem 1.2rem; font-size: 0.6rem; }
+		.hero-meta { row-gap: 0.4rem; font-size: 0.6rem; }
 		.hero-bottom { gap: 1.6rem; }
 		.hero-links { gap: 0.9rem; }
 		.stamp { width: 72px; height: 72px; margin-top: -1.6rem; }
