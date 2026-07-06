@@ -12,12 +12,12 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	description:
-		"Desarrollador Full Stack con 1.5 años de experiencia, apasionado por construir productos que funcionan de verdad. Graduado en Ingeniería Informática por la UPV/EHU.",
+		"Full Stack Developer de Bilbao. Aquí documento los proyectos que construyo y lo que voy aprendiendo por el camino.",
 	lang: "es-ES",
 	ogLocale: "es_ES",
 	sortPostsByUpdatedDate: false,
 	title: "Unai Bermúdez | Full Stack Developer",
-	hideThemeCredit: false,
+	hideThemeCredit: true,
 	profile: {
 		name: "Unai Bermúdez",
 		github: "https://github.com/unaibermudez",

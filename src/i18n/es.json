@@ -20,8 +20,8 @@
 		"title": "Sobre <em>mí</em>",
 		"note": "Bilbao → producción, vía Spring Boot y React.",
 		"quote": "Construyo software pensando en quien lo va a usar de verdad: si no aguanta en producción, con datos reales y bajo carga, da igual lo bien montada que esté la demo.",
-		"bio1": "Full Stack Developer con <strong>1,5 años de experiencia</strong>, graduado en Ingeniería Informática por la <strong>UPV/EHU</strong>. Me apasiona construir productos completos y que funcionan de verdad, no demos bonitas.",
-		"bio2": "Trabajo en todo el ciclo del producto: desde el modelo de datos y la API en <strong>Spring Boot</strong> hasta la interfaz en <strong>React</strong>, pasando por autenticación, despliegue y CI/CD. Este portfolio recoge los proyectos que construyo por mi cuenta y los aprendizajes que voy acumulando.",
+		"bio1": "Full Stack Developer con <strong>1,5 años de experiencia</strong>, graduado en Ingeniería Informática por la <strong>UPV/EHU</strong>. Durante la carrera participé en Formula Student Bizkaia, trabajando en el sistema de conducción autónoma. Me apasiona construir productos completos que funcionan de verdad, no demos bonitas.",
+		"bio2": "Trabajo en todo el ciclo del producto: modelo de datos y API en <strong>Spring Boot</strong>, autenticación, despliegue, CI/CD y la interfaz en <strong>React</strong>. Este portfolio recoge los proyectos que construyo por mi cuenta y los aprendizajes que voy acumulando.",
 		"stackPrimary": "Stack principal",
 		"stackAlso": "Y también",
 		"statYears": "años exp.",
@@ -31,26 +31,26 @@
 	"projects": {
 		"index": "02 / Índice",
 		"title": "Proyectos",
-		"noteWip": "Sección en construcción — pronto con proyectos reales.",
+		"noteWip": "Sección en construcción, pronto con proyectos reales.",
 		"noteEmpty": "Todavía no hay proyectos publicados aquí.",
-		"emptyState": "Esta sección está lista para recibir proyectos — de momento no hay ninguno publicado. Vuelve pronto.",
+		"emptyState": "Esta sección está lista para recibir proyectos. De momento no hay ninguno publicado. Vuelve pronto.",
 		"soon": "Próximamente",
 		"code": "Código",
 		"demo": "Demo",
-		"placeholderDesc1": "El primer proyecto de esta lista está en camino. Vuelve pronto — mientras tanto, echa un vistazo al código de este mismo portfolio en GitHub.",
-		"placeholderDesc2": "Segundo hueco reservado para un proyecto real: nombre, descripción, stack y enlaces a GitHub y demo en cuanto esté listo para mostrarse."
+		"placeholderDesc1": "Proyecto en camino. Vuelve pronto.",
+		"placeholderDesc2": "Proyecto en camino. Vuelve pronto."
 	},
 	"blog": {
 		"index": "03 / Bitácora",
 		"title": "Últimas <em>notas</em>",
 		"note": "Apuntes cortos sobre lo que voy construyendo.",
 		"noteEmpty": "Todavía sin entradas.",
-		"emptyState": "Aún no hay publicaciones — el primer post llegará pronto.",
+		"emptyState": "Aún no hay publicaciones. El primer post llegará pronto.",
 		"viewAll": "Ver todas las entradas ({count}) →",
 		"viewBlog": "Ver el blog →"
 	},
 	"contact": {
-		"kicker": "¿Hablamos de tu próximo proyecto?",
+		"kicker": "¿Tienes algo en mente? Escríbeme.",
 		"mega": "Hablemos"
 	},
 	"footer": {
