@@ -19,7 +19,7 @@ const authorName = profile?.name ?? siteConfig.author;
 // <title>/meta description can't be dual-language in a single document
 // head — Spanish is canonical here, same tradeoff as blog post pages.
 const meta = {
-	description: esEntry.data.description ?? `${authorName} — about me.`,
+	description: esEntry.data.description ?? `About ${authorName}.`,
 	title: esEntry.data.title,
 };
 

@@ -11,7 +11,7 @@ interface Props {
 
 const { title, url, description } = Astro.props;
 
-const tweetText = description ? `${title} — ${description}` : title;
+const tweetText = description ? `${title}: ${description}` : title;
 const twitterHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
 	tweetText,
 )}&url=${encodeURIComponent(url)}`;

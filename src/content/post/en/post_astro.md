@@ -19,11 +19,11 @@ Most modern frameworks work the other way around: they ship JavaScript to the br
 
 ## The difference from React and Next.js
 
-**Plain React** is meant for interactive applications: dashboards, tools, apps with a lot of state. For a portfolio it doesn't make much sense — you're shipping a JavaScript bundle to the browser just to render content that never changes. The user waits, the browser runs JS, and then they see the page. For a blog or a portfolio, that's overkill.
+**Plain React** is meant for interactive applications: dashboards, tools, apps with a lot of state. For a portfolio it doesn't make much sense: you're shipping a JavaScript bundle to the browser just to render content that never changes. The user waits, the browser runs JS, and then they see the page. For a blog or a portfolio, that's overkill.
 
 **Next.js** solves part of this with its static site generation mode (SSG), but it's still a tool designed for complex applications. It makes sense when you need dynamic routes, authentication, API routes, or server-side rendering. For a personal site, it's too much.
 
-**Astro** is built exactly for this use case: sites where content matters more than interactivity. You don't have to configure anything to get static pages — it's the default behavior.
+**Astro** is built exactly for this use case: sites where content matters more than interactivity. You don't have to configure anything to get static pages: it's the default behavior.
 
 The performance difference is noticeable. A typical React portfolio might ship 200–400 KB of JavaScript before the user sees anything. The same portfolio in Astro ships practically zero.
 
@@ -54,7 +54,7 @@ const projects = [
 </ul>
 
 <style>
-  /* Scoped by default — only applies to this component */
+  /* Scoped by default, only applies to this component */
   li {
     padding: 0.75rem;
     border-bottom: 1px solid #eee;
@@ -106,10 +106,10 @@ Astro doesn't replace React or Next.js. They're tools for different use cases.
 
 My portfolio has a projects section, an about page, and a blog. None of these need complex interactivity or real-time data. The content is static.
 
-I considered plain React, but building a blog system from scratch (routing, Markdown, syntax highlighting) would have required too much setup for something Astro gives you out of the box. I considered Next.js, but it's more than I need — its strengths make sense in more complex applications.
+I considered plain React, but building a blog system from scratch (routing, Markdown, syntax highlighting) would have required too much setup for something Astro gives you out of the box. I considered Next.js, but it's more than I need. Its strengths make sense in more complex applications.
 
 Astro gives me high performance without configuration, a native Markdown blog system, and the option to drop in React components wherever I need interactivity. For a personal site, it's the most straightforward choice.
 
 ---
 
-If you're in the same situation — developer wanting to build a portfolio with a blog — Astro is probably the most direct path. The documentation is solid, the setup is fast, and the result is a site that loads quickly without having to manually optimize anything.
+If you're in the same situation (a developer wanting to build a portfolio with a blog), Astro is probably the most direct path. The documentation is solid, the setup is fast, and the result is a site that loads quickly without having to manually optimize anything.

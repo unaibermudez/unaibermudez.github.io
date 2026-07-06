@@ -1,7 +1,7 @@
 ---
 title: "Hola, mundo"
 publishDate: "2026-07-01T09:00:00+02:00"
-description: "Primer post del blog — placeholder a la espera de las primeras notas reales sobre lo que voy construyendo."
+description: "Primer post del blog: placeholder a la espera de las primeras notas reales sobre lo que voy construyendo."
 tags: []
 draft: false
 ---
