@@ -48,6 +48,10 @@
 		"unified": "^11.0.5",
 		"unist-util-visit": "^5.1.0"
 	},
+	"//overrides": "astro-webmanifest pide sharp ^0.32.5 y npm anida esa copia. En Windows, sus DLL de libvips se cargan primero y el binario de sharp 0.34 (el que usa astro:assets) falla al abrirse con ERR_DLOPEN_FAILED, rompiendo el build en cuanto un post lleva imágenes. Una sola versión en todo el árbol lo evita.",
+	"overrides": {
+		"sharp": "^0.34.5"
+	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.9",
 		"@biomejs/biome": "^2.4.15",
