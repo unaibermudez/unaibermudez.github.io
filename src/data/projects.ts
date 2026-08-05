@@ -15,10 +15,12 @@ export interface Project {
  */
 export const projects: Project[] = [
 	{
-		name: "Próximamente",
-		description: "Proyecto en camino. Vuelve pronto.",
-		stack: [],
-		placeholder: true,
+		name: "TripMap",
+		description:
+			"Visualizador de viajes: un mapa interactivo con la ruta y sus paradas, sincronizado con una línea de tiempo, y cada parada con su texto y sus fotos. Los tramos se trazan por carretera real, y todo se resuelve en tiempo de build: sin backend.",
+		stack: ["Astro", "React", "TypeScript", "MapLibre GL", "Zustand", "Tailwind"],
+		github: "https://github.com/unaibermudez/TripMap",
+		demo: "https://unaibermudez.github.io/TripMap/",
 	},
 	{
 		name: "Próximamente",
