@@ -10,8 +10,8 @@ export interface Project {
 }
 
 /**
- * Proyectos — de momento en construcción. Sustituye estas entradas por tus
- * proyectos reales; ver README.md "Añadir un proyecto" para el formato.
+ * Proyectos de la home. Queda una entrada con `placeholder: true`: sustitúyela
+ * por un proyecto real; ver README.md "Cómo añadir un proyecto" para el formato.
  */
 export const projects: Project[] = [
 	{

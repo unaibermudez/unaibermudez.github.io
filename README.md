@@ -56,11 +56,11 @@ La sección **Proyectos** de la home lee de `src/data/projects.ts`. Cada proyect
 }
 ```
 
-Los dos proyectos que hay ahora tienen `placeholder: true` (muestran "Próximamente" en vez de
-enlaces). Para publicar uno real, sustituye una entrada por la tuya **sin** el campo
-`placeholder` — con `github`/`demo` definidos, la tarjeta mostrará automáticamente los enlaces
-"Código" y "Demo". Si vacías el array (`projects = []`), la sección muestra un estado "todavía no
-hay proyectos" en vez de romperse.
+Ahora mismo hay un proyecto real (**TripMap**, publicado el 2026-08-05) y una entrada con
+`placeholder: true`, que muestra "Próximamente" en vez de enlaces. Para publicar otro, sustituye
+esa entrada por la tuya **sin** el campo `placeholder`: con `github`/`demo` definidos, la tarjeta
+mostrará automáticamente los enlaces "Código" y "Demo". Si vacías el array (`projects = []`), la
+sección muestra un estado "todavía no hay proyectos" en vez de romperse.
 
 `name`/`description` de un proyecto real **no se traducen automáticamente** (a diferencia de los
 posts del blog) — se muestran tal cual los escribas, en el idioma que elijas, en ambas versiones
