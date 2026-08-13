@@ -10,8 +10,11 @@ export interface Project {
 }
 
 /**
- * Proyectos de la home. Queda una entrada con `placeholder: true`: sustitúyela
- * por un proyecto real; ver README.md "Cómo añadir un proyecto" para el formato.
+ * Proyectos de la home. Ya no queda ninguna entrada con `placeholder: true`.
+ * Para añadir otro proyecto, ver README.md "Cómo añadir un proyecto".
+ *
+ * Antes de enlazar un repo, comprueba que es público: si no lo es, la tarjeta
+ * mostrará un enlace "Código" que lleva a un 404.
  */
 export const projects: Project[] = [
 	{
@@ -23,9 +26,11 @@ export const projects: Project[] = [
 		demo: "https://unaibermudez.github.io/TripMap/",
 	},
 	{
-		name: "Próximamente",
-		description: "Proyecto en camino. Vuelve pronto.",
-		stack: [],
-		placeholder: true,
+		name: "Commit Drawings",
+		description:
+			"Dibujas un patrón sobre la rejilla de contribuciones de GitHub y te devuelve el script que lo recrea con commits reales retrodatados. En lugar de un bucle de commits, que sería lentísimo para cientos de fechas, genera un stream de git fast-import.",
+		stack: ["React", "Vite", "TypeScript", "Tailwind", "shadcn/ui"],
+		github: "https://github.com/unaibermudez/github-commit-drawingsV2",
+		demo: "https://github-commit-drawings.vercel.app/",
 	},
 ];
