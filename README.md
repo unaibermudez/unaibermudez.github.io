@@ -56,11 +56,14 @@ La sección **Proyectos** de la home lee de `src/data/projects.ts`. Cada proyect
 }
 ```
 
-Ahora mismo hay un proyecto real (**TripMap**, publicado el 2026-08-05) y una entrada con
-`placeholder: true`, que muestra "Próximamente" en vez de enlaces. Para publicar otro, sustituye
-esa entrada por la tuya **sin** el campo `placeholder`: con `github`/`demo` definidos, la tarjeta
-mostrará automáticamente los enlaces "Código" y "Demo". Si vacías el array (`projects = []`), la
-sección muestra un estado "todavía no hay proyectos" en vez de romperse.
+Ahora mismo hay dos proyectos reales y ninguna entrada con `placeholder: true`: **TripMap**
+(publicado el 2026-08-05) y **Commit Drawings** (añadido el 2026-08-13).
+Para añadir otro, escribe su objeto **sin** el campo `placeholder`: con `github`/`demo` definidos,
+la tarjeta mostrará automáticamente los enlaces "Código" y "Demo". Si vacías el array
+(`projects = []`), la sección muestra un estado "todavía no hay proyectos" en vez de romperse.
+
+**Comprueba que el repo es público antes de enlazarlo.** Un repo privado da 404 a cualquier
+visitante, así que la tarjeta mostraría un enlace "Código" roto.
 
 `name`/`description` de un proyecto real **no se traducen automáticamente** (a diferencia de los
 posts del blog) — se muestran tal cual los escribas, en el idioma que elijas, en ambas versiones
