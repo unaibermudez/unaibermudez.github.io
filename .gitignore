@@ -30,3 +30,6 @@ bash.exe.stackdump
 
 # local design reference, not part of the deployed site
 /aresti-portfolio/
+
+# personal data export (LinkedIn); contains contact details, never commit
+/Profile.md

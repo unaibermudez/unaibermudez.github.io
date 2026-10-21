@@ -13,12 +13,22 @@ const { home = false } = Astro.props;
 
 {
 	home && (
-		<div class="pfx-intro" id="pfx-intro">
-			<div class="pfx-intro-name">
-				<span>Unai Bermúdez · Full Stack Developer</span>
+		<>
+			<div class="pfx-intro" id="pfx-intro">
+				<div class="pfx-intro-name">
+					<span>Unai Bermúdez · Full Stack Developer</span>
+				</div>
+				<div class="pfx-intro-counter" id="pfx-intro-counter">0%</div>
 			</div>
-			<div class="pfx-intro-counter" id="pfx-intro-counter">0%</div>
-		</div>
+			{/* Bloqueante a propósito: oculta el loader antes del primer pintado si ya se vio en esta sesión. */}
+			<script is:inline>
+				try {
+					if (sessionStorage.getItem("pfx-intro-seen")) {
+						document.getElementById("pfx-intro").style.display = "none";
+					}
+				} catch {}
+			</script>
+		</>
 	)
 }
 
@@ -69,7 +79,7 @@ const { home = false } = Astro.props;
 		justify-content: center;
 		flex-direction: column;
 		gap: 1.2rem;
-		transition: clip-path 1s var(--ease);
+		transition: clip-path 0.7s var(--ease);
 		clip-path: inset(0 0 0 0);
 	}
 	.pfx-intro.pfx-done { clip-path: inset(0 0 100% 0); }
@@ -148,17 +158,22 @@ const { home = false } = Astro.props;
 	const introCounter = document.getElementById("pfx-intro-counter");
 	if (intro && introCounter) {
 		if (!reduceMotion) {
+			try {
+				sessionStorage.setItem("pfx-intro-seen", "1");
+			} catch {
+				// Sin storage (modo privado, etc.): el loader simplemente se repite.
+			}
 			let n = 0;
 			const t = setInterval(() => {
-				n = Math.min(100, n + Math.ceil(Math.random() * 14));
+				n = Math.min(100, n + 8 + Math.ceil(Math.random() * 24));
 				introCounter.textContent = `${n}%`;
 				if (n >= 100) {
 					clearInterval(t);
-					setTimeout(() => intro.classList.add("pfx-done"), 250);
+					setTimeout(() => intro.classList.add("pfx-done"), 150);
 				}
-			}, 70);
+			}, 60);
 			// Safety net in case the interval stalls on a slow tab.
-			setTimeout(() => intro.classList.add("pfx-done"), 2600);
+			setTimeout(() => intro.classList.add("pfx-done"), 1400);
 		} else {
 			intro.classList.add("pfx-done");
 		}

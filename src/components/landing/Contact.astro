@@ -4,12 +4,36 @@ import { siteConfig } from "@/site-config";
 import T from "@/components/T.astro";
 
 const profile = siteConfig.profile;
+const email = profile?.email;
 ---
 
 <section class="section contact" id="contacto">
+	<p class="sec-index lr"><T k="contact.index" /></p>
 	<p class="contact-kicker lr"><T k="contact.kicker" /></p>
-	<p class="contact-mega lr lr-1"><T k="contact.mega" /></p>
+	{
+		email ? (
+			<a class="contact-mega lr lr-1" href={`mailto:${email}`}>
+				<T k="contact.mega" />
+			</a>
+		) : (
+			<p class="contact-mega lr lr-1">
+				<T k="contact.mega" />
+			</p>
+		)
+	}
 	<div class="contact-links lr lr-2">
+		{email && (
+			<a class="contact-link" href={`mailto:${email}`}>
+				{email} <Icon name="feather:mail" />
+			</a>
+		)}
+		{email && (
+			<button class="contact-link contact-copy" type="button" data-email={email}>
+				<span class="copy-idle"><T k="contact.copy" /></span>
+				<span class="copy-done"><T k="contact.copied" /></span>
+				<Icon name="feather:copy" />
+			</button>
+		)}
 		{profile?.github && (
 			<a class="contact-link" href={profile.github} rel="noreferrer" target="_blank">
 				GitHub <Icon name="feather:arrow-up-right" />
@@ -23,6 +47,21 @@ const profile = siteConfig.profile;
 	</div>
 </section>
 
+<script>
+	// Delegado en document para no depender de que el botón exista al cargar el script.
+	document.addEventListener("click", async (event) => {
+		const button = (event.target as Element | null)?.closest<HTMLButtonElement>(".contact-copy");
+		if (!button?.dataset.email) return;
+		try {
+			await navigator.clipboard.writeText(button.dataset.email);
+		} catch {
+			return;
+		}
+		button.classList.add("is-copied");
+		window.setTimeout(() => button.classList.remove("is-copied"), 1800);
+	});
+</script>
+
 <style>
 	.contact {
 		text-align: center;
@@ -30,7 +69,7 @@ const profile = siteConfig.profile;
 	}
 	.contact-kicker {
 		font-family: var(--font-mono);
-		font-size: 0.74rem;
+		font-size: 0.78rem;
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
 		color: hsl(var(--theme-text-muted));
@@ -47,9 +86,11 @@ const profile = siteConfig.profile;
 		line-height: 1;
 		color: transparent;
 		-webkit-text-stroke: 1.5px hsl(var(--theme-text));
+		text-decoration: none;
 		transition: color 0.5s var(--ease), -webkit-text-stroke-color 0.5s;
 	}
-	.contact:hover .contact-mega {
+	a.contact-mega:hover,
+	a.contact-mega:focus-visible {
 		color: var(--klein);
 		-webkit-text-stroke-color: var(--klein);
 	}
@@ -68,6 +109,8 @@ const profile = siteConfig.profile;
 		font-size: 0.95rem;
 		color: hsl(var(--theme-text));
 		text-decoration: none;
+		background: none;
+		cursor: pointer;
 		border: 1px solid hsl(var(--theme-text));
 		border-radius: 99px;
 		padding: 0.9rem 2rem;
@@ -83,14 +126,21 @@ const profile = siteConfig.profile;
 		color: #fff;
 		transform: translateY(-2px);
 	}
+	.copy-done { display: none; }
+	.is-copied .copy-idle { display: none; }
+	.is-copied .copy-done { display: inline; }
 
 	@media (max-width: 760px) {
 		.contact-links { flex-direction: column; align-items: center; }
-		.contact-link { width: 100%; max-width: 260px; justify-content: center; }
+		.contact-link { width: 100%; max-width: 320px; justify-content: center; }
 	}
 	@media (max-width: 480px) {
 		.contact-kicker { margin-bottom: 1.4rem; }
-		.contact-mega { -webkit-text-stroke-width: 1px; }
+		/* Un contorno de 1px en cursiva fina apenas se lee en móvil: relleno sólido. */
+		.contact-mega {
+			color: hsl(var(--theme-text));
+			-webkit-text-stroke-width: 0;
+		}
 		.contact-links { margin-top: 2.2rem; }
 	}
 </style>

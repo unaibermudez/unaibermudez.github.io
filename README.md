@@ -49,17 +49,24 @@ La sección **Proyectos** de la home lee de `src/data/projects.ts`. Cada proyect
 ```ts
 {
   name: "Nombre del proyecto",
-  description: "Descripción corta (1–2 frases): qué es y qué problema resuelve.",
+  year: "2026",
+  art: "route", // ilustración generada: "route" | "grid" | "fallback" (se deriva del nombre)
+  description: {
+    es: "Descripción corta (1–2 frases): qué es y qué problema resuelve.",
+    en: "Short description (1–2 sentences): what it is and what problem it solves.",
+  },
   stack: ["React", "Spring Boot", "PostgreSQL"],
   github: "https://github.com/unaibermudez/mi-proyecto", // opcional
   demo: "https://mi-proyecto.vercel.app",                 // opcional
 }
 ```
 
-Ahora mismo hay dos proyectos reales y ninguna entrada con `placeholder: true`: **TripMap**
-(publicado el 2026-08-05) y **Commit Drawings** (añadido el 2026-08-13).
-Para añadir otro, escribe su objeto **sin** el campo `placeholder`: con `github`/`demo` definidos,
-la tarjeta mostrará automáticamente los enlaces "Código" y "Demo". Si vacías el array
+Ahora mismo hay dos proyectos: **TripMap** (publicado el 2026-08-05) y **Commit Drawings**
+(añadido el 2026-08-13). La descripción lleva **las dos lenguas** (`es`/`en`); sin la inglesa, la
+versión en inglés del sitio mostraría texto en español. Con `github`/`demo` definidos, la tarjeta
+muestra automáticamente los enlaces "Código" y "Demo". La imagen de la tarjeta se dibuja en
+build (`ProjectArt.astro`): no hay capturas que subir; para una variante nueva, añádela ahí y al
+tipo `ProjectArtVariant`. Si vacías el array
 (`projects = []`), la sección muestra un estado "todavía no hay proyectos" en vez de romperse.
 
 **Comprueba que el repo es público antes de enlazarlo.** Un repo privado da 404 a cualquier
@@ -194,8 +201,8 @@ la que se tomó aquí a propósito (mantener una sola URL).
 ## Personalizar
 
 - **Datos personales**: `src/site.config.ts` (nombre, puesto, GitHub, LinkedIn, título/descripción
-  del sitio). No hay email de contacto ni avatar configurados a propósito — el contacto es solo
-  GitHub/LinkedIn y no hay foto de perfil.
+  del sitio, email). El email se muestra en Hero y Contacto como `mailto:`; no hay avatar a propósito
+  (sin foto de perfil). Los años de experiencia se calculan en build desde `src/utils/career.ts`.
 - **Paleta y tipografías**: `src/styles/global.css`, bloque `:root[data-theme="light|dark"]`.
   Los mismos nombres de variable (`--theme-bg`, `--theme-text`, `--theme-accent`, `--klein`,
   `--paper`, `--hairline`, `--font-serif/sans/mono`) se usan en todo el sitio (nav, footer, blog,

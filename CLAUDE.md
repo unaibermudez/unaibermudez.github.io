@@ -59,8 +59,7 @@ OG images, Pagefind) se mantiene, pero casi todos los componentes visuales se ha
   Cambiar la paleta o las fuentes se hace en un único sitio.
 - **Dark/light**: `About.astro` usa a propósito el patrón "bloque de contraste" invertido
   (`background: hsl(var(--theme-text))` / `color: hsl(var(--theme-bg))`) — es intencional, sirve
-  para que la tarjeta destaque siempre sobre el fondo de la página, en ambos temas. **El menú
-  móvil de `Header.astro` NO sigue este patrón** — usa `background: var(--paper)` /
+  para que la tarjeta destaque siempre sobre el fondo de la página, en ambos temas. Como el bloque invierte el tema, el azul de acento también se invierte: usa `--klein-inv` (no `--klein`) dentro de `About.astro`. `--klein` sobre esa tarjeta daba ~2:1 de contraste; `--klein-inv` da ~7:1 en ambos temas. **El menú móvil de `Header.astro` NO sigue este patrón** — usa `background: var(--paper)` /
   `color: hsl(var(--theme-text))` para seguir el tema activo. Se probó invertirlo igual que
   `About.astro` y el usuario lo reportó como bug (el menú se abría en el tema contrario al
   seleccionado) — no repitas ese patrón ahí.
@@ -102,10 +101,16 @@ Astro (que genera rutas por idioma) porque esa exige URLs distintas. En su lugar
   especificidad igual y uno de los dos botones mostraba el texto del otro. Cada toggle tiene ahora
   su propia clase con estilos duplicados a propósito; no vuelvas a compartir clase entre controles
   que usan `content:` distinto en pseudo-elementos.
-- Datos personales centralizados en `src/site.config.ts`. No hay `email` ni `avatar` configurados
-  a propósito (sin foto de perfil, contacto solo por GitHub/LinkedIn) — no los añadas sin que el
-  usuario lo pida explícitamente. `menuLinks` usa `titleKey` (no texto literal) — renderízalo con
+- Datos personales centralizados en `src/site.config.ts`. `email` está configurado y se muestra como `mailto:` en Hero y Contacto (el usuario lo pidió al rediseñar el portfolio; el sitio es un escaparate, no una búsqueda de empleo, así que no hay badge de "disponible"). `avatar` sigue sin configurarse a propósito (sin foto de perfil) — no lo añadas sin que el usuario lo pida. Los años de experiencia salen de `src/utils/career.ts` (`yearsOfExperience()`, calculado en build, pasa por `vars={{ years }}`): no los hardcodees en el i18n. `menuLinks` usa `titleKey` (no texto literal) — renderízalo con
   `<T k={link.titleKey} />`.
+
+## Datos y contenido de la home
+
+- **Proyectos** (`src/data/projects.ts`): `description` es `{ es, en }` y se renderiza con `Bilingual` — una cadena plana mostraría el español también en la versión inglesa. Cada proyecto lleva `year` y `art`. La imagen de la tarjeta es un SVG dibujado en build por `ProjectArt.astro` (variantes `route` | `grid` | `fallback`); no hay capturas ni campo de imagen.
+- **Trayectoria** (en `About.astro`, mismo ancla `#sobre`): entradas `experience.{lks,intern,fs,edu}.*` del i18n. Los clientes de LKS NEXT se describen de forma genérica **a propósito** (decisión del usuario): no nombres Eustat, Metaposta, Hazi ni Euskalmet.
+- **Cita de About**: `LandingFx.astro` envuelve cada palabra en un `<span class="w">` recorriendo nodos de texto, de modo que el `<em>` del i18n sobrevive. Si lo reescribes desde `textContent`, se pierde el énfasis.
+- **Intro loader** (`PortfolioFx.astro`): ~1 s; se omite en visitas repetidas de la sesión (`sessionStorage` `pfx-intro-seen`, comprobado en un script bloqueante justo tras el overlay para evitar el parpadeo).
+- `Profile.md` (export de LinkedIn con datos de contacto) está en `.gitignore`: no lo commitees.
 
 ## Features desactivadas a propósito
 

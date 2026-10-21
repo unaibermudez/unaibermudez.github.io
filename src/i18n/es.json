@@ -9,36 +9,33 @@
 		"closeMenu": "Cerrar menú"
 	},
 	"hero": {
-		"available": "Disponible para proyectos",
-		"taglineRow1": "Del código",
-		"taglineRow2": "al producto.",
-		"desc": "Soy Unai. <strong>Full Stack Developer</strong> afincado en Bilbao. Aquí documento los proyectos que construyo y lo que voy aprendiendo por el camino.",
-		"scroll": "Desplázate"
+		"taglineRow1": "Unai Bermúdez,",
+		"taglineRow2": "desarrollador Full Stack.",
+		"desc": "Desde Bilbao trabajo con <strong>Java, Spring Boot y React</strong> en aplicaciones para instituciones públicas; aquí están los proyectos que construyo por mi cuenta.",
+		"scroll": "Desplázate",
+		"cta": "Ver proyectos",
+		"role": "Programador @ LKS NEXT"
 	},
 	"about": {
-		"index": "01 / Retrato",
+		"index": "01 / Perfil",
 		"title": "Sobre <em>mí</em>",
-		"note": "Bilbao → producción, vía Spring Boot y React.",
-		"quote": "Construyo software pensando en quien lo va a usar de verdad: si no aguanta en producción, con datos reales y bajo carga, da igual lo bien montada que esté la demo.",
-		"bio1": "Full Stack Developer con <strong>1,5 años de experiencia</strong>, graduado en Ingeniería Informática por la <strong>UPV/EHU</strong>. Durante la carrera participé en Formula Student Bizkaia, trabajando en el sistema de conducción autónoma. Me apasiona construir productos completos que funcionan de verdad, no demos bonitas.",
-		"bio2": "Trabajo en todo el ciclo del producto: modelo de datos y API en <strong>Spring Boot</strong>, autenticación, despliegue, CI/CD y la interfaz en <strong>React</strong>. Este portfolio recoge los proyectos que construyo por mi cuenta y los aprendizajes que voy acumulando.",
+		"note": "Aplicaciones web, del modelo de datos a producción.",
+		"quote": "En LKS NEXT desarrollo y mantengo aplicaciones en producción para instituciones públicas, y me ocupo de <em>todo el ciclo</em>: modelo de datos, API, interfaz y despliegue.",
+		"bio1": "Graduado en Ingeniería Informática por la <strong>UPV/EHU</strong>. Llevo {years} años en <strong>LKS NEXT</strong>: primero en prácticas, desarrollando mi TFG como producto interno (una aplicación de gestión del conocimiento para generar currículums en licitaciones), y ahora como programador junior.",
+		"bio2": "Antes, en <strong>Formula Student Bizkaia</strong>, desarrollé planificación de trayectorias en Python y ROS2 para el coche autónomo, y fui responsable técnico del evento de simulación en FSUK 2024 (Silverstone).",
 		"stackPrimary": "Stack principal",
 		"stackAlso": "Y también",
 		"statYears": "años exp.",
-		"statCoreStack": "Stack core",
-		"statFocus": "Enfoque"
+		"statLangs": "idiomas"
 	},
 	"projects": {
-		"index": "02 / Índice",
+		"index": "02 / Trabajo",
 		"title": "Proyectos",
-		"noteWip": "Trabajo reciente. Iré añadiendo más según los termine.",
+		"noteWip": "Proyectos propios. Iré añadiendo más según los termine.",
 		"noteEmpty": "Todavía no hay proyectos publicados aquí.",
 		"emptyState": "Esta sección está lista para recibir proyectos. De momento no hay ninguno publicado. Vuelve pronto.",
-		"soon": "Próximamente",
 		"code": "Código",
-		"demo": "Demo",
-		"placeholderDesc1": "Proyecto en camino. Vuelve pronto.",
-		"placeholderDesc2": "Proyecto en camino. Vuelve pronto."
+		"demo": "Demo"
 	},
 	"blog": {
 		"index": "03 / Bitácora",
@@ -51,7 +48,10 @@
 	},
 	"contact": {
 		"kicker": "¿Tienes algo en mente? Escríbeme.",
-		"mega": "Hablemos"
+		"mega": "Hablemos",
+		"index": "04 / Contacto",
+		"copy": "Copiar email",
+		"copied": "¡Copiado!"
 	},
 	"footer": {
 		"builtWith": "Construido con"
@@ -103,5 +103,32 @@
 	},
 	"lang": {
 		"toggleAria": "Cambiar idioma"
+	},
+	"experience": {
+		"title": "Trayectoria",
+		"lks": {
+			"period": "Sep 2025 — hoy",
+			"role": "Programador Junior",
+			"org": "LKS NEXT",
+			"desc": "Aplicaciones para clientes del sector público: backend en Spring Boot, frontend en React y TypeScript con Redux Toolkit, PostgreSQL con migraciones en Liquibase, autenticación con OAuth2 y JWT, y despliegue con Podman/Docker y CI/CD."
+		},
+		"intern": {
+			"period": "Sep 2024 — Ago 2025",
+			"role": "Programador en prácticas",
+			"org": "LKS NEXT",
+			"desc": "Mi TFG como proyecto interno: una aplicación de gestión del conocimiento y generación de currículums para licitaciones, creada desde cero. Arquitectura, modelo de datos, backend y frontend."
+		},
+		"fs": {
+			"period": "Mar 2023 — Ago 2024",
+			"role": "Driverless y Simulation Event Manager",
+			"org": "Formula Student Bizkaia (UPV/EHU)",
+			"desc": "Planificación de trayectorias en Python y ROS2 para el vehículo autónomo. Responsable técnico del evento de simulación y de su defensa ante expertos del sector en FSUK 2024 (Silverstone)."
+		},
+		"edu": {
+			"period": "2020 — 2025",
+			"role": "Grado en Ingeniería Informática de Gestión y Sistemas de Información",
+			"org": "UPV/EHU",
+			"desc": "Inglés C1 (IELTS Academic 7,5). Euskera y castellano, nativo."
+		}
 	}
 }

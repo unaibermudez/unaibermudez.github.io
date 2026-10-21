@@ -24,8 +24,9 @@ export const siteConfig: SiteConfig = {
 		linkedin: "https://www.linkedin.com/in/unai-bermudez-osaba/",
 		jobTitle: "Full Stack Developer",
 		alumni: "UPV/EHU - Ingeniería Informática de Gestión y Sistemas de Información",
-		// Sin email de contacto ni foto de perfil por decisión del usuario.
-		// email: undefined,
+		employer: "LKS NEXT",
+		email: "ubermudez001@gmail.com",
+		// Sin foto de perfil por decisión del usuario.
 		// avatar: undefined,
 	},
 	// Comentarios (Giscus) desactivados: el portfolio no lleva formulario ni

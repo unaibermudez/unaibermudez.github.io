@@ -1,0 +1,160 @@
+---
+// Ilustración de proyecto dibujada en build, sin imágenes ni servicios externos.
+// Usa solo variables de tema (--klein, --hairline) para funcionar en claro y oscuro.
+import type { ProjectArtVariant } from "@/data/projects";
+
+interface Props {
+	variant: ProjectArtVariant;
+	/** Semilla de la variante `fallback`: el mismo nombre produce siempre el mismo dibujo. */
+	name: string;
+}
+
+const { variant, name } = Astro.props;
+
+// --- route: un trazado con paradas sobre curvas de nivel ---------------------
+// Lienzo apaisado (500×340): la zona visual de la tarjeta es más ancha que alta y `slice` recortaría el trazado.
+// Márgenes de ≥60px a cada lado: `slice` recorta ~30px por lado en la proporción real de la tarjeta.
+const routePath = "M70 288 C130 252 112 176 182 164 S284 204 322 128 S392 84 424 56";
+const stops = [
+	{ x: 70, y: 288 },
+	{ x: 182, y: 164 },
+	{ x: 322, y: 128 },
+	{ x: 424, y: 56 },
+];
+const contours = [56, 96, 140, 188];
+const viewBox = variant === "route" ? "0 0 500 340" : "0 0 400 420";
+
+// --- grid: rejilla de contribuciones con un corazón dibujado -----------------
+const heart = ["0000000", "0110110", "1111111", "1111111", "0111110", "0011100", "0001000"];
+const HEART_COL = 7;
+const cells: { x: number; y: number; level: number }[] = [];
+for (let row = 0; row < 7; row++) {
+	for (let col = 0; col < 20; col++) {
+		const inHeart = col >= HEART_COL && col < HEART_COL + 7 && heart[row][col - HEART_COL] === "1";
+		// Fuera del dibujo: ruido determinista de nivel 0-1, como una gráfica real.
+		const noise = (row * 31 + col * 17 + row * col) % 7;
+		const level = inHeart ? 4 : noise === 0 ? 2 : noise < 3 ? 1 : 0;
+		cells.push({ x: 20 + col * 18, y: 147 + row * 18, level });
+	}
+}
+
+// --- fallback: líneas y puntos con semilla del nombre ------------------------
+function seeded(text: string) {
+	let h = 2166136261;
+	for (const ch of text) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+	return () => {
+		h = Math.imul(h ^ (h >>> 15), 2246822507);
+		h = Math.imul(h ^ (h >>> 13), 3266489909);
+		h ^= h >>> 16;
+		return (h >>> 0) / 4294967296;
+	};
+}
+const rand = seeded(name);
+const lines = Array.from({ length: 14 }, (_, i) => ({
+	y: 30 + i * 27,
+	x1: 20 + Math.round(rand() * 120),
+	x2: 260 + Math.round(rand() * 120),
+	strong: rand() > 0.7,
+}));
+const dots = Array.from({ length: 5 }, () => ({
+	x: 40 + Math.round(rand() * 320),
+	y: 40 + Math.round(rand() * 340),
+	r: 5 + Math.round(rand() * 9),
+}));
+---
+
+<svg class="art-svg" viewBox={viewBox} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+	{
+		variant === "route" && (
+			<>
+				{contours.map((ry) => (
+					<ellipse class="hair" cx="270" cy="190" rx={ry * 1.5} ry={ry} />
+				))}
+				<path class="route-shadow" d={routePath} />
+				<path class="route" d={routePath} />
+				{stops.map((s, i) => (
+					<>
+						<circle class="stop" cx={s.x} cy={s.y} r="8" />
+						<text class="stop-label" x={s.x + 14} y={s.y - 12}>
+							{String(i + 1).padStart(2, "0")}
+						</text>
+					</>
+				))}
+			</>
+		)
+	}
+	{
+		variant === "grid" &&
+			cells.map((c) => <rect class={`cell l${c.level}`} x={c.x} y={c.y} width="14" height="14" rx="3" />)
+	}
+	{
+		variant === "fallback" && (
+			<>
+				{lines.map((l) => (
+					<line class={l.strong ? "ln strong" : "ln"} x1={l.x1} y1={l.y} x2={l.x2} y2={l.y} />
+				))}
+				{dots.map((d) => (
+					<circle class="dot" cx={d.x} cy={d.y} r={d.r} />
+				))}
+			</>
+		)
+	}
+</svg>
+
+<style>
+	.art-svg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.hair {
+		fill: none;
+		stroke: var(--hairline);
+		stroke-width: 1;
+	}
+	.route {
+		fill: none;
+		stroke: var(--klein);
+		stroke-width: 3;
+		stroke-linecap: round;
+		stroke-dasharray: 1 9;
+	}
+	.route-shadow {
+		fill: none;
+		stroke: var(--accent-soft-strong);
+		stroke-width: 14;
+		stroke-linecap: round;
+	}
+	.stop {
+		fill: var(--paper);
+		stroke: var(--klein);
+		stroke-width: 3;
+	}
+	.stop-label {
+		fill: var(--klein);
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.06em;
+	}
+	.cell {
+		fill: var(--klein);
+	}
+	.l0 { fill-opacity: 0.06; }
+	.l1 { fill-opacity: 0.18; }
+	.l2 { fill-opacity: 0.4; }
+	.l4 { fill-opacity: 1; }
+	.ln {
+		stroke: var(--hairline);
+		stroke-width: 2;
+		stroke-linecap: round;
+	}
+	.ln.strong {
+		stroke: var(--klein);
+		stroke-opacity: 0.55;
+	}
+	.dot {
+		fill: var(--klein);
+		fill-opacity: 0.3;
+	}
+</style>

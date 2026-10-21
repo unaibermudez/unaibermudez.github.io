@@ -3,22 +3,20 @@ import { Icon } from "astro-icon/components";
 import AsteriskMark from "@/components/AsteriskMark.astro";
 import { siteConfig } from "@/site-config";
 import T from "@/components/T.astro";
-import es from "@/i18n/es.json";
-import en from "@/i18n/en.json";
 
 const profile = siteConfig.profile;
-const name = profile?.name ?? siteConfig.author;
-const jobTitle = profile?.jobTitle ?? "Full Stack Developer";
-const stampEs = `${es.hero.available} · ${es.hero.available} · `;
-const stampEn = `${en.hero.available} · ${en.hero.available} · `;
+// Texto del sello: independiente del idioma. 42 caracteres en monoespaciada
+// ajustan a la circunferencia (2π·38 ≈ 238.6) sin deformar los glifos.
+// El último carácter es un espacio duro: SVG colapsa un espacio normal final y se perdería el hueco del bucle.
+const stampText = "Java · Spring Boot · React · TypeScript · ";
 ---
 
 <header class="hero" id="top">
 	<div class="hero-meta">
-		<span>{name}</span>
-		<span>{jobTitle}</span>
-		<span>Bilbao, 43.26° N</span>
-		<span><T k="hero.available" /></span>
+		<span>Portfolio {new Date().getFullYear()}</span>
+		<span><T k="hero.role" /></span>
+		<span>Bilbao</span>
+		<span>ES · EU · EN</span>
 	</div>
 
 	<h1 class="hero-title">
@@ -29,7 +27,15 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 	<div class="hero-bottom">
 		<div class="hero-desc-wrap">
 			<p class="hero-desc"><T k="hero.desc" /></p>
+			<div class="hero-actions">
+				<a class="hero-cta" href="#proyectos"><T k="hero.cta" /> <span aria-hidden="true">↓</span></a>
+			</div>
 			<div class="hero-links">
+				{profile?.email && (
+					<a class="hero-link" href={`mailto:${profile.email}`}>
+						<span class="circle"><Icon name="feather:mail" /></span> Email
+					</a>
+				)}
 				{profile?.github && (
 					<a class="hero-link" href={profile.github} rel="noreferrer" target="_blank">
 						<span class="circle"><Icon name="feather:arrow-up-right" /></span> GitHub
@@ -45,11 +51,8 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 		<div class="stamp" aria-hidden="true">
 			<svg viewBox="0 0 100 100">
 				<defs><path id="hero-circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" /></defs>
-				<text data-lang-es>
-					<textPath href="#hero-circ" textLength="238.6" lengthAdjust="spacingAndGlyphs">{stampEs}</textPath>
-				</text>
-				<text data-lang-en>
-					<textPath href="#hero-circ" textLength="238.6" lengthAdjust="spacingAndGlyphs">{stampEn}</textPath>
+				<text>
+					<textPath href="#hero-circ" textLength="238.6" lengthAdjust="spacing">{stampText}</textPath>
 				</text>
 			</svg>
 			<span class="stamp-core"><AsteriskMark /></span>
@@ -117,7 +120,7 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 	}
 	.hero-title .row:nth-child(1) > span { animation-delay: 0.55s; }
 	.hero-title .row:nth-child(2) > span { animation-delay: 0.7s; }
-	.hero-title em {
+	.hero-title :global(em) {
 		font-style: italic;
 		font-weight: 400;
 		color: var(--klein);
@@ -148,19 +151,42 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 		color: hsl(var(--theme-text-muted));
 		margin: 0;
 	}
-	.hero-desc strong {
+	.hero-desc :global(strong) {
 		color: hsl(var(--theme-text));
 		font-weight: 600;
 	}
+	.hero-actions {
+		margin-top: 1.6rem;
+	}
+	.hero-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.7rem;
+		min-height: 48px;
+		padding: 0.8rem 1.7rem;
+		border-radius: 99px;
+		background: hsl(var(--theme-text));
+		color: hsl(var(--theme-bg));
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		letter-spacing: 0.06em;
+		text-decoration: none;
+		transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.2s;
+	}
+	.hero-cta:hover {
+		background: var(--klein);
+		color: #fff;
+		transform: translateY(-2px);
+	}
 	.hero-links {
 		display: flex;
-		gap: 1.2rem;
+		gap: 1.4rem;
 		flex-wrap: wrap;
 		margin-top: 1.4rem;
 	}
 	.hero-link {
 		font-family: var(--font-mono);
-		font-size: 0.78rem;
+		font-size: 0.85rem;
 		letter-spacing: 0.06em;
 		color: hsl(var(--theme-text));
 		text-decoration: none;
@@ -203,7 +229,7 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 	}
 	.stamp svg text {
 		font-family: var(--font-mono);
-		font-size: 8.2px;
+		font-size: 6.9px;
 		letter-spacing: 0.22em;
 		text-transform: uppercase;
 		fill: hsl(var(--theme-text));
@@ -253,6 +279,13 @@ const stampEn = `${en.hero.available} · ${en.hero.available} · `;
 		45% { transform: scaleY(1); transform-origin: top; }
 		55% { transform: scaleY(1); transform-origin: bottom; }
 		100% { transform: scaleY(0); transform-origin: bottom; }
+	}
+
+	/* "desarrollador Full Stack." es más largo que un eslogan corto: en escritorio se
+	   reduce el cuerpo y la sangría para que la segunda fila quepa en una línea. */
+	@media (min-width: 761px) {
+		.hero-title { font-size: clamp(3rem, 7vw, 6.6rem); }
+		.hero-title .row:nth-child(2) { padding-left: clamp(1.5rem, 5vw, 5rem); }
 	}
 
 	@media (max-width: 760px) {

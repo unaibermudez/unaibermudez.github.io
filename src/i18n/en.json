@@ -9,36 +9,33 @@
 		"closeMenu": "Close menu"
 	},
 	"hero": {
-		"available": "Available for projects",
-		"taglineRow1": "From code",
-		"taglineRow2": "to product.",
-		"desc": "I'm Unai. <strong>Full Stack Developer</strong> based in Bilbao. This is where I document the projects I build and what I learn along the way.",
-		"scroll": "Scroll"
+		"taglineRow1": "Unai Bermúdez,",
+		"taglineRow2": "Full Stack developer.",
+		"desc": "Based in Bilbao, I work with <strong>Java, Spring Boot and React</strong> on applications for public institutions; here are the projects I build on my own.",
+		"scroll": "Scroll",
+		"cta": "See projects",
+		"role": "Developer @ LKS NEXT"
 	},
 	"about": {
-		"index": "01 / Portrait",
+		"index": "01 / Profile",
 		"title": "About <em>me</em>",
-		"note": "Bilbao → production, via Spring Boot and React.",
-		"quote": "I build software thinking about the people who'll actually use it: if it doesn't hold up in production, with real data and real load, it doesn't matter how good the demo looked.",
-		"bio1": "Full Stack Developer with <strong>1.5 years of experience</strong>, graduated in Computer Engineering from <strong>UPV/EHU</strong>. During my degree I took part in Formula Student Bizkaia, working on the autonomous driving system. I'm passionate about building complete products that actually work, not just pretty demos.",
-		"bio2": "I work across the full product cycle: data model and API in <strong>Spring Boot</strong>, auth, deployment, CI/CD, and the <strong>React</strong> interface. This portfolio collects the projects I build on my own and the things I learn along the way.",
+		"note": "Web applications, from the data model to production.",
+		"quote": "At LKS NEXT I build and maintain production applications for public institutions, and I work across the <em>whole cycle</em>: data model, API, interface and deployment.",
+		"bio1": "Computer Engineering graduate from <strong>UPV/EHU</strong>. I've been at <strong>LKS NEXT</strong> for {years} years: first as an intern, building my thesis as an internal product (a knowledge-management app that generates CVs for tenders), and now as a junior developer.",
+		"bio2": "Before that, at <strong>Formula Student Bizkaia</strong>, I developed path planning in Python and ROS2 for the autonomous car, and I was technical lead of the simulation event at FSUK 2024 (Silverstone).",
 		"stackPrimary": "Main stack",
 		"stackAlso": "Also",
 		"statYears": "yrs exp.",
-		"statCoreStack": "Core stack",
-		"statFocus": "Focus"
+		"statLangs": "languages"
 	},
 	"projects": {
-		"index": "02 / Index",
+		"index": "02 / Work",
 		"title": "Projects",
-		"noteWip": "Recent work. More will show up as I finish them.",
+		"noteWip": "Personal projects. More will show up as I finish them.",
 		"noteEmpty": "No projects published here yet.",
 		"emptyState": "This section is ready to receive projects. None published yet. Check back soon.",
-		"soon": "Coming soon",
 		"code": "Code",
-		"demo": "Demo",
-		"placeholderDesc1": "Project on its way. Check back soon.",
-		"placeholderDesc2": "Project on its way. Check back soon."
+		"demo": "Demo"
 	},
 	"blog": {
 		"index": "03 / Log",
@@ -51,7 +48,10 @@
 	},
 	"contact": {
 		"kicker": "Have something in mind? Get in touch.",
-		"mega": "Let's talk"
+		"mega": "Let's talk",
+		"index": "04 / Contact",
+		"copy": "Copy email",
+		"copied": "Copied!"
 	},
 	"footer": {
 		"builtWith": "Built with"
@@ -103,5 +103,32 @@
 	},
 	"lang": {
 		"toggleAria": "Change language"
+	},
+	"experience": {
+		"title": "Background",
+		"lks": {
+			"period": "Sep 2025 — present",
+			"role": "Junior Developer",
+			"org": "LKS NEXT",
+			"desc": "Applications for public-sector clients: Spring Boot backend, React and TypeScript frontend with Redux Toolkit, PostgreSQL with Liquibase migrations, OAuth2 and JWT authentication, and deployment with Podman/Docker and CI/CD."
+		},
+		"intern": {
+			"period": "Sep 2024 — Aug 2025",
+			"role": "Developer intern",
+			"org": "LKS NEXT",
+			"desc": "My thesis as an internal project: a knowledge-management and tender-CV generation app, built from scratch. Architecture, data model, backend and frontend."
+		},
+		"fs": {
+			"period": "Mar 2023 — Aug 2024",
+			"role": "Driverless and Simulation Event Manager",
+			"org": "Formula Student Bizkaia (UPV/EHU)",
+			"desc": "Path planning in Python and ROS2 for the autonomous vehicle. Technical lead of the simulation event and of its defense in front of industry experts at FSUK 2024 (Silverstone)."
+		},
+		"edu": {
+			"period": "2020 — 2025",
+			"role": "BSc in Computer Engineering (Management and Information Systems)",
+			"org": "UPV/EHU",
+			"desc": "English C1 (IELTS Academic 7.5). Basque and Spanish, native."
+		}
 	}
 }
