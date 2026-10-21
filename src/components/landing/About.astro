@@ -1,8 +1,11 @@
 ---
 import T from "@/components/T.astro";
+import { yearsOfExperience } from "@/utils/career";
 
 const stackPrimary = ["React", "TypeScript", "Java", "Spring Boot", "PostgreSQL"];
 const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase", "CI/CD"];
+const years = yearsOfExperience();
+const timeline = ["lks", "intern", "fs", "edu"] as const;
 ---
 
 <section class="section about-sec" id="sobre">
@@ -18,7 +21,7 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 		<div class="about-grid">
 			<p class="about-quote" id="about-quote"><T k="about.quote" /></p>
 			<div class="about-side">
-				<p><T k="about.bio1" /></p>
+				<p><T k="about.bio1" vars={{ years }} /></p>
 				<p><T k="about.bio2" /></p>
 
 				<div class="about-stack">
@@ -38,20 +41,42 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 
 				<div class="about-stats">
 					<div class="about-stat">
-						<div class="v" data-count="1.5">0</div>
+						<div class="v" data-count={years}>0</div>
 						<div class="l"><T k="about.statYears" /></div>
 					</div>
 					<div class="about-stat">
-						<div class="v" data-count={stackPrimary.length}>0</div>
-						<div class="l"><T k="about.statCoreStack" /></div>
-					</div>
-					<div class="about-stat">
-						<div class="v">Full Stack</div>
-						<div class="l"><T k="about.statFocus" /></div>
+						<div class="v" data-count="3">0</div>
+						<div class="l"><T k="about.statLangs" /></div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="exp lr">
+		<h3 class="exp-title"><T k="experience.title" /></h3>
+		<ol class="exp-list">
+			{
+				timeline.map((key) => (
+					<li class="exp-item">
+						<span class="exp-period">
+							<T k={`experience.${key}.period`} />
+						</span>
+						<div class="exp-body">
+							<h4 class="exp-role">
+								<T k={`experience.${key}.role`} />
+							</h4>
+							<p class="exp-org">
+								<T k={`experience.${key}.org`} />
+							</p>
+							<p class="exp-desc">
+								<T k={`experience.${key}.desc`} />
+							</p>
+						</div>
+					</li>
+				))
+			}
+		</ol>
 	</div>
 </section>
 
@@ -71,29 +96,30 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 	.about-quote {
 		font-family: var(--font-serif);
 		font-weight: 300;
-		font-size: clamp(1.6rem, 3.4vw, 2.7rem);
+		font-size: clamp(1.6rem, 3.2vw, 2.5rem);
 		line-height: 1.32;
 		letter-spacing: -0.015em;
 		margin: 0;
 	}
 	.about-quote :global(.w) {
-		opacity: 0.18;
+		opacity: 0.35;
 		transition: opacity 0.4s ease;
 	}
 	.about-quote :global(.w.lit) {
 		opacity: 1;
 	}
+	/* El bloque invierte el tema: usa el azul pensado para el fondo contrario (--klein-inv). */
 	.about-quote :global(em) {
 		font-style: italic;
-		color: var(--klein);
+		color: var(--klein-inv);
 	}
 	.about-side p {
-		color: hsl(var(--theme-bg) / 0.7);
+		color: hsl(var(--theme-bg) / 0.78);
 		margin: 0 0 1.4rem;
 		font-size: 0.98rem;
 		line-height: 1.65;
 	}
-	.about-side strong {
+	.about-side :global(strong) {
 		color: hsl(var(--theme-bg));
 		font-weight: 600;
 	}
@@ -107,10 +133,10 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 	.stack-label {
 		display: block;
 		font-family: var(--font-mono);
-		font-size: 0.68rem;
+		font-size: 0.74rem;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		color: hsl(var(--theme-bg) / 0.5);
+		color: hsl(var(--theme-bg) / 0.68);
 		margin-bottom: 0.55rem;
 	}
 	.tags {
@@ -120,21 +146,17 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 	}
 	.tags span {
 		font-family: var(--font-mono);
-		font-size: 0.7rem;
+		font-size: 0.76rem;
 		letter-spacing: 0.03em;
-		border: 1px solid hsl(var(--theme-bg) / 0.2);
+		border: 1px solid hsl(var(--theme-bg) / 0.28);
 		border-radius: 99px;
 		padding: 0.32rem 0.8rem;
-		color: hsl(var(--theme-bg) / 0.85);
-		transition: all 0.3s;
-	}
-	.about-card:hover .tags span {
-		border-color: var(--klein);
+		color: hsl(var(--theme-bg) / 0.9);
 	}
 
 	.about-stats {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: 1px;
 		background: hsl(var(--theme-bg) / 0.18);
 		border: 1px solid hsl(var(--theme-bg) / 0.18);
@@ -151,16 +173,70 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 		font-family: var(--font-serif);
 		font-size: 1.7rem;
 		font-weight: 400;
-		color: var(--klein);
+		color: var(--klein-inv);
 		white-space: nowrap;
 	}
 	.about-stat .l {
 		font-family: var(--font-mono);
-		font-size: 0.6rem;
+		font-size: 0.68rem;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: hsl(var(--theme-bg) / 0.5);
+		color: hsl(var(--theme-bg) / 0.68);
 		margin-top: 0.3rem;
+	}
+
+	/* ---- trayectoria ---- */
+	.exp {
+		margin-top: 5rem;
+	}
+	.exp-title {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		font-weight: 400;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--klein);
+		margin: 0 0 1.4rem;
+	}
+	.exp-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid hsl(var(--theme-text));
+	}
+	.exp-item {
+		display: grid;
+		grid-template-columns: 11rem 1fr;
+		gap: 2rem;
+		padding: 1.9rem 0;
+		border-bottom: 1px solid var(--hairline);
+	}
+	.exp-period {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: hsl(var(--theme-text-muted));
+		white-space: nowrap;
+		padding-top: 0.35rem;
+	}
+	.exp-role {
+		font-family: var(--font-serif);
+		font-weight: 400;
+		font-size: 1.45rem;
+		letter-spacing: -0.01em;
+		line-height: 1.2;
+		margin: 0;
+		color: hsl(var(--theme-text));
+	}
+	.exp-org {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--klein);
+		margin: 0.3rem 0 0.8rem;
+	}
+	.exp-desc {
+		color: hsl(var(--theme-text-muted));
+		max-width: 64ch;
+		margin: 0;
 	}
 
 	@media (max-width: 960px) {
@@ -169,6 +245,9 @@ const stackSecondary = ["Docker", "OAuth2", "JWT", "Redux Toolkit", "Liquibase",
 	}
 	@media (max-width: 760px) {
 		.about-card { border-radius: 20px; padding: 2.6rem 1.4rem; }
+		.exp { margin-top: 3.5rem; }
+		.exp-item { grid-template-columns: 1fr; gap: 0.5rem; padding: 1.5rem 0; }
+		.exp-period { padding-top: 0; }
 	}
 	@media (max-width: 480px) {
 		.about-stats { grid-template-columns: 1fr; }

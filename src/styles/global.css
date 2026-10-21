@@ -76,6 +76,8 @@
 		--hairline: rgba(24, 22, 17, 0.16);
 		--faint: rgba(24, 22, 17, 0.32);
 		--klein: #1b36c9;
+		/* Klein para bloques de contraste invertidos (About): sobre fondo ink usa el azul claro. */
+		--klein-inv: #8c9eff;
 		--accent-soft: rgba(27, 54, 201, 0.08);
 		--accent-soft-strong: rgba(27, 54, 201, 0.16);
 	}
@@ -94,6 +96,7 @@
 		--hairline: rgba(245, 242, 234, 0.14);
 		--faint: rgba(245, 242, 234, 0.28);
 		--klein: #8c9eff;
+		--klein-inv: #1b36c9;
 		--accent-soft: rgba(140, 158, 255, 0.12);
 		--accent-soft-strong: rgba(140, 158, 255, 0.22);
 	}
@@ -183,6 +186,13 @@ html:not([data-lang="en"]) [data-lang-en] {
 	max-width: 30ch;
 	text-align: right;
 	margin: 0;
+}
+.empty-state {
+	border-top: 1px solid var(--hairline);
+	padding-top: 2.5rem;
+	font-family: var(--font-mono);
+	font-size: 0.9rem;
+	color: hsl(var(--theme-text-muted));
 }
 @media (max-width: 760px) {
 	.section { padding: 4rem var(--gutter); }

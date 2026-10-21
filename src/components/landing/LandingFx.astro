@@ -28,11 +28,26 @@
 			...quote.querySelectorAll<HTMLElement>("[data-lang-es], [data-lang-en]"),
 		];
 		const wordGroups = langContainers.map((container) => {
-			const text = container.textContent?.trim() ?? "";
-			container.innerHTML = text
-				.split(/\s+/)
-				.map((w) => `<span class="w">${w}</span>`)
-				.join(" ");
+			// Envuelve cada palabra dentro de su nodo de texto, sin tocar los elementos
+			// (<em>…): reconstruir desde textContent perdería el énfasis del quote.
+			const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+			const textNodes: Text[] = [];
+			for (let n = walker.nextNode(); n; n = walker.nextNode()) textNodes.push(n as Text);
+			for (const node of textNodes) {
+				const frag = document.createDocumentFragment();
+				for (const part of (node.textContent ?? "").split(/(\s+)/)) {
+					if (!part) continue;
+					if (/^\s+$/.test(part)) {
+						frag.append(part);
+						continue;
+					}
+					const span = document.createElement("span");
+					span.className = "w";
+					span.textContent = part;
+					frag.append(span);
+				}
+				node.replaceWith(frag);
+			}
 			return [...container.querySelectorAll<HTMLElement>(".w")];
 		});
 
