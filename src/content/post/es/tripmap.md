@@ -5,7 +5,7 @@ description: "Cómo he construido TripMap: Astro con una isla de React, MapLibre
 tags: [astro, react, maplibre]
 coverImage:
   src: ../_assets/tripmap-escritorio.png
-  alt: "El mapa sobre imagen de satélite con la ruta siguiendo la carretera de circunvalación de Islandia, el panel de la parada a la derecha y la línea de tiempo abajo"
+  alt: "El mapa sobre imagen de satélite con la ruta completa del viaje a Islandia, de Keflavík a la Blue Lagoon, el panel de la parada a la derecha y la línea de tiempo con seis capítulos abajo"
 draft: false
 ---
 
@@ -13,7 +13,7 @@ Un viaje largo se cuenta mal con las herramientas de siempre. Un álbum de fotos
 
 Eso es TripMap. El mapa ocupa casi toda la pantalla y dibuja la ruta y las paradas; abajo hay una línea de tiempo dividida en capítulos; al lado, un panel con el título, las fechas, el texto y las fotos de la parada activa. Todo está sincronizado: da igual si haces click en un punto del mapa, arrastras el cursor de la timeline o pulsas las flechas del teclado.
 
-El viaje que va a llenarlo es uno de varios años por África, con más de cien paradas. Mientras preparo ese contenido, los datos del repo son un viaje de prueba por Islandia con ocho paradas, que es lo que se ve en las capturas de este post.
+Los datos del repo son un viaje real por Islandia, de once días, con treinta paradas y fotos propias, y es lo que se ve en las capturas de este post.
 
 ---
 
@@ -140,7 +140,7 @@ El segundo era el cambio de basemap. `setStyle` hace por defecto un diff con el 
 
 El panel es donde vive lo que hace que esto sea un álbum y no un mapa: el título de la parada, sus fechas, el texto y las fotos.
 
-![La versión móvil con la hoja del panel desplegada: el mapa arriba, el texto de la parada en medio y la línea de tiempo abajo](../_assets/tripmap-movil.png)
+![La versión móvil con la hoja del panel desplegada: el mapa arriba, el texto de la parada en medio y, abajo, la fila de capítulos y las paradas del capítulo activo](../_assets/tripmap-movil.png)
 
 Es el mismo marcado en escritorio y en móvil, con variantes de Tailwind. En escritorio es una columna lateral; en móvil, una hoja inferior que empieza plegada, con la cabecera y los botones de anterior y siguiente siempre visibles, de modo que se puede recorrer el viaje sin perder el mapa de vista. No hay ninguna media query en JavaScript: consultar el ancho en cliente obligaría a un primer render sin saberlo y a arrastrar un listener de `resize`, y la diferencia entre los dos modos es puramente de disposición.
 
@@ -148,7 +148,7 @@ El cuerpo de la parada se escribe en markdown, pero no uso ninguna librería de 
 
 Con las fotos hay un detalle que no es opcional: el esquema exige `width` y `height` para cada una. Sin esas medidas el navegador no sabe cuánto sitio reservar y la página da un salto cuando la imagen carga. Hoy los escribo a mano, que es justo el tipo de trabajo mecánico que acaba haciéndose mal, así que medir y comprimir las fotos antes de meterlas al repo es lo siguiente que toca automatizar.
 
-En las capturas de este post las fotos son rectángulos grises, porque el viaje de prueba usa placeholders. Es la pieza que falta para que esto esté terminado.
+Las fotos de las capturas son las del viaje real. Antes de subirlas les quito los metadatos, porque llevan la ubicación exacta, y las reduzco a 1600 píxeles de lado largo. Hoy lo hago con un script aparte, y meterlo en el repo es lo que falta para que ese paso no sea manual.
 
 ---
 
@@ -156,7 +156,7 @@ En las capturas de este post las fotos son rectángulos grises, porque el viaje 
 
 No usé ninguna librería de timeline. Ninguna de las que miré hacía lo que necesitaba, y lo que necesitaba es bastante concreto.
 
-![La pista de la línea de tiempo, con los capítulos "Costa Sur" y "Círculo Norte" y las paradas del capítulo activo expandidas con su nombre y su fecha](../_assets/tripmap-timeline.png)
+![La línea de tiempo con seis capítulos: los inactivos reducidos a sus puntos y el activo, "Glaciares del sureste", con sus cuatro paradas expandidas con su nombre y su fecha](../_assets/tripmap-timeline.png)
 
 La escala es **uniforme por índice**, no proporcional al tiempo. En un viaje de varios años una escala temporal real deja huecos enormes: tres meses en un sitio y dos días en el siguiente harían la mayoría de paradas inclicables. Las fechas son etiquetas, no posición.
 
@@ -215,7 +215,7 @@ Y lo tercero es sobre escribir la especificación antes que el código. Lo valio
 
 ## Mejoras futuras
 
-Lo inmediato es meter el contenido real, con las fotos de verdad en vez de los placeholders, automatizar su procesado, y un dominio propio: al ser un project site de GitHub Pages, el sitio cuelga de una subcarpeta, y quitarla pasa por un `CNAME` y por retirar la `base` de la configuración. Y bajar del megabyte de bundle sacando las carreteras del JavaScript.
+El contenido real ya está, así que lo inmediato es automatizar el procesado de las fotos y tener un dominio propio: al ser un project site de GitHub Pages, el sitio cuelga de una subcarpeta, y quitarla pasa por un `CNAME` y por retirar la `base` de la configuración. Y bajar del megabyte de bundle sacando las carreteras del JavaScript.
 
 Con las carreteras ya calculadas, dar distancias y tiempos reales está más cerca de lo que estaba: OSRM los devuelve en la misma respuesta y hoy solo guardo la geometría. Lo grande sería que cualquiera pudiera crear su viaje: un editor de "momentos" (fecha, título, texto y fotos) con la ruta dibujándose en vivo mientras lo rellenas, un modo invitado que guarde el borrador en `localStorage`, y en algún punto cuentas, backend y almacenamiento de imágenes.
 

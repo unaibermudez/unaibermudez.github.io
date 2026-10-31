@@ -7,7 +7,7 @@ A long trip doesn't fit the usual tools. A photo album loses the order and the g
 
 That's TripMap. The map takes up most of the screen and draws the route and the stops; below it there's a timeline split into chapters; next to it, a panel with the title, dates, text and photos of the active stop. Everything stays in sync: it doesn't matter whether you click a point on the map, drag the timeline cursor, or use the arrow keys.
 
-The trip that will fill it is a multi-year one across Africa, with over a hundred stops. While I get that content ready, the data in the repo is a test trip around Iceland with eight stops, which is what you see in the screenshots throughout this post.
+The data in the repo is a real trip around Iceland: eleven days, thirty stops and my own photos, which is what you see in the screenshots throughout this post.
 
 ---
 
@@ -134,7 +134,7 @@ The second was switching basemaps. By default `setStyle` diffs against the previ
 
 The panel is where the part that makes this an album rather than a map lives: the stop's title, its dates, the text and the photos.
 
-![The mobile version with the panel sheet expanded: map on top, stop text in the middle, timeline at the bottom](../_assets/tripmap-movil.png)
+![The mobile version with the panel sheet expanded: map on top, stop text in the middle and, at the bottom, the chapter row and the stops of the active chapter](../_assets/tripmap-movil.png)
 
 It's the same markup on desktop and mobile, with Tailwind variants. On desktop it's a side column; on mobile, a bottom sheet that starts collapsed, with the header and the previous/next buttons always visible, so you can walk through the trip without losing sight of the map. There's no media query in JavaScript: checking the width on the client would force a first render without knowing it and drag a `resize` listener along, and the difference between the two modes is purely layout.
 
@@ -142,7 +142,7 @@ The stop body is written in markdown, but I don't use a markdown library. It's 6
 
 The photos come with a detail that isn't optional: the schema requires `width` and `height` for each one. Without those measurements the browser doesn't know how much space to reserve and the page jumps when the image loads. Right now I write them by hand, which is exactly the kind of mechanical work that ends up being done badly, so measuring and compressing photos before they go into the repo is the next thing to automate.
 
-In the screenshots throughout this post the photos are grey rectangles, because the test trip uses placeholders. That's the piece still missing for this to be finished.
+The photos in the screenshots are the ones from the real trip. Before uploading them I strip their metadata, because it carries the exact location, and shrink them to 1600 pixels on the long side. Today I do that with a separate script, and bringing it into the repo is what's missing for that step to stop being manual.
 
 ---
 
@@ -150,7 +150,7 @@ In the screenshots throughout this post the photos are grey rectangles, because 
 
 I didn't use any timeline library. None of the ones I looked at did what I needed, and what I needed is fairly specific.
 
-![The timeline track, with the "Costa Sur" and "Círculo Norte" chapters and the active chapter's stops expanded with their name and date](../_assets/tripmap-timeline.png)
+![The timeline with six chapters: the inactive ones reduced to their dots and the active one, "Glaciares del sureste", with its four stops expanded with their name and date](../_assets/tripmap-timeline.png)
 
 The scale is **uniform by index**, not proportional to time. On a multi-year trip, a real time scale leaves enormous gaps: three months in one place and two days in the next would make most stops unclickable. Dates are labels, not position.
 
@@ -209,7 +209,7 @@ The third is about writing the spec before the code. What was valuable wasn't th
 
 ## Future improvements
 
-The immediate ones are real content, with actual photos instead of placeholders, automating how those photos get processed, and a custom domain: being a GitHub Pages project site, it hangs off a subfolder, and removing that means a `CNAME` and dropping `base` from the config. Plus getting back under a megabyte of bundle by moving the roads out of the JavaScript.
+The real content is already in, so the immediate ones are automating how the photos get processed and a custom domain: being a GitHub Pages project site, it hangs off a subfolder, and removing that means a `CNAME` and dropping `base` from the config. Plus getting back under a megabyte of bundle by moving the roads out of the JavaScript.
 
 With the roads already calculated, real distances and times are closer than they were: OSRM returns them in the same response and today I only keep the geometry. The big one would be letting anyone create their own trip: an editor for "moments" (date, title, text and photos) with the route drawing itself live as you fill it in, a guest mode saving the draft to `localStorage`, and at some point accounts, a backend and image storage.
 
