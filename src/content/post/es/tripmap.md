@@ -180,16 +180,6 @@ Playwright no va en CI, porque descarga el basemap de un CDN en cada pasada y un
 
 ---
 
-## Qué he aprendido
-
-**El estado único.** La versión que habría escrito hace un tiempo tendría el mapa avisando a la timeline y un par de `useEffect` intentando que no se pisaran. Con un store en el medio añadir una nueva forma de navegar no toca a nadie.
-
-**Las restricciones externas deciden más de lo que parece.** La atribución obligatoria de los basemaps no es un requisito de producto, pero es la razón de que el panel no flote sobre el mapa y de que uno de los tests compruebe que esa caja sigue dentro de la ventana.
-
-**Escribir la especificación antes que el código.** Lo valioso no fue el plan, que cambió, sino que el documento recoge el *porqué* de cada decisión con su coste. Cuando cambié el cálculo de la ruta, lo primero que reescribí fue el apartado que decía que el modo de transporte no afectaba al render. Sigue en el repo, en [docs/SPEC.md](https://github.com/unaibermudez/TripMap/blob/main/docs/SPEC.md).
-
----
-
 ## Mejoras futuras
 
 Lo inmediato es automatizar el procesado de las fotos, sacar las carreteras del JavaScript y tener un dominio propio: al ser un project site de GitHub Pages, el sitio cuelga de una subcarpeta.

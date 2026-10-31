@@ -174,16 +174,6 @@ Playwright doesn't run in CI, because it downloads the basemap from a CDN on eve
 
 ---
 
-## What I learned
-
-**A single state.** The version I'd have written a while ago would have the map notifying the timeline and a couple of `useEffect`s trying to keep them from stepping on each other. With a store in the middle, adding a new way to navigate touches nobody.
-
-**External constraints decide more than they seem to.** The basemaps' mandatory attribution isn't a product requirement, but it's the reason the panel doesn't float over the map and why one of the tests checks that box stays inside the window.
-
-**Writing the spec before the code.** What was valuable wasn't the plan, which changed, but that the document records the *why* of every decision with its cost. When I changed the route computation, the first thing I rewrote was the section saying the transport mode didn't affect rendering. It's still in the repo, at [docs/SPEC.md](https://github.com/unaibermudez/TripMap/blob/main/docs/SPEC.md).
-
----
-
 ## Future improvements
 
 The immediate ones are automating the photo processing, moving the roads out of the JavaScript and getting a custom domain: being a GitHub Pages project site, it hangs off a subfolder.
