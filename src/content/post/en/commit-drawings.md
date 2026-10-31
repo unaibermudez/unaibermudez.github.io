@@ -1,11 +1,11 @@
 ---
 title: "Commit Drawings: drawing on the GitHub contribution graph"
-description: "How Commit Drawings works: a React grid that generates a git fast-import script, and the five bugs I hit while generating the commits."
+description: "How Commit Drawings works: a React grid that generates a git fast-import script, and how it adapts to small screens."
 ---
 
 Commit Drawings is a web app where you draw a pattern on the GitHub contribution grid and it gives you back a script that recreates it with real, backdated commits. The result isn't an image: it's a repository with hundreds of commits spread over a year.
 
-I started with the grid, which was the visible part, and the hard part turned out to be generating the commits. This post is about that, and about a bug I found at the end: the script, as I had left it, wouldn't have worked.
+I started with the grid, which was the visible part, and the hard part turned out to be generating the commits. This post is about that and about how the grid behaves on a phone.
 
 ---
 
@@ -47,23 +47,7 @@ from :previous
 M 100644 :1 contribution.txt
 ```
 
-Each commit changes `contribution.txt` to different content, so there is one blob per commit. `data` declares the length of the block that follows, and that's where the trouble starts.
-
----
-
-## Five bugs
-
-**1. `data` counts bytes, not characters.** In the Bash script the length comes from `${#var}`. Under a UTF-8 locale, bash counts characters, so an accent in the commit message makes the declared number stop matching the real one and the stream goes out of sync. `export LC_ALL=C` fixes it by forcing a byte count.
-
-**2. There can't be a blank line after a `data` block.** `fast-import` reads exactly the bytes you told it and expects the next command right after. An extra line makes it abort with `Unsupported command`, an error that says nothing about the real problem.
-
-**3. `AppendLine()` adds CRLF.** In the PowerShell version I build the stream with a `StringBuilder`. `AppendLine()` uses `Environment.NewLine`, which is CRLF on Windows, and that `\r` breaks the format, which requires LF line endings. It has to be `Append()` with `` `n ``.
-
-**4. PowerShell has no `<` operator.** It's reserved and fails when the script is parsed. To hand the stream to `fast-import` I write it to a temporary file and delegate to `cmd /c`, which does redirect the bytes untouched.
-
-**5. The author.** I found this one while going back over the project to write this post. The script signed every commit as `draw@github.local`, and GitHub only counts a commit on your profile when the author's email is linked to your account. With that email, the drawing wouldn't have shown up. I had never tested it end to end.
-
-Now both scripts read `git config user.name` and `user.email`, and stop with a clear message if either is missing. I ran them in temporary repositories, one per shell: 348 commits each, with my name and email and the accents in the message intact. What I can't check from here is the attribution on the profile, which depends on the email being verified on the account. That's why the site's instructions now have a fourth step saying so.
+Each commit changes `contribution.txt` to different content, so there is one blob per commit. `data` declares the length, in bytes, of the block that follows.
 
 ---
 
@@ -81,7 +65,7 @@ That collides with drawing by dragging, because on a touch screen dragging a fin
 
 ## What I learned
 
-Three of the five bugs weren't about git. They were about encoding and stream format, and the error messages didn't point at the cause. Generating code for two different shells doubles the ways it can break, and testing the generator isn't enough: you have to run what it generates. The author bug was in plain sight and I didn't see it until I ran it with a real identity.
+Generating code for two different shells doubles the ways it can break, and testing the generator isn't enough: you have to run what it generates.
 
 The project started from a template generated with Lovable and still carries unused dependencies and shadcn components.
 
