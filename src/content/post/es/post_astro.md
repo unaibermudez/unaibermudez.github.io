@@ -41,8 +41,8 @@ La estructura de un componente Astro tiene dos partes separadas por `---`:
 // Puedes hacer fetch, leer archivos, importar datos
 
 const proyectos = [
-  { nombre: "FinTrack", stack: "React + Node.js + MongoDB" },
-  { nombre: "SplitApp", stack: "React + Spring Boot + PostgreSQL" },
+  { nombre: "TripMap", stack: "Astro + React + MapLibre" },
+  { nombre: "Commit Drawings", stack: "React + Vite" },
 ]
 ---
 
@@ -73,7 +73,7 @@ El bloque entre `---` se ejecuta cuando construyes el proyecto, no cuando el usu
 Una de las razones principales para elegir Astro fue su sistema de Content Collections. Defines el esquema de tus posts y Astro valida que cada archivo Markdown lo cumpla:
 
 ```ts
-// src/content/config.ts
+// src/content.config.ts
 const posts = defineCollection({
   schema: z.object({
     title: z.string(),
@@ -83,7 +83,7 @@ const posts = defineCollection({
 });
 ```
 
-A partir de ahí, cada post es un archivo `.md` en `src/content/posts/`. Astro genera las rutas automáticamente, valida el frontmatter, y te avisa si falta algún campo obligatorio. No tienes que configurar nada más para tener un blog funcional.
+A partir de ahí, cada post es un archivo `.md` en `src/content/post/`. Astro genera las rutas automáticamente, valida el frontmatter, y te avisa si falta algún campo obligatorio. No tienes que configurar nada más para tener un blog funcional.
 
 ---
 

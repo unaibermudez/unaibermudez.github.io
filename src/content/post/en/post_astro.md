@@ -39,8 +39,8 @@ An Astro component has two parts separated by `---`:
 // You can fetch, read files, import data
 
 const projects = [
-  { name: "FinTrack", stack: "React + Node.js + MongoDB" },
-  { name: "SplitApp", stack: "React + Spring Boot + PostgreSQL" },
+  { name: "TripMap", stack: "Astro + React + MapLibre" },
+  { name: "Commit Drawings", stack: "React + Vite" },
 ]
 ---
 
@@ -71,7 +71,7 @@ The block between `---` runs when you build the project, not when the user opens
 One of the main reasons I chose Astro was its Content Collections system. You define the schema for your posts and Astro validates that each Markdown file matches it:
 
 ```ts
-// src/content/config.ts
+// src/content.config.ts
 const posts = defineCollection({
   schema: z.object({
     title: z.string(),
@@ -81,7 +81,7 @@ const posts = defineCollection({
 });
 ```
 
-From there, each post is a `.md` file inside `src/content/posts/`. Astro generates the routes automatically, validates the frontmatter, and warns you if a required field is missing. No extra configuration needed to have a working blog.
+From there, each post is a `.md` file inside `src/content/post/`. Astro generates the routes automatically, validates the frontmatter, and warns you if a required field is missing. No extra configuration needed to have a working blog.
 
 ---
 
