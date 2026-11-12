@@ -58,6 +58,11 @@ import T from "@/components/T.astro";
 										<span class="circle"><Icon name="feather:arrow-up-right" /></span> <T k="projects.demo" />
 									</a>
 								)}
+								{p.site && (
+									<a class="p-link" href={p.site} rel="noreferrer" target="_blank">
+										<span class="circle"><Icon name="feather:arrow-up-right" /></span> <T k="projects.site" />
+									</a>
+								)}
 							</div>
 						</div>
 						<div class="p-visual">

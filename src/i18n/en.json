@@ -35,7 +35,8 @@
 		"noteEmpty": "No projects published here yet.",
 		"emptyState": "This section is ready to receive projects. None published yet. Check back soon.",
 		"code": "Code",
-		"demo": "Demo"
+		"demo": "Demo",
+		"site": "Website"
 	},
 	"blog": {
 		"index": "03 / Log",

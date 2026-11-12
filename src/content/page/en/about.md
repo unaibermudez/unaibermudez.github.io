@@ -3,8 +3,8 @@ title: About
 description: Unai Bermúdez | Full Stack Developer in Bilbao. Background, stack, and how I work.
 ---
 
-I'm Unai Bermúdez, a Full Stack Developer based in Bilbao with 1.5 years of experience
-building products that actually work. Graduated in Computer Engineering from UPV/EHU.
+I'm Unai Bermúdez, a Full Stack Developer based in Bilbao. Since 2024 I've been building
+products that actually work at LKS NEXT. Graduated in Computer Engineering from UPV/EHU.
 
 I work mainly with **React, TypeScript, Java, Spring Boot, and PostgreSQL**, and move
 comfortably through the rest of the cycle too: Docker, OAuth2, JWT, Redux Toolkit,

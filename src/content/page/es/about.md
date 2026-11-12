@@ -3,8 +3,8 @@ title: Sobre mí
 description: Unai Bermúdez | Full Stack Developer en Bilbao. Background, stack y cómo trabajo.
 ---
 
-Soy Unai Bermúdez, Full Stack Developer afincado en Bilbao con 1,5 años de experiencia
-construyendo productos que funcionan de verdad. Graduado en Ingeniería Informática por la
+Soy Unai Bermúdez, Full Stack Developer afincado en Bilbao. Desde 2024 construyo en LKS NEXT
+productos que funcionan de verdad. Graduado en Ingeniería Informática por la
 UPV/EHU.
 
 Trabajo principalmente con **React, TypeScript, Java, Spring Boot y PostgreSQL**, y me muevo

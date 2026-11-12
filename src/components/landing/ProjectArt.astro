@@ -22,7 +22,19 @@ const stops = [
 	{ x: 424, y: 56 },
 ];
 const contours = [56, 96, 140, 188];
-const viewBox = variant === "route" ? "0 0 500 340" : "0 0 400 420";
+const viewBox = variant === "route" || variant === "pitch" ? "0 0 500 340" : "0 0 400 420";
+
+// --- pitch: campo de fútbol 7 con un quinteto (portero + 4) y su capitán ------
+// Apaisado como `route`: en móvil `slice` recorta arriba y abajo, así que los jugadores
+// van en la franja central (y 120-220) y las líneas del campo pueden cortarse sin problema.
+const players = [
+	{ x: 104, y: 170 },
+	{ x: 186, y: 124 },
+	{ x: 186, y: 216 },
+	{ x: 302, y: 144 },
+	{ x: 352, y: 204, captain: true },
+];
+const passPath = "M104 170 C140 150 160 130 186 124 S270 120 302 144 S340 190 352 204";
 
 // --- grid: rejilla de contribuciones con un corazón dibujado -----------------
 const heart = ["0000000", "0110110", "1111111", "1111111", "0111110", "0011100", "0001000"];
@@ -88,6 +100,28 @@ const dots = Array.from({ length: 5 }, () => ({
 			cells.map((c) => <rect class={`cell l${c.level}`} x={c.x} y={c.y} width="14" height="14" rx="3" />)
 	}
 	{
+		variant === "pitch" && (
+			<>
+				<rect class="hair" x="60" y="50" width="380" height="240" rx="6" />
+				<line class="hair" x1="250" y1="50" x2="250" y2="290" />
+				<circle class="hair" cx="250" cy="170" r="38" />
+				<rect class="hair" x="60" y="110" width="62" height="120" />
+				<rect class="hair" x="378" y="110" width="62" height="120" />
+				<path class="route" d={passPath} />
+				{players.map((p) => (
+					<>
+						<circle class={p.captain ? "stop captain" : "stop"} cx={p.x} cy={p.y} r="9" />
+						{p.captain && (
+							<text class="stop-label" x={p.x + 15} y={p.y - 13}>
+								C ×2
+							</text>
+						)}
+					</>
+				))}
+			</>
+		)
+	}
+	{
 		variant === "fallback" && (
 			<>
 				{lines.map((l) => (
@@ -130,6 +164,9 @@ const dots = Array.from({ length: 5 }, () => ({
 		fill: var(--paper);
 		stroke: var(--klein);
 		stroke-width: 3;
+	}
+	.stop.captain {
+		fill: var(--klein);
 	}
 	.stop-label {
 		fill: var(--klein);

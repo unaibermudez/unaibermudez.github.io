@@ -35,7 +35,8 @@
 		"noteEmpty": "Todavía no hay proyectos publicados aquí.",
 		"emptyState": "Esta sección está lista para recibir proyectos. De momento no hay ninguno publicado. Vuelve pronto.",
 		"code": "Código",
-		"demo": "Demo"
+		"demo": "Demo",
+		"site": "Web"
 	},
 	"blog": {
 		"index": "03 / Bitácora",
