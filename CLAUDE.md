@@ -106,7 +106,7 @@ Astro (que genera rutas por idioma) porque esa exige URLs distintas. En su lugar
 
 ## Datos y contenido de la home
 
-- **Proyectos** (`src/data/projects.ts`): `description` es `{ es, en }` y se renderiza con `Bilingual` — una cadena plana mostraría el español también en la versión inglesa. Cada proyecto lleva `year` y `art`. La imagen de la tarjeta es un SVG dibujado en build por `ProjectArt.astro` (variantes `route` | `grid` | `fallback`); no hay capturas ni campo de imagen.
+- **Proyectos** (`src/data/projects.ts`): `description` es `{ es, en }` y se renderiza con `Bilingual` — una cadena plana mostraría el español también en la versión inglesa. Cada proyecto lleva `year` y `art`. La imagen de la tarjeta es un SVG dibujado en build por `ProjectArt.astro` (variantes `route` | `grid` | `pitch` | `fallback`); no hay capturas ni campo de imagen.
 - **Trayectoria** (en `About.astro`, mismo ancla `#sobre`): entradas `experience.{lks,intern,fs,edu}.*` del i18n. Los clientes de LKS NEXT se describen de forma genérica **a propósito** (decisión del usuario): no nombres Eustat, Metaposta, Hazi ni Euskalmet.
 - **Cita de About**: `LandingFx.astro` envuelve cada palabra en un `<span class="w">` recorriendo nodos de texto, de modo que el `<em>` del i18n sobrevive. Si lo reescribes desde `textContent`, se pierde el énfasis.
 - **Intro loader** (`PortfolioFx.astro`): ~1 s; se omite en visitas repetidas de la sesión (`sessionStorage` `pfx-intro-seen`, comprobado en un script bloqueante justo tras el overlay para evitar el parpadeo).

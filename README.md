@@ -50,7 +50,7 @@ La sección **Proyectos** de la home lee de `src/data/projects.ts`. Cada proyect
 {
   name: "Nombre del proyecto",
   year: "2026",
-  art: "route", // ilustración generada: "route" | "grid" | "fallback" (se deriva del nombre)
+  art: "route", // ilustración generada: "route" | "grid" | "pitch" | "fallback" (se deriva del nombre)
   description: {
     es: "Descripción corta (1–2 frases): qué es y qué problema resuelve.",
     en: "Short description (1–2 sentences): what it is and what problem it solves.",

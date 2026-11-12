@@ -4,7 +4,7 @@ export interface Bilingual {
 }
 
 /** Ilustración generada en build (ver ProjectArt.astro). `fallback` se deriva del nombre. */
-export type ProjectArtVariant = "route" | "grid" | "fallback";
+export type ProjectArtVariant = "route" | "grid" | "pitch" | "fallback";
 
 export interface Project {
 	name: string;
