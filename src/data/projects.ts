@@ -14,6 +14,8 @@ export interface Project {
 	art: ProjectArtVariant;
 	github?: string;
 	demo?: string;
+	/** Web pública del proyecto cuando no es una demo (p. ej. una landing de producto). */
+	site?: string;
 }
 
 /**
