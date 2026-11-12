@@ -58,19 +58,23 @@ La sección **Proyectos** de la home lee de `src/data/projects.ts`. Cada proyect
   stack: ["React", "Spring Boot", "PostgreSQL"],
   github: "https://github.com/unaibermudez/mi-proyecto", // opcional
   demo: "https://mi-proyecto.vercel.app",                 // opcional
+  site: "https://mi-proyecto.example.com",                // opcional: web que no es una demo
 }
 ```
 
-Ahora mismo hay dos proyectos: **TripMap** (publicado el 2026-08-05) y **Commit Drawings**
-(añadido el 2026-08-13). La descripción lleva **las dos lenguas** (`es`/`en`); sin la inglesa, la
-versión en inglés del sitio mostraría texto en español. Con `github`/`demo` definidos, la tarjeta
-muestra automáticamente los enlaces "Código" y "Demo". La imagen de la tarjeta se dibuja en
+Ahora mismo hay tres proyectos: **Picharreal Fantasy** (añadido el 2026-11-12), **TripMap**
+(publicado el 2026-08-05) y **Commit Drawings** (añadido el 2026-08-13). La descripción lleva
+**las dos lenguas** (`es`/`en`); sin la inglesa, la versión en inglés del sitio mostraría texto en
+español. Con `github`/`demo`/`site` definidos, la tarjeta muestra automáticamente los enlaces
+"Código", "Demo" y "Web". La imagen de la tarjeta se dibuja en
 build (`ProjectArt.astro`): no hay capturas que subir; para una variante nueva, añádela ahí y al
 tipo `ProjectArtVariant`. Si vacías el array
 (`projects = []`), la sección muestra un estado "todavía no hay proyectos" en vez de romperse.
 
 **Comprueba que el repo es público antes de enlazarlo.** Un repo privado da 404 a cualquier
-visitante, así que la tarjeta mostraría un enlace "Código" roto.
+visitante, así que la tarjeta mostraría un enlace "Código" roto. Es el caso de Picharreal
+Fantasy: su repo es privado porque guarda datos reales de la liga, así que la tarjeta enlaza solo
+a su landing pública (con `site`) y no lleva `github`.
 
 `name`/`description` de un proyecto real **no se traducen automáticamente** (a diferencia de los
 posts del blog) — se muestran tal cual los escribas, en el idioma que elijas, en ambas versiones

@@ -27,6 +27,19 @@ export interface Project {
  */
 export const projects: Project[] = [
 	{
+		// El repo es privado (datos reales de la liga): se enlaza solo la landing pública,
+		// que usa un equipo inventado. No añadas `github` ni nombres de jugadores.
+		name: "Picharreal Fantasy",
+		year: "2026",
+		art: "pitch",
+		description: {
+			es: "La app privada de mi equipo de fútbol 7: un fantasy entre compañeros (quinteto con presupuesto, porra y clasificaciones) junto con la gestión del equipo real (convocatoria, coches y caja). Los puntos salen solos del acta oficial de la liga y el partido se sigue en directo por SSE.",
+			en: "My 7-a-side football team's private app: a fantasy game among teammates (budgeted lineup, match predictions, standings) plus real team management (call-ups, car sharing, team fund). Points come straight from the league's official match report, and the match is followed live over SSE.",
+		},
+		stack: ["Go", "PostgreSQL", "OpenAPI", "React", "TanStack Query", "PWA"],
+		site: "https://unaibermudez.github.io/picharreal-fantasy-landing/",
+	},
+	{
 		name: "TripMap",
 		year: "2026",
 		art: "route",
